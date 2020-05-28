@@ -1,3 +1,13 @@
+# Tantalus ============================
+# local file directory
+local/*
+*local*
+*LOCAL*
+
+# Data directory
+data/*
+
+# R ===================================
 # History files
 .Rhistory
 .Rapp.history
