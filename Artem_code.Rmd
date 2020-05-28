@@ -1,0 +1,288 @@
+---
+title: "serratus: Summary Summarizer"
+author: "ababaian"
+date: "5/8/2020"
+output: html_document
+---
+
+```{r, include=FALSE}
+# Acquire data (run once)
+system('mkdir -p 200518')
+system('aws s3 sync s3://serratus-public/out/200518_zoo3/summary/ 200518/')
+```
+
+```{r}
+# Quick andd dirty in terminal
+#cat * | sed 's/;/\t/g' - | less -NS -x15 -
+#grep -R 'NC_001802' * | sed 's/;/\t/g' - | less -NS -x20 -  
+```
+
+```{r setup, include=FALSE}
+#library("RSQLite")
+#library("jsonlite")
+library("ggplot2")
+library("gridExtra")
+
+```
+
+```{r, include=FALSE}
+# Download/access data
+
+getBAM <- function(sra, s3path = 's3://serratus-public/out/200517_zoo2/' ){
+  system('mkdir -p bam')
+  
+  system_getBam <- paste0('aws s3 cp ', s3path, "bam/", sra,'.bam',' ', 'bam/')
+  system(system_getBam)
+  
+  system(paste0('samtools sort bam/', sra, '.bam > bam/tmp.bam')) 
+  system(paste0('mv bam/tmp.bam bam/', sra,'.bam'))
+  system(paste0('samtools index bam/', sra,'.bam'))
+  
+}
+
+```
+
+```{r, include=FALSE}
+# Data Class =============================
+serratus <- setClass(Class = "serratus",
+                     slots = c(sra    = "character",
+                               header = "data.frame",
+                               hits   = "data.frame"))
+
+# Data Import ============================
+
+extractNumber <- function(inputString){
+  # For summary headers, extract value
+  # description=value;
+  inputString <- sub('^.*=', '', inputString)
+  inputString <- sub(';', '',    inputString)
+  inputString <- as.numeric(inputString)
+}
+
+readSra <- function(sumWhere){
+  sra  <-  sub('^.*/', '', sumWhere)
+  sra  <-  sub('.summary', '', sra)
+  
+  return(sra)
+}
+
+readHeader <- function(sumWhere){
+  # Import summary table as a flat file
+  importSummary <- read.table( file = sumWhere, sep = ">",
+                               header = F, as.is = T)
+  
+  sra  <-  sub('^.*/', '', sumWhere)
+  sra  <-  sub('.summary', '', sra)
+  sra  <-  as.character(sra)
+    
+  # Extract header information
+  score       <- extractNumber( importSummary[ grep( "^score=", importSummary[,1]), ] )
+  pancovpct   <- extractNumber( importSummary[ grep( "^pancovpct=", importSummary[,1]), ] )
+  maxocv1kpct <- extractNumber( importSummary[ grep( "^maxocv1kpct=", importSummary[,1]), ] )
+  unmapped    <- extractNumber( importSummary[ grep( "^unmapped=", importSummary[,1]), ] )
+  mapped      <- extractNumber( importSummary[ grep( "^mapped=", importSummary[,1]), ] )
+  mapped_reverse     <- extractNumber( importSummary[ grep( "^mapped_reverse=", importSummary[,1]), ] )
+  mapped_reverse_pct <- extractNumber( importSummary[ grep( "^mapped_reverse_pct=", importSummary[,1]), ] )
+  mean_aln_length    <- extractNumber( importSummary[ grep( "^mean_aln_length=", importSummary[,1]), ] )
+  max_aln_length     <- extractNumber( importSummary[ grep( "^max_aln_length=", importSummary[,1]), ] )
+  
+  #ACC <- list( importSummary[ grep( "^acc=", importSummary[,1] ), ] )
+  
+  header <- data.frame( sra = sra,
+                        score = score,
+                        pancovpct = pancovpct,
+                        mapped = mapped,
+                        mapped_reverse = mapped_reverse,
+                        unmapped = unmapped,
+                        mean_aln_length = mean_aln_length,
+                        max_aln_length = max_aln_length,
+                        stringsAsFactors = F)
+  return(header)
+}
+
+
+parseHit <- function(hit, sra = ''){
+  # For each SRA, parse the hits to genome reference sequences
+  # called by readHits
+  # Convert each "key=value;" per line into table
+  hit.table <- read.table(text=gsub(";", "\n", hit), sep="=")
+  
+  # Wrangle data into R formats
+  #sra
+  acc          <- as.character(hit.table[ hit.table[,1] == 'acc' , 2])
+  hits         <- as.numeric(as.character(hit.table[ hit.table[,1] == 'hits', 2]))
+  desc         <- as.character(hit.table[ hit.table[,1] == 'desc', 2])
+  
+  # Optional summarizer fields 
+  len          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'len', 2]))
+  depth        <- as.numeric(as.character(hit.table[ hit.table[,1] == 'depth', 2]))
+  pctid        <- as.numeric(as.character(hit.table[ hit.table[,1] == 'pctid', 2]))
+  taxid        <- as.character(hit.table[ hit.table[,1] == 'tax', 2])
+  cov          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'cov', 2]))
+  cplot        <- as.character(hit.table[ hit.table[,1] == 'coverage', 2])
+  
+  if (desc == "?"){
+    hit.df <-  data.frame( sra   = sra,
+                           acc   = acc,
+                           hits  = hits,
+                           len   = NA,
+                           depth = NA,
+                           pctid = NA,
+                           taxid = NA,
+                           cov   = NA,
+                           cplot = NA,
+                           desc  = "?")
+  } else {
+    hit.df <-  data.frame( sra   = sra,
+                           acc   = acc,
+                           hits  = hits,
+                           len   = len,
+                           depth = depth,
+                           pctid = pctid,
+                           taxid = taxid,
+                           cov   = cov,
+                           cplot = cplot,
+                           desc  = desc)
+  }
+  return(hit.df) 
+}
+
+readHits <- function(sumWhere){
+  # Import summary table as a flat file
+  importSummary <- read.table( file = sumWhere, sep = ">",
+                               header = F, as.is = T)
+  
+  sra  <-  sub('^.*/', '', sumWhere)
+  sra  <-  sub('.summary', '', sra)
+  
+  hits <- importSummary[ grep( "^acc=", importSummary[,1] ), ]
+  hits <- lapply(hits, parseHit, sra = sra)
+  hits <- do.call(rbind.data.frame, hits)
+  
+  return(hits)
+}
+
+readSerratus <- function(sumWheres, cov.only = TRUE){
+  # Read each entry in Serratus as S3 class
+  # and output the serratus S4 class
+  
+  SRA <- as.character(sapply(sumWheres, readSra))
+  
+  HEADER <- data.frame(t(sapply(sumWheres, readHeader)))
+  
+  HITS <- lapply(sumWheres, readHits)
+  HITS <- do.call(rbind.data.frame, HITS)
+  
+  SERRATUS <- serratus(sra    = SRA,
+                       header = HEADER,
+                       hits   = HITS)
+  return(SERRATUS)
+}
+
+
+```
+
+```{r, include = FALSE}
+DATA_PATH='200505_subset/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+#sumWheres <- sumWheres[1:10]
+#sumWhere  <- sumWheres[1]
+
+```
+
+```{r, include = FALSE}
+#ZOO <- readSerratus( sumWheres )
+#save(file = "zoonotic.Rdata", ZOO, sumWheres)
+load('zoonotic.Rdata')
+```
+
+```{r}
+load('zoonotic.Rdata')
+# HITS
+# Remove blacklist entries
+BLACKLIST <- c("pan_genome","AX191449.1", "AX191447.1", "HV449436.1", "KC786228.1", "JB181528.1", "DL231478.1",
+               "MK204388.1","JB181528.1","CS480537.1","DL231478.1", "MG600026.1", "FV537211.1", "FV537213.1",
+               "LR721664.1", "KF530130.1", "LQ338105.1", "MH002340.1", "KY967725.1", "DI086074.1")
+
+bl_match  <- which(match(ZOO@hits$acc, BLACKLIST, nomatch = 0) > 0)
+
+ZOO@hits <- ZOO@hits[-bl_match, ]
+
+```
+
+
+```{r}
+# ZOO Hits: Coverage vs. Reads
+HITS <- ZOO@hits
+
+# histogram of coverage
+covHist <- ggplot(HITS, aes(cov)) +
+  geom_histogram(bins = 50) + scale_y_log10()
+#covHist
+
+hits_bx <- HITS
+hits_bx <- hits_bx[ !is.na(hits_bx$cov ), ]
+hits_bx$cov   <- factor(hits_bx$cov)
+
+
+# scatter plot of coverage vs. number of hits
+covHits <- ggplot(hits_bx, aes(cov, hits)) +
+  geom_boxplot() + scale_y_log10()
+#covHits
+
+# scatter plot of coverage vs. number of hits
+pctHits <- ggplot(hits_bx, aes(pctid, hits)) +
+  geom_point(alpha = 0.2) + scale_y_log10()
+#pctHits
+
+```
+
+```{r}
+# Sequester "obvious" hits
+hits_hard <- hits_bx[ ((hits_bx$pctid >= 99) & (hits_bx$hits > 1000)  & (as.numeric(hits_bx$cov) > 0.98)), ]
+hardSRA   <- as.character(unique(hits_hard$sra))
+
+# Remove hard hit SRA entries
+hard_match  <- which(match(hits_bx$sra, hardSRA, nomatch = 0) > 0)
+hits_bx <- hits_bx[-hard_match, ]
+
+# scatter plot of coverage vs. number of hits
+pctHits <- ggplot(hits_bx, aes(pctid, hits)) +
+  geom_point(alpha = 0.2) + scale_y_log10()
+pctHits
+
+# Look at rare/divergent hits
+hits_div   <- hits_bx[ ((hits_bx$pctid > 95) & (hits_bx$pctid <= 100) & (hits_bx$hits < 1000) ), ]
+View(hits_div)
+
+```
+
+```{r}
+# Grab dataset
+viewSRA <- hits_bx[ (hits_bx$sra == 'SRR1194065'), ]
+View(viewSRA)
+getBAM(sra = 'ERR3569468')
+
+```
+
+```{r}
+# Sort ZOO dataset by score
+ZOO@header <- ZOO@header[order(unlist(ZOO@header$score), decreasing = T), ]
+
+# Histogram of scores
+scoreValues <- data.frame( score = as.numeric(unlist(ZOO@header$score)) )
+scoreHist <- ggplot(scoreValues, aes(score)) +
+  geom_histogram(bins = 50)
+scoreHist
+
+# Histogram of mapped reads
+mappedReads  <- data.frame( mapped = as.numeric(unlist(ZOO@header$mapped)),
+                            unmapped = as.numeric(unlist(ZOO@header$unmapped)),
+                            pancovpct = as.numeric(unlist(ZOO@header$pancovpct)))
+
+mappedScatter <- ggplot(mappedReads, aes(pancovpct, mapped)) +
+  geom_point() + scale_y_log10()
+mappedScatter
+
+```

@@ -1,0 +1,250 @@
+---
+title: 'Serratus: new format'
+author: "German Novakovskiy"
+date: "May 27, 2020"
+output: html_document
+---
+
+```{r, include=FALSE}
+# Acquire data (run once)
+system('mkdir -p 200527')
+system('aws s3 sync s3://serratus-public/out/200525_vert/summary/ 200527/')
+```
+
+```{r setup, include=FALSE}
+#library("RSQLite")
+#library("jsonlite")
+library("ggplot2")
+library("gridExtra")
+
+```
+
+```{r}
+# Data Class =============================
+serratus <- setClass(Class = "serratus",
+                     slots = c(sra    = "character",
+                               header = "data.frame",
+                               family   = "data.frame",
+                               acc = "data.frame"))
+
+
+#READ SRA identifier from the file names
+readSra <- function(sumWhere){
+  sra  <-  sub('^.*/', '', sumWhere)
+  sra  <-  sub('.summary', '', sra)
+  
+  return(sra)
+}
+
+extractNumber <- function(inputString){
+  # For summary headers, extract value
+  # description=value;
+  inputString <- sub('^.*=', '', inputString)
+  inputString <- sub(';', '',    inputString)
+  inputString <- as.numeric(inputString)
+  return(inputString)
+}
+
+extracSrting <- function(inputString){
+  # For summary headers, extract value
+  # description=value;
+  inputString <- sub('^.*=', '', inputString)
+  inputString <- sub(';', '',    inputString)
+  inputString <- as.character(inputString)
+  return(inputString)
+}
+
+readHeader <- function(sumWhere){
+  # Import summary table as a flat file
+  #and read the first line
+  importSummary <- read.table( file = sumWhere, sep = ">",
+                               header = F, as.is = T)[1,]
+  
+  sra  <-  sub('^.*/', '', sumWhere)
+  sra  <-  sub('.summary', '', sra)
+  sra  <-  as.character(sra)
+    
+  # Extract header information
+  header_string <- unlist(strsplit(importSummary, ","))
+  
+  genome <- extracSrting(header_string[ grep( "genome=", header_string) ])
+  date <- extracSrting(header_string[ grep( "date=", header_string) ])
+  
+  #ACC <- list( importSummary[ grep( "^acc=", importSummary[,1] ), ] )
+  
+  header <- data.frame( sra = sra,
+                        genome = genome,
+                        date = date,
+                        stringsAsFactors = F)
+  return(header)
+}
+
+parseFamilies <- function(hit, sra = ''){
+  
+  hit.df <- tryCatch(
+        {
+          hit.table <- read.table(text=gsub(";", "\n", hit), sep="=")
+
+          # Wrangle data into R formats
+          #sra
+          family       <- as.character(hit.table[ hit.table[,1] == 'family' , 2])
+          score        <- as.numeric(as.character(hit.table[ hit.table[,1] == 'score', 2]))
+          pctid        <- as.numeric(hit.table[ hit.table[,1] == 'pctid', 2])
+          aln          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'aln', 2]))
+          glb          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'glb', 2]))
+          panlen       <- as.numeric(as.character(hit.table[ hit.table[,1] == 'panlen', 2]))
+          cvg          <- as.character(hit.table[ hit.table[,1] == 'cvg', 2])
+          top          <- as.character(as.character(hit.table[ hit.table[,1] == 'top', 2]))
+          topaln       <- as.numeric(hit.table[ hit.table[,1] == 'topaln', 2])
+          toplen       <- as.numeric(hit.table[ hit.table[,1] == 'toplen', 2])
+          topname      <- as.character(hit.table[ hit.table[,1] == 'topname', 2])
+          
+        
+          hit.df <-  data.frame( sra      = sra,
+                                 family   = family,
+                                 score    = score,
+                                 pctid    = pctid,
+                                 aln      = aln,
+                                 glb      = glb,
+                                 panlen   = panlen,
+                                 cvg      = cvg,
+                                 top      = top,
+                                 topaln   = topaln,
+                                 toplen   = toplen,
+                                 topname  = topname)
+            
+            #return(hit.df)
+        },
+        error=function(cond) {
+          
+          hit.df <-  data.frame( sra      = NA,
+                                 family   = NA,
+                                 score    = NA,
+                                 pctid    = NA,
+                                 aln      = NA,
+                                 glb      = NA,
+                                 panlen   = NA,
+                                 cvg      = NA,
+                                 top      = NA,
+                                 topaln   = NA,
+                                 toplen   = NA,
+                                 topname  = NA)
+          return(hit.df)
+    
+        },
+        finally={
+        }
+    )
+  
+  
+  
+  return(hit.df) 
+}
+
+parseHits <- function(hit, sra = ''){
+  
+  hit.df <- tryCatch(
+        {
+
+            hit.table <- read.table(text=gsub(";", "\n", hit), sep="=")
+            
+              acc          <- as.character(hit.table[ hit.table[,1] == 'acc' , 2])
+              pctid        <- as.numeric(as.character(hit.table[ hit.table[,1] == 'pctid', 2]))
+              aln          <- as.numeric(hit.table[ hit.table[,1] == 'aln', 2])
+              glb          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'glb', 2]))
+              len          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'len', 2]))[1] #duplicated for sm reason
+              cvgpct       <- as.numeric(as.character(hit.table[ hit.table[,1] == 'cvgpct', 2]))
+              depth        <- as.numeric(hit.table[ hit.table[,1] == 'depth', 2])
+              cvg          <- as.character(as.character(hit.table[ hit.table[,1] == 'cvg', 2]))
+              fam          <- as.character(hit.table[ hit.table[,1] == 'fam', 2])
+              name         <- as.character(hit.table[ hit.table[,1] == 'name', 2])
+              
+            
+              hit.df <-  data.frame( sra      = sra,
+                                     acc      = acc,
+                                     pctid    = pctid,
+                                     aln      = aln,
+                                     glb      = glb,
+                                     len      = len,
+                                     cvgpct   = cvgpct,
+                                     depth    = depth,
+                                     cvg      = cvg,
+                                     fam      = fam,
+                                     name     = name)
+            #return(hit.df)
+        },
+        error=function(cond) {
+          
+          hit.df <-  data.frame( sra      = sra,
+                                 acc      = NA,
+                                 pctid    = NA,
+                                 aln      = NA,
+                                 glb      = NA,
+                                 len      = NA,
+                                 cvgpct   = NA,
+                                 depth    = NA,
+                                 cvg      = NA,
+                                 fam      = NA,
+                                 name     = NA)
+          return(hit.df)
+    
+        },
+        finally={
+        }
+    )
+  
+  return(hit.df) 
+}
+
+readHits <- function(sumWhere, family=FALSE){
+  # Import summary table as a flat file
+  importSummary <- read.table( file = sumWhere, sep = ">",
+                               header = F, as.is = T)
+  
+  sra  <-  sub('^.*/', '', sumWhere)
+  sra  <-  sub('.summary', '', sra)
+  
+  if (family == TRUE){
+    hits <- importSummary[ grep( "^family=", importSummary[,1] ), ]
+    hits <- lapply(hits, parseFamilies, sra = sra)
+    hits <- do.call(rbind.data.frame, hits)
+  } else {
+    hits <- importSummary[ grep( "^acc=", importSummary[,1] ), ]
+    hits <- lapply(hits, parseHits, sra = sra)
+    hits <- do.call(rbind.data.frame, hits)
+  }
+  
+  return(hits)
+}
+
+
+readSerratus <- function(sumWheres, cov.only = TRUE){
+  # Read each entry in Serratus as S3 class
+  # and output the serratus S4 class
+  
+  SRA <- as.character(sapply(sumWheres, readSra))
+  
+  HEADER <- data.frame(t(sapply(sumWheres, readHeader)))
+  
+  HITS_Family <- lapply(sumWheres, readHits, family=T)
+  HITS_Family <- do.call(rbind.data.frame, HITS_Family)
+  
+  HITS_ACC <- lapply(sumWheres, readHits, family=F)
+  HITS_ACC <- do.call(rbind.data.frame, HITS_ACC)
+  
+  SERRATUS <- serratus(sra    = SRA,
+                       header = HEADER,
+                       family = HITS_Family,
+                       acc    = HITS_ACC)
+  return(SERRATUS)
+}
+
+```
+
+```{r, include = FALSE}
+DATA_PATH='200527/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+#ZOO <- readSerratus( sumWheres )
+```

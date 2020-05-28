@@ -1,0 +1,113 @@
+SUMZER_COMMENT=sra=DRR002090,genome=cov3m,date=200527-07:30;
+family=Herpesviridae;score=52;pctid=91;aln=164;glb=1;panlen=148687;cvg=...._._..__.....O....._.o;top=NC_040539.1;topaln=5;toplen=147790;topname=Rhinolophus gammaherpesvirus 1 BV1 DNA;
+family=Poxviridae;score=28;pctid=91;aln=404;glb=1;panlen=181133;cvg=..._..__Oo..____________.;top=NC_035188.1;topaln=209;toplen=127941;topname=Seal parapoxvirus isolate AFK76s1;
+family=Alloherpesviridae;score=8;pctid=85;aln=28;glb=1;panlen=207914;cvg=__.________._.__________O;top=NC_019491.1;topaln=13;toplen=291144;topname=Cyprinid herpesvirus 1 strain NG-J1;
+family=Asfarviridae;score=4;pctid=90;aln=4;glb=0;panlen=185164;cvg=______________________O__;top=NC_044951.1;topaln=3;toplen=185689;topname=African swine fever virus isolate Tengani 62;
+family=Iridoviridae;score=4;pctid=84;aln=7;glb=0;panlen=113436;cvg=___.________________O____;top=NC_006549.1;topaln=6;toplen=140131;topname=Singapore grouper iridovirus;
+family=Reoviridae;score=4;pctid=92;aln=6;glb=0;panlen=1726;cvg=_______O_________________;top=NC_022624.1;topaln=6;toplen=1690;topname=Mobuck virus strain 12-2 segment 9;
+family=Coronaviridae;score=4;pctid=100;aln=12;glb=0;panlen=30000;cvg=_________________O_______;top=GQ427176.1;topaln=6;toplen=27804;topname=Turkey coronavirus strain TCoV/TX-1038/98, complete genome;
+family=Unknown;score=4;pctid=83;aln=16;glb=0;panlen=4668;cvg=__._____________________O;top=NC_040681.1;topaln=13;toplen=158250;topname=Bufonid herpesvirus 1 strain FO1_2015;
+family=Anelloviridae;score=0;pctid=77;aln=1;glb=0;panlen=2878;cvg=____.____________________;top=NC_038361.1;topaln=1;toplen=3223;topname=Torque teno midi virus 14 DNA;
+family=Papillomaviridae;score=0;pctid=84;aln=2;glb=0;panlen=7583;cvg=____________o____________;top=NC_039041.1;topaln=1;toplen=7773;topname=Rusa timorensis papillomavirus type 1 isolate IZW 39/08;
+family=Paramyxoviridae;score=0;pctid=92;aln=1;glb=0;panlen=15522;cvg=_____.___________________;top=NC_025360.1;topaln=1;toplen=16968;topname=Atlantic salmon paramyxovirus isolate ASPV/Yrkje371/95;
+family=Picornaviridae;score=0;pctid=97;aln=2;glb=0;panlen=7591;cvg=_______________o_________;top=NC_023858.1;topaln=2;toplen=9739;topname=Melegrivirus A;
+family=Caliciviridae;score=0;pctid=94;aln=1;glb=0;panlen=7531;cvg=______________.__________;top=NC_006554.1;topaln=1;toplen=7476;topname=Sapovirus C12 strain C12;
+family=Adenoviridae;score=0;pctid=90;aln=3;glb=0;panlen=33501;cvg=____._____________.___.__;top=NC_014564.2;topaln=1;toplen=45413;topname=Turkey adenovirus 1;
+acc=NC_003521.1;pctid=94.9;aln=55;glb=0;len=241087;cvgpct=8;len=241087;depth=55;cvg=_______.o_O______________;fam=Herpesviridae;name=Panine herpesvirus 2 strain Heberling;
+acc=NC_002229.3;pctid=86.0;aln=11;glb=0;len=177874;cvgpct=8;len=177874;depth=11;cvg=____________________O___O;fam=Herpesviridae;name=Gallid herpesvirus 2;
+acc=NC_026421.1;pctid=92.4;aln=21;glb=0;len=182380;cvgpct=8;len=182380;depth=21;cvg=_____________O_______o___;fam=Herpesviridae;name=Equid herpesvirus 5 strain 2-141/67;
+acc=NC_006273.2;pctid=89.2;aln=8;glb=0;len=235646;cvgpct=8;len=235646;depth=8;cvg=____O__O__________.______;fam=Herpesviridae;name=Human herpesvirus 5 strain Merlin;
+acc=NC_019491.1;pctid=84.7;aln=13;glb=1;len=291144;cvgpct=8;len=291144;depth=13;cvg=____________________Oo___;fam=Alloherpesviridae;name=Cyprinid herpesvirus 1 strain NG-J1;
+acc=NC_044951.1;pctid=88.0;aln=3;glb=0;len=185689;cvgpct=4;len=185689;depth=3;cvg=______________________O__;fam=Asfarviridae;name=African swine fever virus isolate Tengani 62;
+acc=GQ427174.1;pctid=100.0;aln=6;glb=0;len=27650;cvgpct=4;len=27650;depth=6;cvg=_________________O_______;fam=Coronaviridae;name=Turkey coronavirus strain TCoV/TX-GL/01, complete genome;
+acc=NC_029255.1;pctid=82.5;aln=3;glb=0;len=129563;cvgpct=4;len=129563;depth=3;cvg=______________________O__;fam=Herpesviridae;name=Myotis gammaherpesvirus 8 strain My-HV8/Myotis velifer incautus/USA/FCGHV/2011;
+acc=NC_002686.2;pctid=98.1;aln=5;glb=0;len=124784;cvgpct=4;len=124784;depth=5;cvg=_____________________O__o;fam=Herpesviridae;name=Cercopithecine herpesvirus 9;
+acc=NC_002512.2;pctid=81.2;aln=4;glb=0;len=230138;cvgpct=4;len=230138;depth=4;cvg=___________O_.___________;fam=Herpesviridae;name=Rat cytomegalovirus Maastricht;
+acc=NC_006549.1;pctid=83.2;aln=6;glb=0;len=140131;cvgpct=4;len=140131;depth=6;cvg=________________O________;fam=Iridoviridae;name=Singapore grouper iridovirus;
+acc=NC_001132.2;pctid=85.5;aln=7;glb=0;len=161773;cvgpct=4;len=161773;depth=7;cvg=__O______________________;fam=Poxviridae;name=Myxoma virus;
+acc=NC_022624.1;pctid=91.9;aln=6;glb=0;len=1690;cvgpct=4;len=1690;depth=6;cvg=_______O_________________;fam=Reoviridae;name=Mobuck virus strain 12-2 segment 9;
+acc=NC_009127.1;pctid=86.5;aln=6;glb=0;len=295146;cvgpct=4;len=295146;depth=6;cvg=_.______O.____________.__;fam=Alloherpesviridae;name=Cyprinid herpesvirus 3;
+acc=GQ427176.1;pctid=100.0;aln=6;glb=0;len=27804;cvgpct=4;len=27804;depth=6;cvg=_________________O_______;fam=Coronaviridae;name=Turkey coronavirus strain TCoV/TX-1038/98, complete genome;
+acc=NC_019495.1;pctid=83.1;aln=9;glb=0;len=290304;cvgpct=4;len=290304;depth=9;cvg=___________________O_____;fam=Alloherpesviridae;name=Cyprinid herpesvirus 2 strain ST-J1;
+acc=NC_031033.1;pctid=81.0;aln=12;glb=0;len=217124;cvgpct=4;len=217124;depth=12;cvg=________O________________;fam=Poxviridae;name=Volepox virus strain CA;
+acc=NC_002642.1;pctid=85.0;aln=10;glb=0;len=144575;cvgpct=4;len=144575;depth=10;cvg=__O______________________;fam=Poxviridae;name=Yaba-like disease virus;
+acc=NC_027916.2;pctid=87.0;aln=11;glb=1;len=160358;cvgpct=4;len=160358;depth=11;cvg=__O______________________;fam=Herpesviridae;name=Testudinid herpesvirus 3 strain 1976;
+acc=NC_001731.1;pctid=87.1;aln=34;glb=1;len=190289;cvgpct=4;len=190289;depth=34;cvg=__________O______________;fam=Poxviridae;name=Molluscum contagiosum virus subtype 1;
+acc=NC_040681.1;pctid=83.0;aln=13;glb=0;len=158250;cvgpct=4;len=158250;depth=13;cvg=___O_____________________;fam=Unknown;name=Bufonid herpesvirus 1 strain FO1_2015;
+acc=NC_035469.1;pctid=84.6;aln=24;glb=0;len=200223;cvgpct=4;len=200223;depth=24;cvg=____O____________________;fam=Poxviridae;name=NY_014 poxvirus strain 2013;
+acc=NC_027016.1;pctid=92.6;aln=9;glb=0;len=226084;cvgpct=4;len=226084;depth=9;cvg=__O______________________;fam=Herpesviridae;name=Papio ursinus cytomegalovirus isolate OCOM4-52;
+acc=NC_006150.1;pctid=100.0;aln=3;glb=0;len=221454;cvgpct=4;len=221454;depth=3;cvg=__________O______________;fam=Herpesviridae;name=Macacine herpesvirus 3;
+acc=NC_035468.1;pctid=84.4;aln=22;glb=0;len=204055;cvgpct=4;len=204055;depth=22;cvg=____O____________________;fam=Poxviridae;name=Murmansk poxvirus strain LEIV-11411;
+acc=NC_016447.1;pctid=93.3;aln=5;glb=0;len=219474;cvgpct=4;len=219474;depth=5;cvg=______________________O__;fam=Herpesviridae;name=Aotine herpesvirus 1 strain S34E;
+acc=NC_005179.1;pctid=87.1;aln=9;glb=0;len=134721;cvgpct=4;len=134721;depth=9;cvg=__O______________________;fam=Poxviridae;name=Yaba monkey tumor virus;
+acc=NC_027213.1;pctid=86.3;aln=67;glb=0;len=214699;cvgpct=4;len=214699;depth=67;cvg=________O________________;fam=Poxviridae;name=Raccoonpox virus;
+acc=NC_040539.1;pctid=88.3;aln=5;glb=0;len=147790;cvgpct=4;len=147790;depth=5;cvg=_.__________________O____;fam=Herpesviridae;name=Rhinolophus gammaherpesvirus 1 BV1 DNA;
+acc=NC_035188.1;pctid=96.9;aln=209;glb=0;len=127941;cvgpct=4;len=127941;depth=209;cvg=___________O_____________;fam=Poxviridae;name=Seal parapoxvirus isolate AFK76s1;
+acc=NC_035460.1;pctid=80.3;aln=1;glb=0;len=176688;cvgpct=0;len=176688;depth=1;cvg=__.______________________;fam=Poxviridae;name=Eptesipox virus strain Washington;
+acc=NC_005261.3;pctid=71.2;aln=1;glb=0;len=138390;cvgpct=0;len=138390;depth=1;cvg=______________.__________;fam=Herpesviridae;name=Bovine herpesvirus 5 strain SV507/99;
+acc=NC_015323.1;pctid=86.7;aln=1;glb=0;len=45667;cvgpct=0;len=45667;depth=1;cvg=________________.________;fam=Adenoviridae;name=Fowl adenovirus C;
+acc=NC_016014.1;pctid=91.2;aln=1;glb=0;len=7784;cvgpct=0;len=7784;depth=1;cvg=____________.____________;fam=Papillomaviridae;name=Canine papillomavirus 8;
+acc=NC_004812.1;pctid=79.2;aln=1;glb=0;len=156789;cvgpct=0;len=156789;depth=1;cvg=______________________.__;fam=Herpesviridae;name=Macacine herpesvirus 1;
+acc=NC_024306.1;pctid=92.7;aln=1;glb=0;len=149459;cvgpct=0;len=149459;depth=1;cvg=____________________.____;fam=Herpesviridae;name=Fruit bat alphaherpesvirus 1 DNA;
+acc=NC_024303.1;pctid=77.5;aln=2;glb=0;len=144898;cvgpct=0;len=144898;depth=2;cvg=___o_____________________;fam=Herpesviridae;name=Bovine herpesvirus 6 isolate Pennsylvania 47;
+acc=NC_002794.1;pctid=94.3;aln=1;glb=0;len=195859;cvgpct=0;len=195859;depth=1;cvg=____________.____________;fam=Herpesviridae;name=Tupaiid herpesvirus 1;
+acc=NC_013590.2;pctid=90.2;aln=1;glb=0;len=135797;cvgpct=0;len=135797;depth=1;cvg=__________________.______;fam=Herpesviridae;name=Felid herpesvirus 1 strain C-27;
+acc=NC_024486.1;pctid=86.8;aln=1;glb=0;len=43734;cvgpct=0;len=43734;depth=1;cvg=___._____________________;fam=Adenoviridae;name=Duck adenovirus 2 strain GR;
+acc=NC_030132.1;pctid=93.9;aln=1;glb=0;len=2355;cvgpct=0;len=2355;depth=1;cvg=____.____________________;fam=Unknown;name=Deer faeces associated circular DNA virus 1 isolate 26_Fec35810_deer;
+acc=NC_038361.1;pctid=77.4;aln=1;glb=0;len=3223;cvgpct=0;len=3223;depth=1;cvg=___._____________________;fam=Anelloviridae;name=Torque teno midi virus 14 DNA;
+acc=NC_001847.1;pctid=91.2;aln=1;glb=0;len=135301;cvgpct=0;len=135301;depth=1;cvg=_________________._______;fam=Herpesviridae;name=Bovine herpesvirus 1;
+acc=NC_043054.1;pctid=85.3;aln=2;glb=0;len=137452;cvgpct=0;len=137452;depth=2;cvg=________._________.______;fam=Herpesviridae;name=Bubaline alphaherpesvirus 1 strain b6;
+acc=NC_033176.1;pctid=78.9;aln=1;glb=0;len=224064;cvgpct=0;len=224064;depth=1;cvg=_._______________________;fam=Herpesviridae;name=Cynomolgus cytomegalovirus isolate 31908;
+acc=NC_023677.1;pctid=78.0;aln=1;glb=0;len=153158;cvgpct=0;len=153158;depth=1;cvg=____________________.____;fam=Herpesviridae;name=Chimpanzee alpha-1 herpesvirus strain 105640;
+acc=NC_009333.1;pctid=79.2;aln=1;glb=0;len=137969;cvgpct=0;len=137969;depth=1;cvg=____________.____________;fam=Herpesviridae;name=Human herpesvirus 8 strain GK18;
+acc=NC_039041.1;pctid=76.8;aln=1;glb=0;len=7773;cvgpct=0;len=7773;depth=1;cvg=____________.____________;fam=Papillomaviridae;name=Rusa timorensis papillomavirus type 1 isolate IZW 39/08;
+acc=NC_025963.1;pctid=89.5;aln=2;glb=0;len=139981;cvgpct=0;len=139981;depth=2;cvg=_o_______________________;fam=Poxviridae;name=Parapoxvirus red deer/HL953 strain HL953;
+acc=NC_037656.1;pctid=70.6;aln=2;glb=0;len=127879;cvgpct=0;len=127879;depth=2;cvg=______o__________________;fam=Poxviridae;name=Sea otter poxvirus strain ELK;
+acc=NC_001844.1;pctid=94.3;aln=1;glb=0;len=145597;cvgpct=0;len=145597;depth=1;cvg=_________._______________;fam=Herpesviridae;name=Equid herpesvirus 4;
+acc=NC_003494.1;pctid=90.2;aln=1;glb=0;len=111362;cvgpct=0;len=111362;depth=1;cvg=___._____________________;fam=Iridoviridae;name=Infectious spleen and kidney necrosis virus;
+acc=NC_044959.1;pctid=96.7;aln=1;glb=0;len=189344;cvgpct=0;len=189344;depth=1;cvg=______________________.__;fam=Asfarviridae;name=African swine fever virus Georgia 2007/1 complete genome;
+acc=NC_008291.1;pctid=100.0;aln=1;glb=0;len=198050;cvgpct=0;len=198050;depth=1;cvg=_____.___________________;fam=Poxviridae;name=Taterapox virus;
+acc=NC_036582.1;pctid=87.0;aln=2;glb=0;len=293123;cvgpct=0;len=293123;depth=2;cvg=______._________.________;fam=Poxviridae;name=Flamingopox virus FGPVKD09;
+acc=NC_029132.1;pctid=85.7;aln=2;glb=0;len=140122;cvgpct=0;len=140122;depth=2;cvg=_.____.__________________;fam=Herpesviridae;name=Macropodid herpesvirus 1 isolate MaHV1.3076/08;
+acc=NC_025360.1;pctid=92.1;aln=1;glb=0;len=16968;cvgpct=0;len=16968;depth=1;cvg=____.____________________;fam=Paramyxoviridae;name=Atlantic salmon paramyxovirus isolate ASPV/Yrkje371/95;
+acc=NC_028379.1;pctid=85.7;aln=2;glb=0;len=205896;cvgpct=0;len=205896;depth=2;cvg=_._____________________._;fam=Herpesviridae;name=Elephant endotheliotropic herpesvirus 4 isolate North American NAP69;
+acc=NC_040309.1;pctid=78.2;aln=1;glb=0;len=9585;cvgpct=0;len=9585;depth=1;cvg=________________.________;fam=Unknown;name=Human DNA virus isolate IND-KIs-REVA-1990;
+acc=NC_024771.1;pctid=83.0;aln=1;glb=0;len=151601;cvgpct=0;len=151601;depth=1;cvg=________________________.;fam=Herpesviridae;name=Equid herpesvirus 3 strain AR/2007/C3A;
+acc=NC_008030.1;pctid=82.2;aln=1;glb=0;len=190054;cvgpct=0;len=190054;depth=1;cvg=__.______________________;fam=Poxviridae;name=Nile crocodilepox virus;
+acc=NC_001266.1;pctid=80.9;aln=1;glb=0;len=159857;cvgpct=0;len=159857;depth=1;cvg=__.______________________;fam=Poxviridae;name=Rabbit fibroma virus;
+acc=NC_030697.1;pctid=83.9;aln=1;glb=0;len=9808;cvgpct=0;len=9808;depth=1;cvg=________________________.;fam=Unknown;name=Picornavirales Bu-3 gene for polyprotein;
+acc=NC_023858.1;pctid=96.8;aln=2;glb=0;len=9739;cvgpct=0;len=9739;depth=2;cvg=___________o_____________;fam=Picornaviridae;name=Melegrivirus A;
+acc=NC_006554.1;pctid=93.8;aln=1;glb=0;len=7476;cvgpct=0;len=7476;depth=1;cvg=______________.__________;fam=Caliciviridae;name=Sapovirus C12 strain C12;
+acc=NC_014564.2;pctid=96.8;aln=1;glb=0;len=45413;cvgpct=0;len=45413;depth=1;cvg=_____________.___________;fam=Adenoviridae;name=Turkey adenovirus 1;
+acc=NC_038267.1;pctid=80.0;aln=1;glb=0;len=2577;cvgpct=0;len=2577;depth=1;cvg=___________________._____;fam=Herpesviridae;name=Herpesvirus ateles thymidylate synthase (TS) gene;
+acc=NC_006146.1;pctid=79.6;aln=1;glb=0;len=171096;cvgpct=0;len=171096;depth=1;cvg=_____________________.___;fam=Herpesviridae;name=Macacine herpesvirus 4;
+acc=NC_004065.1;pctid=93.9;aln=1;glb=0;len=230278;cvgpct=0;len=230278;depth=1;cvg=_________._______________;fam=Herpesviridae;name=Murid herpesvirus 1;
+acc=NC_006151.1;pctid=88.0;aln=2;glb=0;len=143461;cvgpct=0;len=143461;depth=2;cvg=__o______________________;fam=Herpesviridae;name=Suid herpesvirus 1;
+>Other.2
+TGTGCTCGCGCAGCCAGAGGGTGGCGTACATCATGAGCCCCGGCAGCAGGCCGAACCCCTCCTGGCCCACGGCCAGCTTCTTCTCCTTGG
+>Other.3
+GCCTCCCTGGCTGCGATCGACAACAAGCAGGAAATGGATTTCCTGCTGCGCTACAAAGGCAAATTTGACCACTGGATCGGCCTCTGGAGG
+>Other.4
+TGCAAGCAAGGCTCTCAAATTAAACATGCAGCAAGCAGCGGTGTGCAGATGATGACTTTTGATAGTGAAGTAGAGCTAATGAAAGTTGCA
+>Other.6
+ATCTTTGGAAAGATCAACCTCTTCAGCTGTCCAGAAGGAGGCCTCTGCTTTCTTATACATTTGCCAGATATCATGGTACCGGATGGGGAA
+>Other.8
+TCGTCATCCTCGTCGTCGTCGTCCTCATCGTCGCTGGACTACTCCTCGGAGGAGGACTTCAGGACTCCCCCCGACAGCGTGGCCGAGGGC
+>Other.9
+AAGAAAGAGAAGGAAAAGGAGAAAGAGAAAAAGGAAGAGGAGAAAATGGAAGTGGATGAGACTGAGAAGAAGGATGAGAAAGAAAAGAAG
+>Other.10
+CTCCCCAAACCTCGTCTAGGCCAGGACATTCATTTGGACACAGCAAGGACCAATCCTGGTTAGTCTCTACCCGTTTCATGAAGAGATCAG
+>Other.11
+CTCTGCGTGTGTAGATGTTACTGGTGTAGGGCTCAATGGACTCGTTATTCCCCAAGATCTGAGCAGTAGAAGCAGTTGGCATTGGAGAAA
+>Other.12
+GAACTTCTCGAAGTTCCAGGAGAGGTCATTCCGGCACACGGGAGACCAGATGATGCACTGTGGATTGGTCATCAGCGCCATTGGGTCATC
+>Other.14
+TAGCACAGGTTGTGGGCCATCATGATGGAGGGGTACAGGGAGGAGAAGTCCAGGGTGGCGATGGGCACGTCGTAGTACCCCTTCAGAGGC
+>Other.17
+TCCTCCTCTTCTTCCTCCTCCTCCTCTTCTTCTGCTTGCTGATCCTGAGATTGACCAGTATTTTCAAAAGGATTTTCACCCTTGACATAT
+>Other.21
+CCTCGTCATCGTCGTCCTCATCCTCGTCGTCGCTGGACGACTCCTCGGAGGAGGACTTCAGGACTCCCCCCGACAGCGTGGCCGAGGGCG
+>Other.23
+TTATTCATCATCCTCCTCTTCTTCATCCTCCCCTTCATCCTCCTCATCCTCTTCATCTTCTTCCTCTACCTTTTTCCGGGCAGCTTTGGC
+>Other.25
+TGAGCTGGGCCACCTGGTCCCGCAGGACGCTGGCTGTGTTGGACAGTCCCGCGTTCTCCGTTTTCAGCGTCTTGACTTTGTCCTCCAGCC
