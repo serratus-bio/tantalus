@@ -7,6 +7,10 @@ local/*
 # Data directory
 data/*
 
+# RStudio =============================
+*.Rproj
+.Rbuildignore
+
 # R ===================================
 # History files
 .Rhistory
