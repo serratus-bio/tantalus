@@ -9,7 +9,7 @@ readHeader <- function(sumFile){
   # Import summary table as a flat file
   #and read the first line
   importSummary <- read.table( file = sumFile, sep = ">",
-                               header = F, as.is = T)[1,]
+                               header = F, as.is = T, quote = "")[1,]
 
   sra  <-  sub('^.*/', '', sumFile)
   sra  <-  sub('.summary', '', sra)
