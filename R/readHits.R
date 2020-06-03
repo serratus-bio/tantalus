@@ -10,18 +10,21 @@
 #'
 readHits <- function(sumFile, family=FALSE){
   # Import summary table as a flat file
-  importSummary <- read.table( file = sumFile, sep = ">",
-                               header = F, as.is = T)
+  importSummary <- readLines(sumFile)
+  #importSummary <- read.table( file = sumFile, sep = ">",
+  #                             header = F, as.is = T)
 
   sra  <-  sub('^.*/', '', sumFile)
   sra  <-  sub('.summary', '', sra)
 
   if (family == TRUE){
-    hits <- importSummary[ grep( "^family=", importSummary[,1] ), ]
+    #hits <- importSummary[ grep( "^family=", importSummary[1] ), ]
+    hits <- importSummary[ grep( "^family=", importSummary ) ]
     hits <- lapply(hits, parseFamilies, sra = sra)
     hits <- do.call(rbind.data.frame, hits)
   } else {
-    hits <- importSummary[ grep( "^acc=", importSummary[,1] ), ]
+    #hits <- importSummary[ grep( "^acc=", importSummary[1] ), ]
+    hits <- importSummary[ grep( "^acc=", importSummary ) ]
     hits <- lapply(hits, parseHits, sra = sra)
     hits <- do.call(rbind.data.frame, hits)
   }

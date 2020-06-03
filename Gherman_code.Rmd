@@ -196,7 +196,7 @@ parseHits <- function(hit, sra = ''){
   return(hit.df) 
 }
 
-readHits <- function(sumWhere, family=FALSE){
+readHits <- function(sumWhere, family=FALSE){importSummary
   # Import summary table as a flat file
   importSummary <- read.table( file = sumWhere, sep = ">",
                                header = F, as.is = T)
@@ -242,9 +242,32 @@ readSerratus <- function(sumWheres, cov.only = TRUE){
 ```
 
 ```{r, include = FALSE}
-DATA_PATH='200527/'
+DATA_PATH='../200528_viro/'
 sumWheres <- paste0( DATA_PATH,
                      system( paste0("ls ", DATA_PATH), intern = T ))
 
 #ZOO <- readSerratus( sumWheres )
+
+for (f in sumWheres){
+  #print(f)
+  test <- readSerratus( f )
+}
+
+start.time <- Sys.time()
+
+ZOO <- readSerratus( sumWheres )
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+#magor_problem <- c("../200528_viro/ERR2002982.summary")
+x <- readSerratus( magor_problem )
+
+```
+```{r}
+for (h in hits){
+  #print(f)
+  test <- parseHits( h )
+}
 ```
