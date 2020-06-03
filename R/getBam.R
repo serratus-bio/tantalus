@@ -13,6 +13,9 @@
 #' @param local_path local path into which to download the data [bam]
 #' @keywords Tantalus, S3, bam, samtools
 #' @examples
+#' 
+#' getBam(sra = 'SRR5447135', s3_path = 's3://serratus-public/out/200528_viro/bam/')
+#' 
 #' @export
 #' 
 getBAM <- function(sra,

@@ -9,13 +9,12 @@
 #'
 #' @export
 #`
-readSerratus <- function(sraCSV){
+readSraRunInfo <- function(sraCSV){
   # Read a SraRunInfo.csv file as an S3 class
   # parse into efficient data.frame
   # return SraRunInfo S4 object
   
-  SRA <- 
-    
-    
-  return(SRARUNINFO)
+  SRA <- SraRunInfo( runInfo = read.csv(sraCSV, stringsAsFactors = F) )
+  
+  return(SRA)
 }
