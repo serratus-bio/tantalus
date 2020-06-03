@@ -5,6 +5,8 @@ date: "6/1/2020"
 output: html_document
 ---
 
+## Setup ========================================
+
 ```{r, include = FALSE}
 # Install Tantalus Dependencies
 #install.packages("devtools")
@@ -23,6 +25,7 @@ roxygenize()
 
 ```
 
+## Get + Parse Data =============================
 
 ```{r}
 # Download data directory - Meta-Meta-Virome
@@ -33,16 +36,16 @@ if ( !dir.exists('data/200528_viro') ){
 }
 ```
 
-
 ```{r}
 # Import a Serratus Object
 # from a directory of summary data
 DATA_PATH='data/test/'
-sumWheres <- paste0( DATA_PATH,
-                     system( paste0("ls ", DATA_PATH), intern = T ))
+sumFiles <- paste0( DATA_PATH,
+                    system( paste0("ls ", DATA_PATH), intern = T ))
 
 TEST <- readSerratus(sumFiles = sumWheres)
 
-
-
 ```
+
+## 
+
