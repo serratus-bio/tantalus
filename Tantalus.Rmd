@@ -34,18 +34,31 @@ if ( !dir.exists('data/200528_viro') ){
   getSummary(s3_path    = 's3://serratus-public/out/200528_viro/summary',
              local_path = 'data/200528_viro')
 }
+
+# Download SraRunInfo File - Meta-Meta-Virome
+if ( !file.exists('sra/viro_SraRunInfo.csv'){
+    
+  getSraRunInfo(runInfo = "viro_SraRunInfo.csv",
+                s3_path = "s3://serratus-public/out/200528_viro/",
+                local_path = "sra")
+}
+
 ```
 
 ```{r}
-# Import a Serratus Object
+# Parse Serratus .summary Files into Serratus Object
 # from a directory of summary data
 DATA_PATH='data/test/'
 sumFiles <- paste0( DATA_PATH,
                     system( paste0("ls ", DATA_PATH), intern = T ))
-
 TEST <- readSerratus(sumFiles = sumWheres)
 
+
+# Parse SraRunInfo.csv file into a SraRunInfo Object
+
 ```
+
+
 
 ## 
 

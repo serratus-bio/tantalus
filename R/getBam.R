@@ -16,13 +16,13 @@
 #' @export
 #' 
 getBAM <- function(sra,
-                   s3path = 's3://serratus-public/out/200528_viro/bam/',
+                   s3_path = 's3://serratus-public/out/200528_viro/bam/',
                    local_path = 'bam'){
   
   system(paste0( 'mkdir -p ', local_path))
   
   system_getBam <- paste0("aws s3 cp ",
-                          s3path,"/bam/",sra,'.bam',
+                          s3_path,"/bam/",sra,'.bam',
                           ' ', local_path, "/")
   
   system(system_getBam)
