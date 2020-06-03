@@ -7,7 +7,7 @@
 readSerratus(sumFiles)
 }
 \arguments{
-\item{sumFiles}{Serratus summary file}
+\item{sumFiles}{A vector Path to serratus summary file}
 }
 \value{
 Serratus S4 class

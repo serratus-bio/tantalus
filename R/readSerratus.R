@@ -1,7 +1,6 @@
 #' Parse list of files into S4 Serratus class
 #'
-#'
-#' @param  sumFiles Serratus summary file
+#' @param  sumFiles A vector Path to serratus summary file
 #'
 #' @return Serratus S4 class
 #'
@@ -9,7 +8,7 @@
 #'
 readSerratus <- function(sumFiles){
   # Read each entry in Serratus as S3 class
-  # and output the serratus S4 class
+  # and output the Serratus S4 class
 
   SRA <- as.character(sapply(sumFiles, readSra))
 

@@ -1,0 +1,48 @@
+---
+title: "Tantalus"
+author: "ababaian"
+date: "6/1/2020"
+output: html_document
+---
+
+```{r, include = FALSE}
+# Install Tantalus Dependencies
+#install.packages("devtools")
+library(devtools)
+
+# Install roxygen2 for development
+#install.packages("roxygen2")
+library(roxygen2)
+roxygenize()
+
+# Install Tantalus
+#install_github("serratus-bio/tantalus")
+
+# Load R RNAframework functions
+#library(tantalus)
+
+```
+
+
+```{r}
+# Download data directory - Meta-Meta-Virome
+# This will download ~8.5K summary files for all viromes
+if ( !dir.exists('data/200528_viro') ){
+  getSummary(s3_path    = 's3://serratus-public/out/200528_viro/summary',
+             local_path = 'data/200528_viro')
+}
+```
+
+
+```{r}
+# Import a Serratus Object
+# from a directory of summary data
+DATA_PATH='data/test/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+TEST <- readSerratus(sumFiles = sumWheres)
+
+
+
+```

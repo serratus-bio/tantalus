@@ -4,19 +4,22 @@
 \name{Serratus-class}
 \alias{Serratus-class}
 \alias{Serratus}
-\title{An S4 class to store parsed summary files.}
+\title{An S4-Object definition for storing Serratus output data}
 \description{
-An S4 class to store parsed summary files.
+An S4-Object definition for storing Serratus output data
 }
 \section{Slots}{
 
 \describe{
-\item{\code{sra}}{A vector of SRA identifiers (one identifier per file)}
+\item{\code{sra}}{A string vector of SRA identifiers}
 
 \item{\code{header}}{A data frame with header information for each file (genome, date)}
 
 \item{\code{family}}{A data frame with information about detected families}
 
-\item{\code{acc}}{A data frame with information about detected organisms}
+\item{\code{acc}}{A data frame with information about detection per accession}
 }}
 
+\keyword{Serratus,}
+\keyword{object}
+\keyword{summary,}

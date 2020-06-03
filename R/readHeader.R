@@ -1,6 +1,5 @@
 #' Extract header information
 #'
-#'
 #' @param  sumFile summary file
 #'
 #' @return header data frame (with one row for one file)
