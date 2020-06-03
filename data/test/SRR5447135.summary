@@ -1,0 +1,302 @@
+SUMZER_COMMENT=sra=SRR5447135,genome=cov3ma,date=200530-02:48;
+family=Coronaviridae;score=100;pctid=97;aln=48666;glb=20793;panlen=30000;cvg=OOOoo..........o......oOO;top=KF294357.1;topaln=15494;toplen=402;topname=Longquan Aa mouse coronavirus isolate Longquan-343 orf1ab polyprotein gene, partial cds; and hemmaglutinin-esterase, spike structural protein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds;
+family=Herpesviridae;score=76;pctid=93;aln=350;glb=63;panlen=148687;cvg=....................._..O;top=NC_001716.2;topaln=21;toplen=153080;topname=Human herpesvirus 7;
+family=Genomoviridae;score=52;pctid=93;aln=119;glb=12;panlen=2200;cvg=.._._.___._.oOoo.O..ooOO_;top=NC_024691.1;topaln=2;toplen=2259;topname=MSSI2.225 virus complete sequence;
+family=Parvoviridae;score=48;pctid=89;aln=398;glb=16;panlen=5075;cvg=__....O....o.oOO.__.._...;top=NC_001510.1;topaln=29;toplen=5149;topname=Minute virus of mice;
+family=AMR;score=28;pctid=98;aln=34;glb=15;panlen=1000;cvg=oO._o_._O___OOo..O..__O_O;top=V00618.1_3002644;topaln=10;toplen=795;topname=APH(3')-IIa,Escherichia coli;
+family=Picornaviridae;score=28;pctid=93;aln=60;glb=9;panlen=7591;cvg=.Oo_.o._..____O_.....oo_O;top=NC_009448.2;topaln=6;toplen=8115;topname=Saffold virus;
+family=Picobirnaviridae;score=12;pctid=91;aln=19;glb=0;panlen=1745;cvg=________Oo.____O_o__o____;top=NC_040439.1;topaln=9;toplen=1700;topname=Chicken picobirnavirus strain PBV/CHK/M3841/HUN/2011 segment RNA2;
+family=Alloherpesviridae;score=8;pctid=86;aln=25;glb=0;panlen=207914;cvg=_.O____..____.__________o;top=NC_009127.1;topaln=20;toplen=295146;topname=Cyprinid herpesvirus 3;
+family=Anelloviridae;score=4;pctid=90;aln=7;glb=0;panlen=2878;cvg=O____.___________.______.;top=NC_025966.1;topaln=2;toplen=2572;topname=Rodent Torque teno virus 2 isolate RN_2_Se15;
+family=Circoviridae;score=4;pctid=88;aln=6;glb=0;panlen=1866;cvg=__..O_____.______________;top=NC_038416.1;topaln=1;toplen=1794;topname=Cyclovirus NG12;
+family=Arenaviridae;score=4;pctid=89;aln=11;glb=2;panlen=3534;cvg=___.__._Oo______.o_______;top=NC_038364.1;topaln=1;toplen=3344;topname=Loie River virus isolate R5074 glycoprotein precursor (GPC) and nucleocapsid protein (NP) genes;
+family=Hantaviridae;score=0;pctid=92;aln=1;glb=0;panlen=3630;cvg=_________._______________;top=NC_034525.1;topaln=1;toplen=3675;topname=Cano Delgadito virus strain VHV-574 segment M;
+family=Hepadnaviridae;score=0;pctid=92;aln=1;glb=1;panlen=3182;cvg=_________._______________;top=NC_003977.2;topaln=1;toplen=3182;topname=Hepatitis B virus (strain ayw) genome;
+family=Iridoviridae;score=0;pctid=88;aln=1;glb=0;panlen=113436;cvg=____________________.____;top=NC_006549.1;topaln=1;toplen=140131;topname=Singapore grouper iridovirus;
+family=Flaviviridae;score=0;pctid=100;aln=1;glb=1;panlen=10290;cvg=______________________.__;top=NC_035889.1;topaln=1;toplen=10808;topname=Zika virus isolate ZIKV/H. sapiens/Brazil/Natal/2015;
+family=Polyomaviridae;score=0;pctid=94;aln=2;glb=0;panlen=5112;cvg=____________..___________;top=NC_001669.1;topaln=2;toplen=5243;topname=Simian virus 40 complete genome;
+family=Astroviridae;score=0;pctid=85;aln=2;glb=0;panlen=6450;cvg=.__________________._____;top=NC_036583.1;topaln=1;toplen=6861;topname=Rodent astrovirus isolate GX-006;
+family=Adenoviridae;score=0;pctid=90;aln=3;glb=1;panlen=33501;cvg=___.__________.._________;top=NC_014899.1;topaln=2;toplen=35203;topname=Murine adenovirus 2;
+family=Poxviridae;score=0;pctid=86;aln=2;glb=0;panlen=181133;cvg=_._________._____________;top=NC_024446.1;topaln=1;toplen=306862;topname=Penguinpox virus isolate PSan92;
+family=Papillomaviridae;score=0;pctid=96;aln=13;glb=3;panlen=7583;cvg=o..__.__.._..____..o_____;top=NC_040604.1;topaln=7;toplen=7373;topname=Rodent papillomavirus isolate RtRn-PV/GD2014;
+acc=MH687969.1;pctid=97.5;aln=2433;glb=916;len=31352;cvgpct=100;len=31352;depth=2.43e+03;cvg=o.OO......o...........oOO;fam=Coronaviridae;name=Betacoronavirus sp. strain VZ_BetaCoV_20724_33, complete genome;
+acc=MH687978.1;pctid=97.2;aln=2619;glb=1071;len=31289;cvgpct=100;len=31289;depth=2.62e+03;cvg=..OOoo....o.o.......oo.oO;fam=Coronaviridae;name=Betacoronavirus sp. strain VZ_BetaCoV_22084_6, complete genome;
+acc=NC_026011.1;pctid=96.7;aln=12123;glb=4892;len=31249;cvgpct=100;len=31249;depth=1.21e+04;cvg=O...o...............o.ooO;fam=Coronaviridae;name=Betacoronavirus HKU24 strain HKU24-R05005I, complete genome;
+acc=MH687977.1;pctid=97.1;aln=3618;glb=1423;len=31327;cvgpct=100;len=31327;depth=3.62e+03;cvg=ooOoo........o.o......ooO;fam=Coronaviridae;name=Betacoronavirus sp. strain VZ_BetaCoV_22084_10, complete genome;
+acc=KF294357.1;pctid=97.5;aln=15494;glb=7113;len=402;cvgpct=76;len=402;depth=1.55e+04;cvg=......_.__.......__.....O;fam=Coronaviridae;name=Longquan Aa mouse coronavirus isolate Longquan-343 orf1ab polyprotein gene, partial cds; and hemmaglutinin-esterase, spike structural protein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds;
+acc=MH687975.1;pctid=97.0;aln=3907;glb=1756;len=3214;cvgpct=60;len=3214;depth=3.91e+03;cvg=....._.....___...___._._O;fam=Coronaviridae;name=Betacoronavirus sp. strain VZ_BetaCoV_22054_56, partial genome;
+acc=NC_004065.1;pctid=96.3;aln=92;glb=35;len=230278;cvgpct=48;len=230278;depth=92;cvg=...oooO...__._....oOO.O.O;fam=Herpesviridae;name=Murid herpesvirus 1;
+acc=MH687970.1;pctid=98.2;aln=322;glb=131;len=31038;cvgpct=44;len=31038;depth=322;cvg=______._o.OOoO.OOo_____O_;fam=Coronaviridae;name=Betacoronavirus sp. strain VZ_BetaCoV_20724_34_c12, complete genome;
+acc=NC_002512.2;pctid=96.3;aln=79;glb=23;len=230138;cvgpct=32;len=230138;depth=79;cvg=__.._..._.o..._...OoO...O;fam=Herpesviridae;name=Rat cytomegalovirus Maastricht;
+acc=KF294345.1;pctid=97.6;aln=468;glb=194;len=13461;cvgpct=24;len=13461;depth=468;cvg=O.OOo.___________________;fam=Coronaviridae;name=Longquan Aa mouse coronavirus isolate Longquan-338 RNA-dependent RNA polymerase gene, partial cds;
+acc=NC_006152.1;pctid=89.1;aln=112;glb=4;len=4642;cvgpct=20;len=4642;depth=112;cvg=_______.____.OoOO________;fam=Parvoviridae;name=Adeno-associated virus 5;
+acc=NC_001510.1;pctid=89.9;aln=29;glb=4;len=5149;cvgpct=20;len=5149;depth=29;cvg=__.o.O_.O_ooo_________o__;fam=Parvoviridae;name=Minute virus of mice;
+acc=NC_034266.1;pctid=91.9;aln=42;glb=0;len=204237;cvgpct=16;len=204237;depth=42;cvg=_O_______________OO_____O;fam=Herpesviridae;name=Columbid alphaherpesvirus 1 strain HLJ;
+acc=NC_024450.1;pctid=91.6;aln=42;glb=0;len=204054;cvgpct=16;len=204054;depth=42;cvg=_O_______________OO_____O;fam=Herpesviridae;name=Falconid herpesvirus 1 strain S-18;
+acc=NC_025675.1;pctid=93.9;aln=18;glb=8;len=7496;cvgpct=16;len=7496;depth=18;cvg=.OO______________._O.O.__;fam=Picornaviridae;name=Norway rat hunnivirus isolate NrHuV/NYC-E21 polyprotein gene;
+acc=KF294353.1;pctid=98.1;aln=103;glb=41;len=13461;cvgpct=16;len=13461;depth=103;cvg=o.OOO____________________;fam=Coronaviridae;name=Longquan Aa mouse coronavirus isolate Longquan-107 RNA-dependent RNA polymerase gene, partial cds;
+acc=KF294350.1;pctid=98.0;aln=75;glb=32;len=13461;cvgpct=16;len=13461;depth=75;cvg=O...O____________________;fam=Coronaviridae;name=Longquan Aa mouse coronavirus isolate Longquan-615 RNA-dependent RNA polymerase gene, partial cds;
+acc=NC_001479.1;pctid=93.1;aln=17;glb=1;len=7835;cvgpct=12;len=7835;depth=17;cvg=_Oo_____o____O_______O.._;fam=Picornaviridae;name=Encephalomyocarditis virus;
+acc=KF294352.1;pctid=98.4;aln=99;glb=52;len=13506;cvgpct=12;len=13506;depth=99;cvg=o..oO____________________;fam=Coronaviridae;name=Longquan Aa mouse coronavirus isolate Longquan-680 RNA-dependent RNA polymerase gene, partial cds;
+acc=NC_038486.1;pctid=93.9;aln=13;glb=2;len=2172;cvgpct=8;len=2172;depth=13;cvg=.__________oO_O___.._..__;fam=Genomoviridae;name=Pteropus associated gemycircularvirus 3 isolate Tbat_A_103852;
+acc=NC_040317.1;pctid=90.1;aln=25;glb=3;len=2213;cvgpct=8;len=2213;depth=25;cvg=_____________O.O___.__.._;fam=Genomoviridae;name=Gopherus associated genomovirus 1 isolate Tor2_591165;
+acc=NC_014468.1;pctid=85.7;aln=63;glb=2;len=4286;cvgpct=8;len=4286;depth=63;cvg=_______Oo_______.._______;fam=Parvoviridae;name=Bat adeno-associated virus YNM;
+acc=NC_002077.1;pctid=88.5;aln=25;glb=0;len=4718;cvgpct=8;len=4718;depth=25;cvg=________________.O_______;fam=Parvoviridae;name=Adeno-associated virus - 1;
+acc=KM888160.1;pctid=96.5;aln=51;glb=24;len=14840;cvgpct=8;len=14840;depth=51;cvg=O._______________________;fam=Coronaviridae;name=Coronavirus RCoV/KS11_0997/Apo_agr/GER/2011 RNA-dependent RNA polymerase (RdRp) gene, partial cds;
+acc=NC_009127.1;pctid=83.1;aln=20;glb=0;len=295146;cvgpct=8;len=295146;depth=20;cvg=_O______________________o;fam=Alloherpesviridae;name=Cyprinid herpesvirus 3;
+acc=NC_001650.2;pctid=93.8;aln=8;glb=0;len=184439;cvgpct=8;len=184439;depth=8;cvg=____O____O__.____________;fam=Herpesviridae;name=Equid herpesvirus 2 strain 86/67;
+acc=NC_001716.2;pctid=84.7;aln=21;glb=0;len=153080;cvgpct=8;len=153080;depth=21;cvg=_o______________________O;fam=Herpesviridae;name=Human herpesvirus 7;
+acc=NC_038539.1;pctid=88.0;aln=51;glb=2;len=4395;cvgpct=8;len=4395;depth=51;cvg=_______O_._______o_______;fam=Parvoviridae;name=California sea lion adeno-associated virus 1 isolate 1187 Rep78 and VP1 genes;
+acc=NC_035206.1;pctid=89.8;aln=3;glb=0;len=1689;cvgpct=4;len=1689;depth=3;cvg=________________O________;fam=Picobirnaviridae;name=Picobirnavirus dog/KNA/2015 strain PBV/Dog/KNA/RVC7/2015 RNA-dependent RNA polymerase gene;
+acc=NC_030138.1;pctid=89.5;aln=4;glb=0;len=2194;cvgpct=4;len=2194;depth=4;cvg=______________________O__;fam=Genomoviridae;name=Faeces associated gemycircularvirus 14 isolate 4_Fec7_duck;
+acc=MK211379.1;pctid=98.4;aln=4;glb=0;len=29752;cvgpct=4;len=29752;depth=4;cvg=____O____________________;fam=Coronaviridae;name=Coronavirus BtRt-BetaCoV/GX2018, complete genome;
+acc=NC_040753.1;pctid=92.4;aln=4;glb=0;len=1721;cvgpct=4;len=1721;depth=4;cvg=________________O________;fam=Picobirnaviridae;name=Picobirnavirus sp. strain PBV/roe_deer/SLO/D38-14/2014 segment 2;
+acc=KY370061.1;pctid=100.0;aln=3;glb=0;len=15336;cvgpct=4;len=15336;depth=3;cvg=O________________________;fam=Coronaviridae;name=Rodent coronavirus isolate RtAa-CoV/SX2014 RNA-dependent RNA polymerase gene, partial cds;
+acc=KY370049.1;pctid=93.6;aln=5;glb=0;len=1;cvgpct=4;len=1;depth=5;cvg=________________________O;fam=Coronaviridae;name=Rodent coronavirus isolate RtNn-CoV/SAX2015 ORF1ab polyprotein, hemagglutinin-esterase protein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds;
+acc=NC_001829.1;pctid=87.7;aln=4;glb=0;len=4767;cvgpct=4;len=4767;depth=4;cvg=_______.________O________;fam=Parvoviridae;name=Adeno-associated virus - 4;
+acc=NC_040687.1;pctid=88.4;aln=3;glb=0;len=2379;cvgpct=4;len=2379;depth=3;cvg=_O_______________________;fam=Anelloviridae;name=Rodent Torque teno virus 7 isolate 15;
+acc=KY370043.1;pctid=97.0;aln=3;glb=0;len=1;cvgpct=4;len=1;depth=3;cvg=________________________O;fam=Coronaviridae;name=Rodent coronavirus isolate RtRn-CoV/YN2013 ORF1ab polyprotein, hemagglutinin-esterase protein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds;
+acc=NC_030145.1;pctid=96.1;aln=6;glb=0;len=2308;cvgpct=4;len=2308;depth=6;cvg=_________________O__.____;fam=Genomoviridae;name=Faeces associated gemycircularvirus 19 isolate 49_Fec80061_pig;
+acc=NC_006261.1;pctid=87.3;aln=5;glb=0;len=4393;cvgpct=4;len=4393;depth=5;cvg=______________________O._;fam=Parvoviridae;name=Adeno-associated virus - 8;
+acc=KY370071.1;pctid=99.7;aln=4;glb=0;len=15293;cvgpct=4;len=15293;depth=4;cvg=O________________________;fam=Coronaviridae;name=Rodent coronavirus isolate RtNe-CoV/Tibet2014 RNA-dependent RNA polymerase gene, partial cds;
+acc=KX964651.1;pctid=99.6;aln=23;glb=7;len=15287;cvgpct=4;len=15287;depth=23;cvg=O________________________;fam=Coronaviridae;name=Coronavirus JC66 RNA-dependent RNA polymerase gene, partial cds;
+acc=KY370074.1;pctid=100.0;aln=3;glb=1;len=15348;cvgpct=4;len=15348;depth=3;cvg=O________________________;fam=Coronaviridae;name=Rodent coronavirus isolate RtAa-CoV/GZ2015 RNA-dependent RNA polymerase gene, partial cds;
+acc=KM888150.1;pctid=96.7;aln=4;glb=0;len=14901;cvgpct=4;len=14901;depth=4;cvg=O._______________________;fam=Coronaviridae;name=Coronavirus RCoV/NSP63/Rha_pum/RSA/2008 RNA-dependent RNA polymerase (RdRp) gene, partial cds;
+acc=NC_035117.1;pctid=88.6;aln=11;glb=0;len=167212;cvgpct=4;len=167212;depth=11;cvg=______O__________________;fam=Herpesviridae;name=Common bottlenose dolphin gammaherpesvirus 1 strain Sarasota;
+acc=NC_043059.1;pctid=96.1;aln=4;glb=0;len=3623;cvgpct=4;len=3623;depth=4;cvg=___O_____________________;fam=Herpesviridae;name=Caprine herpesvirus 2 glycoprotein B (gB) and DNA polymerase (DPOL) genes;
+acc=NC_025738.1;pctid=88.8;aln=10;glb=1;len=2175;cvgpct=4;len=2175;depth=10;cvg=______________________.O.;fam=Genomoviridae;name=Faecal-associated gemycircularvirus 2;
+acc=NC_026019.1;pctid=91.1;aln=5;glb=2;len=7146;cvgpct=4;len=7146;depth=5;cvg=____O____________________;fam=Arenaviridae;name=Wenzhou virus isolate Rn-242 segment L;
+acc=KM888158.1;pctid=96.3;aln=20;glb=10;len=14903;cvgpct=4;len=14903;depth=20;cvg=O._______________________;fam=Coronaviridae;name=Coronavirus RCoV/RMU10_3052/Apo_fla/GER/2010 RNA-dependent RNA polymerase (RdRp) gene, partial cds;
+acc=JB181528.1;pctid=99.5;aln=5;glb=0;len=19136;cvgpct=4;len=19136;depth=5;cvg=O.___.___________________;fam=Coronaviridae;name=Sequence 1 from Patent WO2012117045;
+acc=KX092221.1;pctid=100.0;aln=3;glb=0;len=15349;cvgpct=4;len=15349;depth=3;cvg=O________________________;fam=Coronaviridae;name=Coronaviridae sp. isolate 7565L02R6RATCoV RdRp gene, partial cds;
+acc=AY874537_3000883;pctid=98.7;aln=16;glb=9;len=861;cvgpct=4;len=861;depth=16;cvg=oO_._o___..____..___o..__;fam=AMR;name=TEM-11,Proteus mirabilis;
+acc=NC_040539.1;pctid=87.5;aln=5;glb=0;len=147790;cvgpct=4;len=147790;depth=5;cvg=____O____________________;fam=Herpesviridae;name=Rhinolophus gammaherpesvirus 1 BV1 DNA;
+acc=NC_027016.1;pctid=92.9;aln=6;glb=0;len=226084;cvgpct=4;len=226084;depth=6;cvg=___________.___________O_;fam=Herpesviridae;name=Papio ursinus cytomegalovirus isolate OCOM4-52;
+acc=KM888151.1;pctid=96.1;aln=21;glb=5;len=14858;cvgpct=4;len=14858;depth=21;cvg=O._______________________;fam=Coronaviridae;name=Coronavirus RCoV/NSP65/Rha_pum/RSA/2008 RNA-dependent RNA polymerase (RdRp) gene, partial cds;
+acc=NC_003401.1;pctid=84.6;aln=8;glb=3;len=133719;cvgpct=4;len=133719;depth=8;cvg=__O______________________;fam=Herpesviridae;name=Macacine herpesvirus 5;
+acc=NC_012802.1;pctid=92.8;aln=3;glb=0;len=7215;cvgpct=4;len=7215;depth=3;cvg=______________O__________;fam=Picornaviridae;name=Human cosavirus D1;
+acc=V00618.1_3002644;pctid=99.7;aln=10;glb=3;len=795;cvgpct=4;len=795;depth=10;cvg=_______._______oO._._..__;fam=AMR;name=APH(3')-IIa,Escherichia coli;
+acc=NC_001729.1;pctid=95.8;aln=8;glb=0;len=4726;cvgpct=4;len=4726;depth=8;cvg=_____O_o_______._________;fam=Parvoviridae;name=Adeno-associated virus - 3;
+acc=NC_023858.1;pctid=97.3;aln=7;glb=0;len=9739;cvgpct=4;len=9739;depth=7;cvg=_____________________O___;fam=Picornaviridae;name=Melegrivirus A;
+acc=NC_030143.1;pctid=95.2;aln=13;glb=0;len=2240;cvgpct=4;len=2240;depth=13;cvg=_________________O_____._;fam=Genomoviridae;name=Faeces associated gemycircularvirus 18 isolate 30_Fec80061_horse;
+acc=NC_017083.1;pctid=96.9;aln=19;glb=9;len=31100;cvgpct=4;len=31100;depth=19;cvg=____.________O_._________;fam=Coronaviridae;name=Rabbit coronavirus HKU14, complete genome;
+acc=NC_038489.1;pctid=94.4;aln=6;glb=0;len=2230;cvgpct=4;len=2230;depth=6;cvg=______________________.O_;fam=Genomoviridae;name=Pteropus associated gemycircularvirus 6 isolate Tbat_103951;
+acc=NC_006260.1;pctid=88.9;aln=12;glb=0;len=4721;cvgpct=4;len=4721;depth=12;cvg=____o__O_______oo____o___;fam=Parvoviridae;name=Adeno-associated virus - 7;
+acc=KX964652.1;pctid=99.6;aln=15;glb=3;len=15344;cvgpct=4;len=15344;depth=15;cvg=O________________________;fam=Coronaviridae;name=Coronavirus JC81 RNA-dependent RNA polymerase gene, partial cds;
+acc=NC_026818.1;pctid=95.6;aln=15;glb=5;len=2199;cvgpct=4;len=2199;depth=15;cvg=.__._._____.__.__._.O._o_;fam=Genomoviridae;name=Gemycircularvirus SL1;
+acc=KX964650.1;pctid=99.6;aln=21;glb=5;len=15299;cvgpct=4;len=15299;depth=21;cvg=O________________________;fam=Coronaviridae;name=Coronavirus JC30 RNA-dependent RNA polymerase gene, partial cds;
+acc=JN874562.1;pctid=96.8;aln=20;glb=8;len=30904;cvgpct=4;len=30904;depth=20;cvg=_____________O___________;fam=Coronaviridae;name=Rabbit coronavirus HKU14 strain HKU14-10, complete genome;
+acc=NC_026421.1;pctid=90.0;aln=13;glb=0;len=182380;cvgpct=4;len=182380;depth=13;cvg=____O_____._.____________;fam=Herpesviridae;name=Equid herpesvirus 5 strain 2-141/67;
+acc=NC_005889.1;pctid=93.0;aln=57;glb=0;len=4693;cvgpct=4;len=4693;depth=57;cvg=_____________.__O________;fam=Parvoviridae;name=Bovine adeno-associated virus;
+acc=HQ166910.1;pctid=99.1;aln=29;glb=0;len=1102;cvgpct=4;len=1102;depth=29;cvg=________________________O;fam=Coronaviridae;name=Zaria bat coronavirus strain ZBCoV, partial genome;
+acc=NC_040439.1;pctid=90.1;aln=9;glb=0;len=1700;cvgpct=4;len=1700;depth=9;cvg=________Oo.______o_______;fam=Picobirnaviridae;name=Chicken picobirnavirus strain PBV/CHK/M3841/HUN/2011 segment RNA2;
+acc=NC_001701.1;pctid=92.5;aln=8;glb=0;len=5106;cvgpct=4;len=5106;depth=8;cvg=_______________O_________;fam=Parvoviridae;name=Goose parvovirus;
+acc=NC_009448.2;pctid=87.5;aln=6;glb=0;len=8115;cvgpct=4;len=8115;depth=6;cvg=___oO____________________;fam=Picornaviridae;name=Saffold virus;
+acc=NC_001401.2;pctid=88.5;aln=9;glb=3;len=4679;cvgpct=4;len=4679;depth=9;cvg=_______O_________________;fam=Parvoviridae;name=Adeno-associated virus - 2;
+acc=KY370077.1;pctid=99.3;aln=321;glb=68;len=15305;cvgpct=4;len=15305;depth=321;cvg=O________________________;fam=Coronaviridae;name=Rodent coronavirus isolate RtAa-CoV/SD2016 RNA-dependent RNA polymerase gene, partial cds;
+acc=KY370047.1;pctid=97.5;aln=6799;glb=3029;len=2;cvgpct=4;len=2;depth=6.8e+03;cvg=._______________________O;fam=Coronaviridae;name=Rodent coronavirus isolate RtAp-CoV/Tibet2014 ORF1ab polyprotein, hemagglutinin-esterase protein, spike glycoprotein, envelope protein, membrane protein, and nucleocapsid protein genes, complete cds;
+acc=NC_034525.1;pctid=92.5;aln=1;glb=0;len=3675;cvgpct=0;len=3675;depth=1;cvg=_________._______________;fam=Hantaviridae;name=Cano Delgadito virus strain VHV-574 segment M;
+acc=NC_003391.1;pctid=86.8;aln=1;glb=0;len=205719;cvgpct=0;len=205719;depth=1;cvg=_._______________________;fam=Poxviridae;name=Camelpox virus;
+acc=NC_030140.1;pctid=93.1;aln=1;glb=0;len=2230;cvgpct=0;len=2230;depth=1;cvg=_________________._______;fam=Genomoviridae;name=Faeces associated gemycircularvirus 17 isolate 27_Fec16497_chicken;
+acc=NC_040843.1;pctid=90.5;aln=1;glb=0;len=4442;cvgpct=0;len=4442;depth=1;cvg=_______________________._;fam=Parvoviridae;name=Mouse kidney parvovirus strain Centenary Institute;
+acc=NC_003977.2;pctid=92.0;aln=1;glb=1;len=3182;cvgpct=0;len=3182;depth=1;cvg=_________._______________;fam=Hepadnaviridae;name=Hepatitis B virus (strain ayw) genome;
+acc=MG812378.1;pctid=98.7;aln=1;glb=0;len=25685;cvgpct=0;len=25685;depth=1;cvg=_____.___________________;fam=Coronaviridae;name=Sparrow deltacoronavirus strain ISU73347, complete genome;
+acc=MH687968.1;pctid=90.4;aln=1;glb=0;len=31083;cvgpct=0;len=31083;depth=1;cvg=_______________________._;fam=Coronaviridae;name=Betacoronavirus sp. strain VZ_BetaCoV_16715_52, complete genome;
+acc=AE004091.2_3004075;pctid=89.3;aln=1;glb=0;len=3111;cvgpct=0;len=3111;depth=1;cvg=_______________________._;fam=AMR;name=MuxC,Pseudomonas aeruginosa PAO1;
+acc=NC_039039.1;pctid=95.2;aln=1;glb=0;len=7704;cvgpct=0;len=7704;depth=1;cvg=________.________________;fam=Papillomaviridae;name=Peromyscus papillomavirus type 1 strain M-14 PmPV1;
+acc=NC_002794.1;pctid=96.9;aln=1;glb=0;len=195859;cvgpct=0;len=195859;depth=1;cvg=__________________.______;fam=Herpesviridae;name=Tupaiid herpesvirus 1;
+acc=KF850449.2;pctid=90.9;aln=1;glb=0;len=39;cvgpct=0;len=39;depth=1;cvg=________________________.;fam=Coronaviridae;name=Rat coronavirus strain mouse_lab/USA/MG6644_HOLMES10/1996, partial genome;
+acc=LR721662.1;pctid=97.7;aln=1;glb=0;len=23116;cvgpct=0;len=23116;depth=1;cvg=____.____________________;fam=Coronaviridae;name=XXX;
+acc=NC_028811.1;pctid=99.0;aln=1;glb=1;len=27935;cvgpct=0;len=27935;depth=1;cvg=___________._____________;fam=Coronaviridae;name=BtMr-AlphaCoV/SAX2011, complete genome;
+acc=NC_038501.1;pctid=96.5;aln=2;glb=0;len=2220;cvgpct=0;len=2220;depth=2;cvg=_____._________._________;fam=Genomoviridae;name=Pacific flying fox faeces associated gemycircularvirus-6 isolate Tbat_A_103779;
+acc=EF446615.1;pctid=85.2;aln=1;glb=0;len=30992;cvgpct=0;len=30992;depth=1;cvg=___._____________________;fam=Coronaviridae;name=Equine coronavirus strain NC99, complete genome;
+acc=KY370056.1;pctid=100.0;aln=1;glb=0;len=15293;cvgpct=0;len=15293;depth=1;cvg=.________________________;fam=Coronaviridae;name=Rodent coronavirus isolate RtRf-CoV-2/YN2013 RNA-dependent RNA polymerase gene, partial cds;
+acc=NC_007653.1;pctid=95.2;aln=1;glb=0;len=156487;cvgpct=0;len=156487;depth=1;cvg=_____.___________________;fam=Herpesviridae;name=Papiine herpesvirus 2;
+acc=FJ228229_3002788;pctid=100.0;aln=1;glb=1;len=645;cvgpct=0;len=645;depth=1;cvg=_____________.___________;fam=AMR;name=QnrD1,Salmonella enterica subsp. enterica serovar Bovismorbificans;
+acc=V01499_3002655;pctid=100.0;aln=1;glb=1;len=1026;cvgpct=0;len=1026;depth=1;cvg=_____________________.___;fam=AMR;name=APH(4)-Ia,Escherichia coli;
+acc=LR721664.1;pctid=100.0;aln=1;glb=0;len=1;cvgpct=0;len=1;depth=1;cvg=________________________.;fam=Coronaviridae;name=XXX;
+acc=AF207902.1;pctid=100.0;aln=1;glb=0;len=1;cvgpct=0;len=1;depth=1;cvg=________________________.;fam=Coronaviridae;name=Murine hepatitis virus strain ML-11 RNA-directed RNA polymerase (orf1A), RNA-directed RNA polymerase (orf1B), non-structural protein (orf2A), hemagglutinin esterase protein (orf2B), spike glycoprotein precursor (orf3), non-structural protein (orf5A), envelope glycoprotein E (orf5B), matrix glycoprotein (orf6), and nucleocapsid protein (orf7) genes, complete cds;
+acc=NC_028492.1;pctid=94.9;aln=1;glb=1;len=7707;cvgpct=0;len=7707;depth=1;cvg=__.______________________;fam=Papillomaviridae;name=Rattus norvegicus papillomavirus 3 isolate Rat_60S;
+acc=NC_016992.1;pctid=97.5;aln=1;glb=0;len=26083;cvgpct=0;len=26083;depth=1;cvg=_____________.___________;fam=Coronaviridae;name=Sparrow coronavirus HKU17, complete genome;
+acc=NC_001826.2;pctid=100.0;aln=1;glb=0;len=119451;cvgpct=0;len=119451;depth=1;cvg=________.________________;fam=Herpesviridae;name=Murine herpesvirus 68 strain WUMS;
+acc=NC_021178.1;pctid=90.3;aln=1;glb=0;len=8785;cvgpct=0;len=8785;depth=1;cvg=_____________________.___;fam=Picornaviridae;name=Canine picodicistrovirus strain 209;
+acc=NC_023764.1;pctid=81.9;aln=1;glb=0;len=3364;cvgpct=0;len=3364;depth=1;cvg=_________._______________;fam=Arenaviridae;name=Merino Walk virus GP (GP) and NP (NP) genes;
+acc=LC061272.1;pctid=85.0;aln=1;glb=0;len=30782;cvgpct=0;len=30782;depth=1;cvg=___._____________________;fam=Coronaviridae;name=Equine coronavirus RNA, complete genome, strain: Tokachi09;
+acc=NC_039048.1;pctid=93.8;aln=1;glb=0;len=4822;cvgpct=0;len=4822;depth=1;cvg=____________________.____;fam=Parvoviridae;name=Miniopterus schreibersii bat bocaparvovirus strain str24 NS1 (NS1) gene;
+acc=NC_043097.1;pctid=79.2;aln=1;glb=0;len=3179;cvgpct=0;len=3179;depth=1;cvg=.________________________;fam=Astroviridae;name=Mamastrovirus 11 RNA-dependent RNA polymerase gene;
+acc=NC_038480.1;pctid=84.5;aln=1;glb=0;len=2193;cvgpct=0;len=2193;depth=1;cvg=_._______________________;fam=Genomoviridae;name=Miniopterus associated gemycircularvirus 1 isolate BtMf-CV-23/GD2012;
+acc=NC_006549.1;pctid=87.8;aln=1;glb=0;len=140131;cvgpct=0;len=140131;depth=1;cvg=________________.________;fam=Iridoviridae;name=Singapore grouper iridovirus;
+acc=KU556807.1;pctid=100.0;aln=1;glb=0;len=1;cvgpct=0;len=1;depth=1;cvg=________________________.;fam=Coronaviridae;name=Infectious bronchitis virus isolate Ck/Aus/N1/08, partial genome;
+acc=NC_038525.1;pctid=97.2;aln=1;glb=0;len=7227;cvgpct=0;len=7227;depth=1;cvg=______.__________________;fam=Papillomaviridae;name=Human papillomavirus type 204 isolate A342;
+acc=NC_038491.1;pctid=90.8;aln=1;glb=0;len=2185;cvgpct=0;len=2185;depth=1;cvg=.________________________;fam=Genomoviridae;name=Pteropus associated gemycircularvirus 8 isolate Tbat_31579;
+acc=NC_013668.3;pctid=98.4;aln=2;glb=0;len=248526;cvgpct=0;len=248526;depth=2;cvg=._________.______________;fam=Alloherpesviridae;name=Anguillid herpesvirus 1;
+acc=KY370072.1;pctid=98.8;aln=1;glb=0;len=15293;cvgpct=0;len=15293;depth=1;cvg=.________________________;fam=Coronaviridae;name=Rodent coronavirus isolate RtAd-CoV/SX2014 RNA-dependent RNA polymerase gene, partial cds;
+acc=NC_025732.1;pctid=92.0;aln=2;glb=0;len=2174;cvgpct=0;len=2174;depth=2;cvg=______________________o__;fam=Genomoviridae;name=Faecal-associated gemycircularvirus 8;
+acc=NC_038305.1;pctid=92.4;aln=1;glb=0;len=8530;cvgpct=0;len=8530;depth=1;cvg=_______________._________;fam=Picornaviridae;name=Boone cardiovirus 1 isolate BCV-1 polyprotein gene;
+acc=NC_025741.1;pctid=92.1;aln=1;glb=0;len=2197;cvgpct=0;len=2197;depth=1;cvg=_________________._______;fam=Genomoviridae;name=Blackbird associated gemycircularvirus 1 isolate as41;
+acc=AF190406.1;pctid=100.0;aln=1;glb=0;len=23933;cvgpct=0;len=23933;depth=1;cvg=___._____________________;fam=Coronaviridae;name=Murine hepatitis virus strain TY spike protein gene, complete cds;
+acc=KY370064.1;pctid=96.4;aln=1;glb=0;len=15305;cvgpct=0;len=15305;depth=1;cvg=.________________________;fam=Coronaviridae;name=Rodent coronavirus isolate RtAp-CoV/SAX2015 RNA-dependent RNA polymerase gene, partial cds;
+acc=AF207551.1;pctid=91.3;aln=1;glb=0;len=21601;cvgpct=0;len=21601;depth=1;cvg=______.__________________;fam=Coronaviridae;name=Sialodacryoadenitis virus 28 kD nonstructural protein (NS2), hemagglutinin-esterase glycoprotein (HE), spike protein (S), 15 kD nonstructural protein, 12.6 kD nonstructural protein, small membrane protein (sM), membrane protein (M), and nucleocapsid protein (N) genes, complete cds; and unknown gene;
+acc=NC_011349.1;pctid=100.0;aln=1;glb=0;len=7310;cvgpct=0;len=7310;depth=1;cvg=_____________________.___;fam=Picornaviridae;name=Seneca valley virus;
+acc=MK562374.1;pctid=90.0;aln=1;glb=0;len=21049;cvgpct=0;len=21049;depth=1;cvg=.________________________;fam=Coronaviridae;name=UNVERIFIED: Infectious bronchitis virus genomic sequence;
+acc=U00096_3000794;pctid=96.2;aln=1;glb=0;len=3078;cvgpct=0;len=3078;depth=1;cvg=________.________________;fam=AMR;name=mdtC,Escherichia coli str. K-12 substr. MG1655;
+acc=NC_038487.1;pctid=89.4;aln=1;glb=0;len=2250;cvgpct=0;len=2250;depth=1;cvg=______________.__________;fam=Genomoviridae;name=Pteropus associated gemycircularvirus 4 isolate Tbat_H_103806;
+acc=MH687883.1;pctid=97.4;aln=1;glb=0;len=29606;cvgpct=0;len=29606;depth=1;cvg=.________________________;fam=Coronaviridae;name=Murine coronavirus isolate M30/IND/2017 nucleocapsid protein (N) gene, complete cds;
+acc=NC_001539.1;pctid=84.6;aln=1;glb=0;len=5323;cvgpct=0;len=5323;depth=1;cvg=______.__________________;fam=Parvoviridae;name=Canine parvovirus;
+acc=KM888142.1;pctid=96.2;aln=1;glb=0;len=14830;cvgpct=0;len=14830;depth=1;cvg=.________________________;fam=Coronaviridae;name=Coronavirus RCoV/NL_69/Mic_arv/NED/2007 RNA-dependent RNA polymerase (RdRp) gene, partial cds;
+acc=NC_035889.1;pctid=100.0;aln=1;glb=1;len=10808;cvgpct=0;len=10808;depth=1;cvg=_____________________.___;fam=Flaviviridae;name=Zika virus isolate ZIKV/H. sapiens/Brazil/Natal/2015;
+acc=NC_026470.1;pctid=90.2;aln=1;glb=0;len=8096;cvgpct=0;len=8096;depth=1;cvg=______.__________________;fam=Picornaviridae;name=African bat icavirus A isolate PREDICT-06105;
+acc=NC_040617.1;pctid=88.1;aln=2;glb=0;len=3433;cvgpct=0;len=3433;depth=2;cvg=____.__________________._;fam=Anelloviridae;name=Rodent Torque teno virus 3 isolate 2;
+acc=NC_029899.1;pctid=89.5;aln=1;glb=0;len=37556;cvgpct=0;len=37556;depth=1;cvg=_____________.___________;fam=Adenoviridae;name=Bat mastadenovirus WIV10;
+acc=NC_006273.2;pctid=92.9;aln=3;glb=0;len=235646;cvgpct=0;len=235646;depth=3;cvg=_____________.____o______;fam=Herpesviridae;name=Human herpesvirus 5 strain Merlin;
+acc=NC_006146.1;pctid=84.0;aln=1;glb=0;len=171096;cvgpct=0;len=171096;depth=1;cvg=_._______________________;fam=Herpesviridae;name=Macacine herpesvirus 4;
+acc=NC_038538.1;pctid=90.8;aln=5;glb=0;len=5267;cvgpct=0;len=5267;depth=5;cvg=______.__.____________.o_;fam=Parvoviridae;name=Porcine bocavirus H18;
+acc=NC_034161.1;pctid=94.7;aln=3;glb=0;len=1688;cvgpct=0;len=1688;depth=3;cvg=____________________.o___;fam=Picobirnaviridae;name=Otarine picobirnavirus isolate HKG-PF080915 segment 2;
+acc=NC_020231.1;pctid=100.0;aln=1;glb=0;len=233501;cvgpct=0;len=233501;depth=1;cvg=______________.__________;fam=Herpesviridae;name=Caviid herpesvirus 2 strain 21222;
+acc=NC_015268.1;pctid=88.9;aln=2;glb=0;len=7906;cvgpct=0;len=7906;depth=2;cvg=__________________o______;fam=Papillomaviridae;name=Camelus dromedarius papillomavirus type 2;
+acc=NC_001669.1;pctid=93.8;aln=2;glb=0;len=5243;cvgpct=0;len=5243;depth=2;cvg=____________..___________;fam=Polyomaviridae;name=Simian virus 40 complete genome;
+acc=NC_027776.1;pctid=91.5;aln=2;glb=0;len=2152;cvgpct=0;len=2152;depth=2;cvg=____________________.__._;fam=Genomoviridae;name=Poecile atricapillus GI tract-associated gemycircularvirus isolate 254065908;
+acc=MF416379.1;pctid=88.7;aln=2;glb=0;len=5;cvgpct=0;len=5;depth=2;cvg=________________________o;fam=Coronaviridae;name=Murine hepatitis virus isolate MHV/NYC/Manhattan/poolF5, partial genome;
+acc=NC_033270.1;pctid=98.9;aln=2;glb=1;len=2143;cvgpct=0;len=2143;depth=2;cvg=_________.__________.____;fam=Genomoviridae;name=Chicken stool-associated gemycircularvirus strain RS/BR/2015;
+acc=NC_029797.1;pctid=84.1;aln=1;glb=0;len=4765;cvgpct=0;len=4765;depth=1;cvg=______.__________________;fam=Parvoviridae;name=Megabat bufavirus 1 NS1;
+acc=NC_038492.1;pctid=95.1;aln=1;glb=0;len=2140;cvgpct=0;len=2140;depth=1;cvg=_____________________.___;fam=Genomoviridae;name=Pteropus associated gemycircularvirus 9 isolate Tbat_21383;
+acc=LC061273.1;pctid=86.2;aln=1;glb=0;len=30916;cvgpct=0;len=30916;depth=1;cvg=___._____________________;fam=Coronaviridae;name=Equine coronavirus RNA, complete genome, strain: Obihiro12-1;
+acc=NC_036583.1;pctid=91.3;aln=1;glb=0;len=6861;cvgpct=0;len=6861;depth=1;cvg=__________________.______;fam=Astroviridae;name=Rodent astrovirus isolate GX-006;
+acc=NC_038989.1;pctid=88.1;aln=1;glb=0;len=7805;cvgpct=0;len=7805;depth=1;cvg=_._______________________;fam=Picornaviridae;name=Picornaviridae sp. rodent/Ee/PicoV/NX2015 polyprotein gene;
+acc=NC_038484.1;pctid=94.5;aln=2;glb=0;len=2191;cvgpct=0;len=2191;depth=2;cvg=___________.___._________;fam=Genomoviridae;name=Pacific flying fox faeces associated gemycircularvirus-10 isolate Tbat_45285;
+acc=NC_038387.1;pctid=88.4;aln=1;glb=0;len=2094;cvgpct=0;len=2094;depth=1;cvg=___._____________________;fam=Circoviridae;name=Bat associated circovirus 5 isolate BtPa-CV-1/NX2013;
+acc=NC_019491.1;pctid=94.0;aln=3;glb=0;len=291144;cvgpct=0;len=291144;depth=3;cvg=_____.._______________.__;fam=Alloherpesviridae;name=Cyprinid herpesvirus 1 strain NG-J1;
+acc=NC_006263.1;pctid=89.5;aln=3;glb=1;len=4682;cvgpct=0;len=4682;depth=3;cvg=______o._________________;fam=Parvoviridae;name=Avian adeno-associated virus strain DA-1;
+acc=NC_003983.1;pctid=85.2;aln=1;glb=0;len=8828;cvgpct=0;len=8828;depth=1;cvg=_._______________________;fam=Picornaviridae;name=Equine rhinitis B virus 1;
+acc=NC_014899.1;pctid=90.5;aln=2;glb=1;len=35203;cvgpct=0;len=35203;depth=2;cvg=___.__________.__________;fam=Adenoviridae;name=Murine adenovirus 2;
+acc=AY903456.1;pctid=87.0;aln=1;glb=0;len=23640;cvgpct=0;len=23640;depth=1;cvg=__.______________________;fam=Coronaviridae;name=Human coronavirus OC43 strain 84020 Belgium 2003 spike glycoprotein (S) gene, complete cds;
+acc=NC_040533.1;pctid=95.7;aln=3;glb=0;len=5228;cvgpct=0;len=5228;depth=3;cvg=________.______o_________;fam=Parvoviridae;name=Lupine bocavirus isolate South Douro;
+acc=NC_031753.1;pctid=84.9;aln=1;glb=0;len=2000;cvgpct=0;len=2000;depth=1;cvg=_________._______________;fam=Circoviridae;name=Porcine circovirus 3 strain 29160;
+acc=NC_024446.1;pctid=84.4;aln=1;glb=0;len=306862;cvgpct=0;len=306862;depth=1;cvg=______.__________________;fam=Poxviridae;name=Penguinpox virus isolate PSan92;
+acc=NC_038388.1;pctid=87.7;aln=3;glb=0;len=1880;cvgpct=0;len=1880;depth=3;cvg=__._o____________________;fam=Circoviridae;name=Bat associated circovirus 6 isolate BtRa-CV/JS2013;
+acc=NC_038488.1;pctid=89.7;aln=1;glb=0;len=2205;cvgpct=0;len=2205;depth=1;cvg=__________________.______;fam=Genomoviridae;name=Pteropus associated gemycircularvirus 5 isolate Tbat_12377;
+acc=NC_040340.1;pctid=88.2;aln=1;glb=0;len=2142;cvgpct=0;len=2142;depth=1;cvg=_________._______________;fam=Genomoviridae;name=Lepus americanus faeces associated genomovirus SHP7;
+acc=KM888149.1;pctid=98.3;aln=2;glb=1;len=14901;cvgpct=0;len=14901;depth=2;cvg=o________________________;fam=Coronaviridae;name=Coronavirus RCoV/NSP32/Rha_pum/RSA/2008 RNA-dependent RNA polymerase (RdRp) gene, partial cds;
+acc=NC_033620.1;pctid=96.1;aln=3;glb=1;len=173861;cvgpct=0;len=173861;depth=3;cvg=._______________________o;fam=Herpesviridae;name=Murine roseolovirus isolate YOK1;
+acc=NC_008582.1;pctid=87.5;aln=1;glb=0;len=7393;cvgpct=0;len=7393;depth=1;cvg=____________.____________;fam=Papillomaviridae;name=Old World harvest mouse papillomavirus;
+acc=AY082011_3000005;pctid=95.2;aln=2;glb=0;len=1032;cvgpct=0;len=1032;depth=2;cvg=_____________________o___;fam=AMR;name=vanD,Enterococcus faecium;
+acc=NC_040604.1;pctid=99.5;aln=7;glb=2;len=7373;cvgpct=0;len=7373;depth=7;cvg=o._______._.______.._____;fam=Papillomaviridae;name=Rodent papillomavirus isolate RtRn-PV/GD2014;
+acc=NC_031106.1;pctid=82.4;aln=1;glb=0;len=9112;cvgpct=0;len=9112;depth=1;cvg=____________________.____;fam=Picornaviridae;name=Rosavirus C strain RATLC11A polyprotein gene;
+acc=NC_043072.1;pctid=89.6;aln=1;glb=0;len=6855;cvgpct=0;len=6855;depth=1;cvg=_____________________.___;fam=Picornaviridae;name=Bat picornavirus strain BatPV/V1/13/Hun polyprotein gene;
+acc=NC_025966.1;pctid=95.0;aln=2;glb=0;len=2572;cvgpct=0;len=2572;depth=2;cvg=.__________________._____;fam=Anelloviridae;name=Rodent Torque teno virus 2 isolate RN_2_Se15;
+acc=AF201929.1;pctid=84.6;aln=1;glb=0;len=31276;cvgpct=0;len=31276;depth=1;cvg=_______._________________;fam=Coronaviridae;name=Murine hepatitis virus strain 2, complete genome;
+acc=KY370060.1;pctid=100.0;aln=1;glb=0;len=15345;cvgpct=0;len=15345;depth=1;cvg=.________________________;fam=Coronaviridae;name=Rodent coronavirus isolate RtNn-CoV/Tibet2014 RNA-dependent RNA polymerase gene, partial cds;
+acc=NC_019559.2;pctid=97.4;aln=6;glb=1;len=202949;cvgpct=0;len=202949;depth=6;cvg=___.____._._._.___.______;fam=Herpesviridae;name=Murid herpesvirus 8 isolate England;
+acc=MK562375.1;pctid=88.7;aln=1;glb=0;len=21001;cvgpct=0;len=21001;depth=1;cvg=.________________________;fam=Coronaviridae;name=UNVERIFIED: Infectious bronchitis virus genomic sequence;
+acc=NC_026018.1;pctid=89.6;aln=4;glb=0;len=3337;cvgpct=0;len=3337;depth=4;cvg=______.__________.o______;fam=Arenaviridae;name=Wenzhou virus isolate Rn-242 segment S;
+acc=NC_038416.1;pctid=88.7;aln=1;glb=0;len=1794;cvgpct=0;len=1794;depth=1;cvg=____.____________________;fam=Circoviridae;name=Cyclovirus NG12;
+acc=CP004067_3002647;pctid=100.0;aln=1;glb=1;len=795;cvgpct=0;len=795;depth=1;cvg=__________________.______;fam=AMR;name=APH(3')-IIIa,Campylobacter coli CVM N29710;
+acc=NC_038364.1;pctid=87.7;aln=1;glb=0;len=3344;cvgpct=0;len=3344;depth=1;cvg=___._____________________;fam=Arenaviridae;name=Loie River virus isolate R5074 glycoprotein precursor (GPC) and nucleocapsid protein (NP) genes;
+acc=U00096.3_3000216;pctid=89.9;aln=1;glb=0;len=3150;cvgpct=0;len=3150;depth=1;cvg=____________.____________;fam=AMR;name=acrB,Escherichia coli str. K-12 substr. MG1655;
+acc=KY419109.1;pctid=94.9;aln=1;glb=0;len=29906;cvgpct=0;len=29906;depth=1;cvg=________________.________;fam=Coronaviridae;name=Porcine hemagglutinating encephalomyelitis virus strain PHEV CoV USA-15TOSU1655, complete genome;
+acc=JX169867.1;pctid=91.8;aln=1;glb=0;len=31051;cvgpct=0;len=31051;depth=1;cvg=_______________._________;fam=Coronaviridae;name=Murine coronavirus strain JHM.WU, complete genome;
+acc=KX964653.1;pctid=99.4;aln=2;glb=1;len=15290;cvgpct=0;len=15290;depth=2;cvg=o________________________;fam=Coronaviridae;name=Coronavirus JC02 RNA-dependent RNA polymerase gene, partial cds;
+acc=NC_030448.1;pctid=87.3;aln=7;glb=0;len=2262;cvgpct=0;len=2262;depth=7;cvg=.___________o_______.o.__;fam=Genomoviridae;name=Gemycircularvirus HV-GcV2;
+acc=NC_043061.1;pctid=89.2;aln=2;glb=0;len=913;cvgpct=0;len=913;depth=2;cvg=_____.________________.__;fam=Herpesviridae;name=Equid herpesvirus 7 strain T-07 DNA polymerase gene;
+acc=NC_024691.1;pctid=100.0;aln=2;glb=0;len=2259;cvgpct=0;len=2259;depth=2;cvg=_____________________o___;fam=Genomoviridae;name=MSSI2.225 virus complete sequence;
+acc=NC_034971.1;pctid=89.2;aln=1;glb=0;len=8216;cvgpct=0;len=8216;depth=1;cvg=_______._________________;fam=Picornaviridae;name=Canine kobuvirus isolate SMCD-59;
+>Cov.1
+GGCACTATGAACAGCAGGGTGATGGTTCGAGCTTTGTCCTGGACAACGCCTGTGACGAAGTCATGAGTGCGCCAAAGGGCAAATTCTCTGCCAAAGCCTAT
+>Cov.2
+AAAAGTCTGTTTGTGCTCTTGCGTGGGTTGTCCTGCATGTCATAAACGGTGCTTATCTAATTTTAGAAGATGGTTTCCATTTTGTTGGAAGTGTGCCTGAT
+>Cov.3
+TCTTCTCATATGTTCTGCACATTCTGCCCACCAGAAGATGATGATGTTGTAATGTTTGAGTGTGAAGATGATGGTTGTGACCCCAGTGATGTGGAAACATG
+>Cov.4
+CAAGGTGTTGGTTATGGTGCGGGCCGGTTTATGGGTTGGGTAGTACCAAGAAGTGTGCTGCCACTCAAAGCTCTTGCGCGCTTGGAGCCTTATGTTCTT
+>Cov.5
+ATGCTCGGGCTTATGTTCAGAGCATGTATCAATCCTTGCCAGAAGATTGGCGATCAGTTTTCAAATATGATGTTTGTGCTGGTGTTAGAGTTGTTAAATAT
+>Cov.6
+GAGTATGGTGGCACTTAAGCTAGTTGCACCATGCACCTTACACTTTTCATTGATCGACACCACATTTAGTGCGTTCTTTTCTTTGAAGAGAGTGTACTT
+>Cov.7
+AAGTTAATGGTGTGCCTAAGACCAATGTAGTCATTGTGGATGGTGATGCTGATAAGGCTAACTTTCTCAATGCTGTTGTCTTTTATGCACAATCTTTGTTT
+>Cov.8
+ACCCATGGCTATATACGGTTCCCAGAGGTACTGCGAGAAGGTCTTGTTAGGGTCATTCGTACCAAAGCAATGACCTATTGCAGGGTAGGGTTGTGTGAGCC
+>Cov.9
+GGTTTTGTATACTCTATGTTGCAGCTGTTGTTTCAAATCATGCTTTCTGGGTGTTTAGTTACTTCAGGAGGTTGCAAACTGGTGGAGGTCGCTAGATGGTC
+>Cov.10
+GAAACGCACTAGAGTCTTTAAGGGTACATTATGCTGGGTGTTGACATCAACATTTTTGTTTGCATGCATTCTCTCAGCATTTGTAAAATGGACCATGTTT
+>Cov.11
+GGGGTAGTCCTATAGCAAATTGTGTGAAGATGCTTTGTGACCATGCGGGTACCGGTATGGCCATTACAGTTAAACCTGATGCTACTACTAATCAGGATTCT
+>Cov.12
+ACTTTATTAGACCAGTACTTTGTTGTAAAAAGAACTGGCCTTGATATATATGAGAAAGAAAAAGCATGTTATGAGCGGTTAAAAGATTGTAGCGTTGTGG
+>Cov.13
+ATGATGCATGTTGCTCACAAACTGATAGGTTCTATCGTTTGGCGAACGAGTGCGCACAAGTATTGAGTGAAATTGTCATGTGTGGAGGTCGCTAGATGGTC
+>Cov.14
+TGTTAATGAGTTTTATGAGTTTTTAAATAAGCATTTTAGTATGATGATTTTGAGTGATGATGGTGTTGTATGTTATAATTCTGAGTATGCGTCCAAAGGT
+>Cov.15
+TATACAGCAGCGAGCCATGCGGCCGTTGATGCTTTGTGTGAGAAGGCATACAAATTTTTGAATTTAAATGACTGCACGCGAATAATTCCTGCAAAGGTGCG
+>Cov.16
+ATGATGCTAAGCCTCTTGTTAAGGCAGTGAAGACTTTGGTCTACACATATGATGCTCATAAGGACAGTTTTAAAGAGGGGTGGAGGTCGCTAGATGGTC
+>Cov.17
+AGTTTTCGTGGAACGCAGAATTATATAGTTTAATGGGGAAGTTTGCTTTTTGGACGGTCTTTTGTGCAAATGCAAACGCCTCTTCAAGTGAAGGATTTTTA
+>Cov.18
+CGTGATACAAATAAAGAGTGTTTTACAGGTGATAGCCTAGTAAATGTTAGTAATCTAAACTGAAATGGCTGTGGCATATGCTGACAAGCCAACTCATTTT
+>Cov.19
+AAAATTATTCTTACATGGACCTCGACCCCTCATTGTGTAATTCAGGAAAAATATCTTCTAAGGCTGGTAATTCCATCTTTAGGAGCTTTCATTTCACTGAC
+>Cov.20
+CTTCTGGAATTTATAAATCTGTTTCTAACCAGTTGCTTCTTACAGTTCCTACGAAGGCAATCTGTCTGACTAAGCCTAAAAGCTTTACGCCAGTACAGGTT
+>Cov.21
+CGTGTTCTAATACTCAGTATAGTGCAGGCACTAGTCAACCTTATCACTATGCCTGGACTTCGTTTGGAGCTGATACTTGCTGTGGAGGTCGCTAGATGGTC
+>Cov.22
+AACCAGAAAATGATTGCTAATGCTTTCAACAACGCTTTAACGGCTATTCAGAATGGGTTCGATGCAACCAATTCTGCGCTAGCTAAGATTCAGTCTGTTGT
+>Cov.23
+TACATATGGTGATGACGGTCGTGTTACATTAATTAAACCTACTGACACTTATACGAGCGTCTATTTGGGTAAATTTAGAGGATTTGATACTAGTACGAC
+>Cov.24
+TAACCTTCACAATGAGAAGTGACAGTGTTAAGATTATTGCTATTTTGGTTTTAACACCTTTGTTAATAGCACTAGTAGTTGGAGTTTGTCTCCTTTATCT
+>Cov.25
+AATAGAGGAAGACAATTTTATAAGTTTTACAGTGATGCAAAACCCCCTGTTTTAGATTTGGATGACGTCTAGTTCATCTAAACATTATGAGTGGTCAAGCA
+>Other.1
+CCCCTACTCACATGTCAGAGAATCCTGAGGCGGCATTGCAATTATGGCTTATGGTTCTCGCTACCGAGGTTATCGGCGTCGCCGACGCATGTTCTCCCGTA
+>Other.2
+GATCTGGGGCCTTGTCCGGAGTGCTTTACACACGGCTCAAGGTTAAAAAACGCCTAGCCCCACAGAGCCCGAGGGATTCGGGTTTTCCCTTTAAAA
+>Other.3
+CAATATGGAGGCAGCAAGTGTTAATCTTCTTGTTGAGGACAGCTGGTTTGAGGAGTCTGACTTCTCTCAAGATGTCGAGTGCACTATGCTTCTCGATGGTC
+>Other.4
+TACCTGCTGCCCAAAAAGCAAGACGAGCTGCAGTGGGCGTGGACCAACATCAACGAGTATAAAAGCGCGGCGCTCAACCTCGCCGAAAGAGACCCCCTCGT
+>Other.5
+CAAGCAACAACTGGCCATCAAAGTCACGTGCAACTCCGTCTACGGCTTCACGGGGGTGGCGTCGGGCCTGCTGCCCTGTATCCGGATCGCGGAGACCGTGA
+>Other.6
+CAGCCTCTATCCCAGCATCATCCAGGCCCACAACCTCTGCTACTCGACCACGATCCACCCCGCCGACCTGCCGCGACACGGCCTCGGTCCCGGGGACTACG
+>Other.7
+GAGGGCAAGATGACCGCAAAGGTCGTCGAGGCCGCGAAATGCATCCTGGGCGGAAGCAGAGTCCGCGTCGACCAGAAGTGCAAGTCCTCCCAGCAGATCGA
+>Other.8
+CAGCCTGTCCGACTACAAGCTCAACACGGTGGCCGCCTATTGCCTGAAGTCTCAGAAGGACGACGTCTCCTACAAGGAGATCCCCGTCCTCTTTCGTCAGG
+>Other.9
+AGAACATCACTGTAGTCAGGATAGGCTGTGAAGAAAGGCCTGAACACACTCAACCAATCAGAGACAGGATGCTCAACATCAACCTGACTCATACTCTGCCT
+>Other.10
+GAGGTCCGAGGTGTCCTGCACGGTGAACTTGGTCAGATCGCGGCTCGAGGTCATGTACATGAGGTTTCCCAGTAGAGGGGTGGAGGTCGCTAGATGGTC
+>Other.11
+GGGGGCCTTGGTGGGATGGATATAATCAGCAGAATACAGTTATTCTGGATGATTTTTATGGGTGGATTTCTTTTGATGAGTTGCTGCGAGTTATGGATCGC
+>Other.12
+AATCCGAGTGGTTGAAGCGCGTGAAGGAGACGGACATCGACTCCCCGCAGACGCTGGAGAGGCTGCTGAAGACGGCGCCGAACGAGACGATCCTGGCGAA
+>Other.13
+GCCACACGAGCACGGAGAGTTAAAAGGGACTCTGCGCCAAATTTGTACAGACAATGTCAAGTAACTGGTAACTGCCCACCAGTGGAGGTCGCTAGATGGTC
+>Other.14
+ATGCCCGACGGCGAGGATCTCGTCGTGACCCATGGCGATGCCTGCTTGCCGAATATCATGGTGGAAAATGGCCGCTTTTCTGGATTCATCGACTGTGGCCG
+>Other.15
+TGTTCAACATTCAAGTCAAAGAGGTCACGACGGTCGACTCGACGACGACAGTCGCTAATAACCTTACCAGCACGGTTCAAGTCTTTACGGACGACGAGTAC
+>Other.16
+GACTGGCAGAGACTCGTCAATAACCACTGGGGCTTTAGACCCAAAAACCTGCGAGTCAAGCTGTTCAACATTCAAGTCAAAGAGGTCACGACGGTCGACTC
+>Other.17
+CCCAAGCCCTACCAAGGATCGATGTTCTGCTGGCAATGTAGGGCCACCCATTGCCTGAAAGGCAGATTTTGTACAGTAAGTTTTCATATGGATTCCTATC
+>Other.18
+AGCATAGCGTAGATCATACCCTAGCAGAGATCTATTCCTGCCCGAAGGGCGCACTCACCGGAATACTCAGGTCCCGCCAAGTGTGGAGGTCGCTAGATGG
+>Other.19
+TGGGAGATACTGAGAACCCTACCCGTTACCAACCAGGGGGTGCAAAGGACAACCGTCAGAATACATCCCTGGACCCTAAACAAACACAGATGTTAGTTGTG
+>Other.20
+CGGCACGTTGTCGGCGTCCATCTGGGCGAAGAGGCGCTCGTCCGCCGACGTGCGCCGCGGGGGCAGCTCTCTGCCGACGGGTCTCGGTGTATTCAAGG
+>Other.21
+GTCCGTGATCAGCACGGCCTCTTCCGTGATCTTGTTCGTGCCGCCCATGATCTCGTCCATGAACGAGCCGGGCATGAACATGTTGGCCGTCTTGCGCACCT
+>Other.22
+AATGGGGCGCGTGCTGTTCGGACGTCTCGCTGCAGCAATGCATGCAAACAATGGCGTTGATATTGGTTCCGCCGTTGGGACAAATCCGGACATAGACTGG
+>Other.23
+CATCAAAGTTCCAGACCCAACCGGGTCTGGAGCTTGGCTCAGCCATTGGGTGTGACCCAGACGTCCACTGGACCAAATATCAGTGGAGGTCGCTAGATGGT
+>Other.24
+GCGACGATGCATTCTCCTCGAAGTTCTCCAAGGTGATCGCTAACTTTCCAGGGGTCGAGTTCCCCGCACTGAGAATAGGTGAGTAGGAAGTAGCGGGCATT
+>Other.25
+ACCACCCCAGAATGGTTACACGCAGGACCAACCACCACAAACCACGTCGGGTCGCAACATCCGTTCTCAAAGTTTCCACACTCTGCCACGTGAGCATGATG
