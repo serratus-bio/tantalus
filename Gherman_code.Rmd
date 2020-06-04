@@ -20,15 +20,11 @@ library("gridExtra")
 library("dplyr")
 #for exploring
 library("plotly")
+library("grid")
 
 ```
 
 ```{r}
-#Function – familyScore: input the serratus object; output – ggplot – full page with all families;
-#histogram with family scores;
-familyScore <- function(){
-  
-}
 
 ```
 
@@ -53,6 +49,8 @@ time.taken <- end.time - start.time
 time.taken
 
 save(ZOO, file="../ZOO.RData")
+
+load("../ZOO.RData")
 
 #magor_problem <- c("../200528_viro/ERR2002982.summary")
 #x <- readSerratus( magor_problem )
@@ -91,5 +89,72 @@ ggplot(data=Coronaviridae, aes(x=Coronaviridae$score, y=Coronaviridae$pctid)) +
   theme_bw() +
   labs(x = "Family score", y = "Percentage identity") +
   labs(title = "Coronaviridae family")
+```
+
+```{r}
+p <- ggplot(data=Coronaviridae, aes(x=Coronaviridae$score, y=Coronaviridae$pctid)) +
+  geom_point(size=3, color="blue") + 
+  theme_bw() +
+  labs(x = "Family score", y = "Percentage identity") +
+  labs(title = "Coronaviridae family")
+
+ggExtra::ggMarginal(p, type = "histogram")
+```
+
+```{r}
+p1 <- ggplot(data=Coronaviridae, aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - all")
+p2 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 50), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 50+")
+p3 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 60), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 60+")
+p4 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 70), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 70+")
+p5 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 80), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 80+")
+p6 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 90), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 90+")
+p7 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 90), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 90+")
+p8 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 90), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 90+")
+
+
+grid.newpage()
+grid.draw(rbind(ggplotGrob(p1),
+                ggplotGrob(p2),
+                ggplotGrob(p3),
+                ggplotGrob(p4),
+                ggplotGrob(p5),
+                ggplotGrob(p6),
+                ggplotGrob(p7),
+                ggplotGrob(p8),
+                 ggplotGrob(p8),
+                 ggplotGrob(p8),
+                size = "last"))
 ```
 
