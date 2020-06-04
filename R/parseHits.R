@@ -21,12 +21,12 @@ parseHits <- function(hit, sra = ''){
 
   acc          <- as.character(hit.table[ hit.table[,1] == 'acc' , 2])
   pctid        <- as.numeric(as.character(hit.table[ hit.table[,1] == 'pctid', 2]))
-  aln          <- as.numeric(hit.table[ hit.table[,1] == 'aln', 2])
+  aln          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'aln', 2]))
   glb          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'glb', 2]))
   len          <- as.numeric(as.character(hit.table[ hit.table[,1] == 'len', 2]))[1] #duplicated for sm reason
   cvgpct       <- as.numeric(as.character(hit.table[ hit.table[,1] == 'cvgpct', 2]))
-  depth        <- as.numeric(hit.table[ hit.table[,1] == 'depth', 2])
-  cvg          <- as.character(as.character(hit.table[ hit.table[,1] == 'cvg', 2]))
+  depth        <- as.numeric(as.character(hit.table[ hit.table[,1] == 'depth', 2]))
+  cvg          <- as.character(hit.table[ hit.table[,1] == 'cvg', 2])
   fam          <- as.character(hit.table[ hit.table[,1] == 'fam', 2])
   #name         <- as.character(hit.table[ hit.table[,1] == 'name', 2])
   name         <- as.character(name)
