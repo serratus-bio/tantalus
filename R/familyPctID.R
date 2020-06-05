@@ -21,7 +21,7 @@ familyPctID <- function(serratus, family_name, score_threshold = 0, title="", x1
   p <- ggplot(data=family_df[which(family_df$score >= score_threshold), ], aes(pctid)) + 
     geom_histogram(fill="blue", bins = 30) +
     theme_bw() + 
-    xlim(c(x1,x2)) +
+    coord_cartesian(xlim=c(x1,x2)) +
     labs(x = "Percentage Identity") +
     labs(title = title)
   

@@ -20,7 +20,7 @@ familyScore <- function(serratus, family_name, x1=0, x2=100){
   p <- ggplot(data=family_df, aes(family_df$score)) + 
     geom_histogram(fill="blue", bins = 30) +
     theme_bw() +
-    xlim(c(x1,x2)) +
+    coord_cartesian(xlim=c(x1,x2)) +
     labs(x = "Family score") +
     labs(title = paste(family_name, "family", sep = " "))
   

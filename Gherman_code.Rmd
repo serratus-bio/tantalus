@@ -29,7 +29,8 @@ library("grid")
 ```
 
 ```{r, include = FALSE}
-DATA_PATH='../200528_viro/'
+#DATA_PATH='../200528_viro/'
+DATA_PATH='../200525_vert/'
 sumWheres <- paste0( DATA_PATH,
                      system( paste0("ls ", DATA_PATH), intern = T ))
 
@@ -42,15 +43,17 @@ sumWheres <- paste0( DATA_PATH,
 
 start.time <- Sys.time()
 
-ZOO <- readSerratus( sumWheres )
+#ZOO <- readSerratus( sumWheres )
+VERT <- readSerratus( sumWheres )
 
 end.time <- Sys.time()
 time.taken <- end.time - start.time
 time.taken
 
-save(ZOO, file="../ZOO.RData")
+#save(ZOO, file="../ZOO.RData")
+save(VERT, file="../VERT.RData")
 
-load("../ZOO.RData")
+load("../VERT.RData")
 
 #magor_problem <- c("../200528_viro/ERR2002982.summary")
 #x <- readSerratus( magor_problem )
@@ -60,89 +63,21 @@ x <- readSerratus( "../test.summary" )
 ```
 
 ```{r}
-#TEST
-families <- unique(ZOO@family$family)
-Coronaviridae <- ZOO@family %>% filter(family %in% c("Coronaviridae"))
-
-#fig <- plot_ly(x = Coronaviridae$score, type = "histogram")
-#fig
-
-ggplot(data=Coronaviridae, aes(Coronaviridae$score)) + 
-  geom_histogram(fill="blue", bins = 100) +
-  theme_bw() +
-  labs(x = "Family score") +
-  labs(title = "Coronaviridae family")
+familyScore(VERT, "Coronaviridae")
 ```
 
 ```{r}
-#TEST
-#familyScorPctID function – input serratus objects; output – ggplot with scatter plot
-ggplot(data=Coronaviridae, aes(x=Coronaviridae$score, y=Coronaviridae$pctid)) +
-  geom_point(size=3, color="blue") + 
-  theme_bw() +
-  labs(x = "Family score", y = "Percentage identity") +
-  labs(title = "Coronaviridae family")
-```
-```{r}
-ggplot(data=Coronaviridae, aes(x=Coronaviridae$score, y=Coronaviridae$pctid)) +
-  geom_hex(bins=30) + 
-  theme_bw() +
-  labs(x = "Family score", y = "Percentage identity") +
-  labs(title = "Coronaviridae family")
+x <- familyScorPctID(VERT, "Coronaviridae")
+x
 ```
 
 ```{r}
-p <- ggplot(data=Coronaviridae, aes(x=Coronaviridae$score, y=Coronaviridae$pctid)) +
-  geom_point(size=3, color="blue") + 
-  theme_bw() +
-  labs(x = "Family score", y = "Percentage identity") +
-  labs(title = "Coronaviridae family")
-
-ggExtra::ggMarginal(p, type = "histogram")
-```
-
-```{r}
-p1 <- ggplot(data=Coronaviridae, aes(pctid)) + 
-  geom_histogram( bins = 30) +
-  theme_bw() + xlim(c(75,100)) +
-  labs(x = "Percentage Identity") +
-  labs(title = "Coronaviridae - all")
-p2 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 50), ], aes(pctid)) + 
-  geom_histogram( bins = 30) +
-  theme_bw() + xlim(c(75,100)) +
-  labs(x = "Percentage Identity") +
-  labs(title = "Coronaviridae - 50+")
-p3 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 60), ], aes(pctid)) + 
-  geom_histogram( bins = 30) +
-  theme_bw() + xlim(c(75,100)) +
-  labs(x = "Percentage Identity") +
-  labs(title = "Coronaviridae - 60+")
-p4 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 70), ], aes(pctid)) + 
-  geom_histogram( bins = 30) +
-  theme_bw() + xlim(c(75,100)) +
-  labs(x = "Percentage Identity") +
-  labs(title = "Coronaviridae - 70+")
-p5 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 80), ], aes(pctid)) + 
-  geom_histogram( bins = 30) +
-  theme_bw() + xlim(c(75,100)) +
-  labs(x = "Percentage Identity") +
-  labs(title = "Coronaviridae - 80+")
-p6 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 90), ], aes(pctid)) + 
-  geom_histogram( bins = 30) +
-  theme_bw() + xlim(c(75,100)) +
-  labs(x = "Percentage Identity") +
-  labs(title = "Coronaviridae - 90+")
-p7 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 90), ], aes(pctid)) + 
-  geom_histogram( bins = 30) +
-  theme_bw() + xlim(c(75,100)) +
-  labs(x = "Percentage Identity") +
-  labs(title = "Coronaviridae - 90+")
-p8 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 90), ], aes(pctid)) + 
-  geom_histogram( bins = 30) +
-  theme_bw() + xlim(c(75,100)) +
-  labs(x = "Percentage Identity") +
-  labs(title = "Coronaviridae - 90+")
-
+p1 <- familyPctID(VERT, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100)
+p2 <- familyPctID(VERT, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100)
+p3 <- familyPctID(VERT, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100)
+p4 <- familyPctID(VERT, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100)
+p5 <- familyPctID(VERT, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100)
+p6 <- familyPctID(VERT, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100)
 
 grid.newpage()
 grid.draw(rbind(ggplotGrob(p1),
@@ -151,10 +86,5 @@ grid.draw(rbind(ggplotGrob(p1),
                 ggplotGrob(p4),
                 ggplotGrob(p5),
                 ggplotGrob(p6),
-                ggplotGrob(p7),
-                ggplotGrob(p8),
-                 ggplotGrob(p8),
-                 ggplotGrob(p8),
                 size = "last"))
 ```
-
