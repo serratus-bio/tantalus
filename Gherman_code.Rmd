@@ -30,7 +30,8 @@ library("grid")
 
 ```{r, include = FALSE}
 #DATA_PATH='../200528_viro/'
-DATA_PATH='../200525_vert/'
+#DATA_PATH='../200525_vert/'
+DATA_PATH='../200530_hu1/'
 sumWheres <- paste0( DATA_PATH,
                      system( paste0("ls ", DATA_PATH), intern = T ))
 
@@ -44,16 +45,17 @@ sumWheres <- paste0( DATA_PATH,
 start.time <- Sys.time()
 
 #ZOO <- readSerratus( sumWheres )
-VERT <- readSerratus( sumWheres )
+HU1 <- readSerratus( sumWheres )
 
 end.time <- Sys.time()
 time.taken <- end.time - start.time
 time.taken
 
-#save(ZOO, file="../ZOO.RData")
-save(VERT, file="../VERT.RData")
+#save(ZOO, file="../VIRO.RData")
+#save(VERT, file="../VERT.RData")
+save(HU1, file="../HU1.RData")
 
-load("../VERT.RData")
+load("../HU1.RData")
 
 #magor_problem <- c("../200528_viro/ERR2002982.summary")
 #x <- readSerratus( magor_problem )
@@ -63,21 +65,21 @@ x <- readSerratus( "../test.summary" )
 ```
 
 ```{r}
-familyScore(VERT, "Coronaviridae")
+familyScore(HU1, "Coronaviridae")
 ```
 
 ```{r}
-x <- familyScorPctID(VERT, "Coronaviridae")
+x <- familyScorPctID(HU1, "Coronaviridae")
 x
 ```
 
 ```{r}
-p1 <- familyPctID(VERT, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100)
-p2 <- familyPctID(VERT, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100)
-p3 <- familyPctID(VERT, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100)
-p4 <- familyPctID(VERT, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100)
-p5 <- familyPctID(VERT, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100)
-p6 <- familyPctID(VERT, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100)
+p1 <- familyPctID(HU1, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100)
+p2 <- familyPctID(HU1, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100)
+p3 <- familyPctID(HU1, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100)
+p4 <- familyPctID(HU1, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100)
+p5 <- familyPctID(HU1, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100)
+p6 <- familyPctID(HU1, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100)
 
 grid.newpage()
 grid.draw(rbind(ggplotGrob(p1),
@@ -88,3 +90,92 @@ grid.draw(rbind(ggplotGrob(p1),
                 ggplotGrob(p6),
                 size = "last"))
 ```
+
+## Chao-1 analysis
+
+Building an OTU-SRA correspondance file:
+```{r}
+load("../VIRO.RData")
+#
+load("../VERT.RData")
+#
+load("../HU1.RData")
+
+otus <- read.table("../data/otus92.tsv", sep="\t", stringsAsFactors = F)
+colnames(otus) <- c("OTU", "NAME")
+cov3ma <- read.table("../data/cov3ma.sumzer.tsv", sep="\t", stringsAsFactors = F, quote = "", comment.char = "$")
+```
+
+```{r}
+################################################################################################################
+#VIRO
+################################################################################################################
+VIRO <- ZOO
+rm(ZOO)
+
+Coron_viro <- VIRO@family %>% filter(family %in% c("Coronaviridae")) %>%
+                         filter(score >= 80) %>%
+                         filter(pctid >= 95)
+
+accessions <- as.character(Coron_viro$top)
+accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
+Coron_viro$NAME <- accessions
+Coron_viro_short <- Coron_viro %>% dplyr::select("sra", "NAME")
+
+otus_viro <- merge(Coron_viro_short, otus, by="NAME")
+
+################################################################################################################
+#VERT
+################################################################################################################
+Coron_vert <- VERT@family %>% filter(family %in% c("Coronaviridae")) %>%
+                         filter(score >= 80) %>%
+                         filter(pctid >= 95)
+
+accessions <- as.character(Coron_vert$top)
+accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
+Coron_vert$NAME <- accessions
+Coron_vert_short <- Coron_vert %>% dplyr::select("sra", "NAME")
+
+otus_vert <- merge(Coron_vert_short, otus, by="NAME")
+
+################################################################################################################
+#VIRO
+################################################################################################################
+Coron_hu1 <- HU1@family %>% filter(family %in% c("Coronaviridae")) %>%
+                         filter(score >= 80) %>%
+                         filter(pctid >= 95)
+
+accessions <- as.character(Coron_hu1$top)
+accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
+Coron_hu1$NAME <- accessions
+Coron_hu1_short <- Coron_hu1 %>% dplyr::select("sra", "NAME")
+
+otus_hu1 <- merge(Coron_hu1_short, otus, by="NAME")
+
+```
+
+
+Count number of datasets per otu (species):
+```{r}
+otus_datasets <- rbind(otus_viro, otus_vert, otus_hu1)
+otus_datasets <- unique(otus_datasets)
+
+otus_species <- unique(otus$OTU)
+
+test <- sapply(otus_species, function(x) { otus_datasets %>% filter(OTU == x) %>% nrow() })
+
+res_abundance <- data.frame(OTU = as.character(), Number_of_datasets = as.numeric())
+for (otu_num in otus_species){
+  name_of_otu <- paste("OTU", otu_num, sep="")
+  num_of_datasets <- otus_datasets %>% filter(OTU == otu_num) %>% nrow()
+  
+  interim_res <- data.frame(OTU = name_of_otu, Number_of_datasets = num_of_datasets)
+  
+  res_abundance <- rbind(res_abundance, interim_res)
+}
+
+res_abundance <- res_abundance[order(-res_abundance$Number_of_datasets),]
+
+write.table(res_abundance, file="../data/otu_abundance.tsv", quote=F, sep="\t", row.names = F)
+```
+
