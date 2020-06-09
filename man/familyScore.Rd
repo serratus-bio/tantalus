@@ -4,7 +4,7 @@
 \alias{familyScore}
 \title{Plot a histogram of scores for a given family}
 \usage{
-familyScore(serratus, family_name, x1 = 0, x2 = 100)
+familyScore(serratus, family_name, x1 = 0, x2 = 100, log = F)
 }
 \arguments{
 \item{serratus}{serattus S4 object with family data frame}
@@ -14,6 +14,8 @@ familyScore(serratus, family_name, x1 = 0, x2 = 100)
 \item{x1}{left limit on x axis}
 
 \item{x2}{right limit on x axis}
+
+\item{log}{log10 y axis or not (default F)}
 }
 \value{
 ggplot

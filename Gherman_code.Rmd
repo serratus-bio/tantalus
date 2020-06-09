@@ -31,7 +31,9 @@ library("grid")
 ```{r, include = FALSE}
 #DATA_PATH='../200528_viro/'
 #DATA_PATH='../200525_vert/'
-DATA_PATH='../200530_hu1/'
+#DATA_PATH='../200530_hu1/'
+#DATA_PATH='../200606_mamm/'
+DATA_PATH='../200606_hu2/'
 sumWheres <- paste0( DATA_PATH,
                      system( paste0("ls ", DATA_PATH), intern = T ))
 
@@ -45,7 +47,7 @@ sumWheres <- paste0( DATA_PATH,
 start.time <- Sys.time()
 
 #ZOO <- readSerratus( sumWheres )
-HU1 <- readSerratus( sumWheres )
+HU2 <- readSerratus( sumWheres )
 
 end.time <- Sys.time()
 time.taken <- end.time - start.time
@@ -53,9 +55,12 @@ time.taken
 
 #save(ZOO, file="../VIRO.RData")
 #save(VERT, file="../VERT.RData")
-save(HU1, file="../HU1.RData")
+#save(HU1, file="../HU1.RData")
+#save(MAMM, file="../MAMM.RData")
+#save(HU2, file="../HU2.RData")
 
-load("../HU1.RData")
+load("../MAMM.RData")
+#load("../HU2.RData")
 
 #magor_problem <- c("../200528_viro/ERR2002982.summary")
 #x <- readSerratus( magor_problem )
@@ -65,21 +70,128 @@ x <- readSerratus( "../test.summary" )
 ```
 
 ```{r}
-familyScore(HU1, "Coronaviridae")
+familyScore(HU2, "Coronaviridae")
 ```
 
 ```{r}
-x <- familyScorPctID(HU1, "Coronaviridae")
+#PCTID vs fscore
+library(RColorBrewer)
+blues <- colorRampPalette(c('light blue', 'dark blue'))
+
+#new plot
+#family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
+family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
+
+test <- family_df$score
+test2 <- sapply(test, function(x){
+  if ((x <= 100) & (x > 95)){
+  return("95-100")
+  } else if ((x <= 95) & (x > 85)){
+    return("85-95")
+  } else if ((x <= 85) & (x > 75)){
+    return("75-85")
+  } else if ((x <= 75) & (x > 65)){
+    return("65-75")
+  } else if ((x <= 65) & (x > 55)){
+    return("55-65")
+  } else if ((x <= 55) & (x > 45)){
+    return("45-55")
+  } else if ((x <= 45) & (x > 35)){
+    return("35-45")
+  } else if ((x <= 35) & (x > 25)){
+    return("25-35")
+  } else if ((x <= 25) & (x > 15)){
+    return("15-25")
+  } else if ((x <= 15) & (x > 5)){
+    return("5-15")
+  } else {
+    return("0-5")
+  }
+})
+
+test2 <- factor(test2, levels = c("0-5", "5-15", "15-25", "25-35", "35-45", "45-55", "55-65", "65-75", "75-85", "85-95", "95-100"))
+
+family_df$score_intervals <- test2
+
+ggplot(family_df, aes(pctid, fill = score_intervals)) +
+  geom_histogram(color="black", bins = 30) +
+  scale_fill_manual(values = c(blues(length(levels(test2))))) +
+  scale_y_log10() +
+  theme_bw()
+
+```
+
+
+```{r}
+#FSCORE vs pctid
+library(RColorBrewer)
+library(viridis)
+library(scales)
+blues <- colorRampPalette(c('light blue', 'dark blue'))
+
+#new plot
+family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
+#family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
+
+test <- family_df$pctid
+test2 <- sapply(test, function(x){
+  if ((x <= 100) & (x > 97)){
+  return("97-100")
+  } else if ((x <= 97) & (x > 94)){
+    return("94-97")
+  } else if ((x <= 94) & (x > 91)){
+    return("91-94")
+  } else if ((x <= 91) & (x > 88)){
+    return("88-91")
+  } else if ((x <= 88) & (x > 85)){
+    return("85-88")
+  } else if ((x <= 85) & (x > 82)){
+    return("82-85")
+  } else {
+    return("<82")
+  }
+})
+
+test2 <- factor(test2, levels = c("<82", "82-85", "85-88", "88-91", "91-94", "94-97", "97-100"))
+
+family_df$pctid_intervals <- test2
+
+y <- factor(family_df$pctid, levels = sort(unique(family_df$pctid), decreasing = F))
+family_df$pctd <- y
+
+ggplot(family_df, aes(score, fill = pctid_intervals)) +
+  geom_histogram(color="black", bins = 30) +
+  scale_fill_viridis(discrete=TRUE)+
+  #scale_fill_manual(values = c(blues(length(levels(test2))))) +
+  #scale_y_log10() +
+  scale_y_continuous(trans = log10_trans(),
+    breaks = trans_breaks("log10", function(x) 10^x),
+    labels = trans_format("log10", math_format(10^.x))) +
+  theme_bw()
+
+#ggplot(family_df, aes(score)) +
+#  geom_histogram(aes(fill = pctd), bins = 30) +
+  #scale_fill_gradient("Legend",low = "green", high = "blue") +
+#  scale_fill_viridis(discrete=TRUE)+
+  #scale_fill_manual(values = c(blues(length(levels(test2))))) +
+#  scale_y_log10() +
+#  theme_bw()
+
+```
+
+
+```{r}
+x <- familyScorPctID(HU2, "Coronaviridae")
 x
 ```
 
 ```{r}
-p1 <- familyPctID(HU1, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100)
-p2 <- familyPctID(HU1, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100)
-p3 <- familyPctID(HU1, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100)
-p4 <- familyPctID(HU1, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100)
-p5 <- familyPctID(HU1, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100)
-p6 <- familyPctID(HU1, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100)
+p1 <- familyPctID(HU2, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100)
+p2 <- familyPctID(HU2, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100)
+p3 <- familyPctID(HU2, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100)
+p4 <- familyPctID(HU2, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100)
+p5 <- familyPctID(HU2, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100)
+p6 <- familyPctID(HU2, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100)
 
 grid.newpage()
 grid.draw(rbind(ggplotGrob(p1),
@@ -178,4 +290,3 @@ res_abundance <- res_abundance[order(-res_abundance$Number_of_datasets),]
 
 write.table(res_abundance, file="../data/otu_abundance.tsv", quote=F, sep="\t", row.names = F)
 ```
-

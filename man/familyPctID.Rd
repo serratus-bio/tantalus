@@ -10,7 +10,8 @@ familyPctID(
   score_threshold = 0,
   title = "",
   x1 = 0,
-  x2 = 100
+  x2 = 100,
+  log = F
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ familyPctID(
 \item{x1}{left limit on x axis}
 
 \item{x2}{right limit on x axis}
+
+\item{log}{log10 y axis or not (default F)}
 }
 \value{
 ggplot
