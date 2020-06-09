@@ -79,8 +79,8 @@ library(RColorBrewer)
 blues <- colorRampPalette(c('light blue', 'dark blue'))
 
 #new plot
-#family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
-family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
+family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
+#family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 
 test <- family_df$score
 test2 <- sapply(test, function(x){
@@ -115,12 +115,15 @@ family_df$score_intervals <- test2
 
 ggplot(family_df, aes(pctid, fill = score_intervals)) +
   geom_histogram(color="black", bins = 30) +
-  scale_fill_manual(values = c(blues(length(levels(test2))))) +
-  scale_y_log10() +
+  #scale_fill_manual(values = c(blues(length(levels(test2))))) +
+  scale_fill_viridis(discrete=TRUE)+
+  #scale_y_log10() +
+  yscale("log10", .format = TRUE) +
   theme_bw()
 
 ```
 
+## FSCORE vs pctid
 
 ```{r}
 #FSCORE vs pctid
@@ -130,8 +133,8 @@ library(scales)
 blues <- colorRampPalette(c('light blue', 'dark blue'))
 
 #new plot
-family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
-#family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
+#family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
+family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 
 test <- family_df$pctid
 test2 <- sapply(test, function(x){
@@ -162,11 +165,10 @@ family_df$pctd <- y
 ggplot(family_df, aes(score, fill = pctid_intervals)) +
   geom_histogram(color="black", bins = 30) +
   scale_fill_viridis(discrete=TRUE)+
-  #scale_fill_manual(values = c(blues(length(levels(test2))))) +
-  #scale_y_log10() +
-  scale_y_continuous(trans = log10_trans(),
-    breaks = trans_breaks("log10", function(x) 10^x),
-    labels = trans_format("log10", math_format(10^.x))) +
+  #scale_y_continuous(trans = log10_trans(),
+  #  breaks = trans_breaks("log10", function(x) 10^x),
+  #  labels = trans_format("log10", math_format(10^.x))) +
+  yscale("log10", .format = TRUE)+
   theme_bw()
 
 #ggplot(family_df, aes(score)) +
