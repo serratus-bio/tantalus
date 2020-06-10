@@ -61,8 +61,9 @@ time.taken
 #save(MAMM, file="../MAMM.RData")
 #save(HU2, file="../HU2.RData")
 
+load("../VIRO.RData")
 #load("../MAMM.RData")
-load("../HU2.RData")
+#load("../HU2.RData")
 
 #magor_problem <- c("../200528_viro/ERR2002982.summary")
 #x <- readSerratus( magor_problem )
@@ -250,3 +251,41 @@ res_abundance <- res_abundance[order(-res_abundance$Number_of_datasets),]
 
 write.table(res_abundance, file="../data/otu_abundance.tsv", quote=F, sep="\t", row.names = F)
 ```
+
+
+## Playing with SRA files
+
+```{r}
+# Download SraRunInfo File - Meta-Meta-Virome
+if ( !file.exists('Sra/viro_SraRunInfo.csv') ){
+  getSraRunInfo(runInfo = "viro_SraRunInfo.csv",
+                s3_path = "s3://serratus-public/out/200528_viro/",
+                local_path = "Sra")
+}
+# Parse SraRunInfo.csv file into a SraRunInfo Object
+sra_path='../sra/viro_SraRunInfo.csv'
+RUNINFO <- readSraRunInfo(sra_path) 
+RUNINFO_vert <- readSraRunInfo('../sra/vert_sraRunInfo.csv')
+
+load("../VIRO.RData")
+load("../VERT.RData")
+#load("../HU1.RData")
+
+atys_viro <- Atys(Serratus = ZOO,
+                  SRA = RUNINFO,
+                  GENOME="")
+
+atys_vert <- Atys(Serratus = VERT,
+                  SRA = RUNINFO_vert,
+                  GENOME="")
+
+saveRDS(atys_viro, "../Atys/viro_atys.rds")
+saveRDS(atys_vert, "../Atys/vert_atys.rds")
+
+DATA_PATH='../Atys/'
+
+
+parseAtys(DATA_PATH)
+#######################################################################
+```
+
