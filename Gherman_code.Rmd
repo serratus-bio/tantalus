@@ -70,7 +70,7 @@ x <- readSerratus( "../test.summary" )
 ```
 
 ```{r}
-familyScore(HU2, "Coronaviridae")
+familyScore(HU2, "Coronaviridae", log=T)
 ```
 
 ```{r}
@@ -133,8 +133,8 @@ library(scales)
 blues <- colorRampPalette(c('light blue', 'dark blue'))
 
 #new plot
-#family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
-family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
+family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
+#family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 
 test <- family_df$pctid
 test2 <- sapply(test, function(x){
@@ -171,13 +171,11 @@ ggplot(family_df, aes(score, fill = pctid_intervals)) +
   yscale("log10", .format = TRUE)+
   theme_bw()
 
-#ggplot(family_df, aes(score)) +
-#  geom_histogram(aes(fill = pctd), bins = 30) +
-  #scale_fill_gradient("Legend",low = "green", high = "blue") +
-#  scale_fill_viridis(discrete=TRUE)+
-  #scale_fill_manual(values = c(blues(length(levels(test2))))) +
-#  scale_y_log10() +
-#  theme_bw()
+#Possible way around
+ggplot(family_df %>% group_by(score,pctid_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), aes(score, log10n,fill = pctid_intervals)) +
+  geom_bar(color="black",stat = "identity") +
+  scale_fill_viridis(discrete=TRUE) + 
+  theme_bw()
 
 ```
 
