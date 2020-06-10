@@ -61,8 +61,8 @@ time.taken
 #save(MAMM, file="../MAMM.RData")
 #save(HU2, file="../HU2.RData")
 
-load("../MAMM.RData")
-#load("../HU2.RData")
+#load("../MAMM.RData")
+load("../HU2.RData")
 
 #magor_problem <- c("../200528_viro/ERR2002982.summary")
 #x <- readSerratus( magor_problem )
@@ -72,7 +72,7 @@ x <- readSerratus( "../test.summary" )
 ```
 
 ```{r}
-familyScore(MAMM, "Coronaviridae", log=T)
+familyScore(HU2, "Coronaviridae", log=T)
 ```
 
 ```{r}
@@ -81,7 +81,7 @@ library(RColorBrewer)
 blues <- colorRampPalette(c('light blue', 'dark blue'))
 
 #new plot
-family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
+family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
 #family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 
 test <- family_df$score
@@ -139,7 +139,7 @@ library(RColorBrewer)
 blues <- colorRampPalette(c('light blue', 'dark blue'))
 
 #new plot
-family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
+family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
 #family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 
 test <- family_df$pctid
@@ -193,12 +193,12 @@ x
 ```
 
 ```{r}
-p1 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100, log=T)
-p2 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100, log=T)
-p3 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100, log=T)
-p4 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100, log=T)
-p5 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100, log=T)
-p6 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100, log=T)
+p1 <- familyPctID(HU2, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100, log=T)
+p2 <- familyPctID(HU2, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100, log=T)
+p3 <- familyPctID(HU2, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100, log=T)
+p4 <- familyPctID(HU2, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100, log=T)
+p5 <- familyPctID(HU2, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100, log=T)
+p6 <- familyPctID(HU2, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100, log=T)
 
 grid.newpage()
 grid.draw(rbind(ggplotGrob(p1),

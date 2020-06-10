@@ -11,7 +11,10 @@ Imports:
     methods,
     dplyr,
     ggExtra,
-    utils
+    utils,
+    scales,
+    viridis,
+    ggpubr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
