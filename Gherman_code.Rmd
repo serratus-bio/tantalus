@@ -76,60 +76,13 @@ familyScore(HU2, "Coronaviridae", log=T)
 ```
 
 ```{r}
-#PCTID vs fscore
-library(RColorBrewer)
-blues <- colorRampPalette(c('light blue', 'dark blue'))
-
-#new plot
-family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
-#family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
-
-test <- family_df$score
-test2 <- sapply(test, function(x){
-  if ((x <= 100) & (x > 95)){
-  return("95-100")
-  } else if ((x <= 95) & (x > 85)){
-    return("85-95")
-  } else if ((x <= 85) & (x > 75)){
-    return("75-85")
-  } else if ((x <= 75) & (x > 65)){
-    return("65-75")
-  } else if ((x <= 65) & (x > 55)){
-    return("55-65")
-  } else if ((x <= 55) & (x > 45)){
-    return("45-55")
-  } else if ((x <= 45) & (x > 35)){
-    return("35-45")
-  } else if ((x <= 35) & (x > 25)){
-    return("25-35")
-  } else if ((x <= 25) & (x > 15)){
-    return("15-25")
-  } else if ((x <= 15) & (x > 5)){
-    return("5-15")
-  } else {
-    return("0-5")
-  }
-})
-
-test2 <- factor(test2, levels = c("0-5", "5-15", "15-25", "25-35", "35-45", "45-55", "55-65", "65-75", "75-85", "85-95", "95-100"))
-
-family_df$score_intervals <- test2
-
-#ggplot(family_df, aes(pctid, fill = score_intervals)) +
-#  geom_histogram(color="black", bins = 30) +
-  #scale_fill_manual(values = c(blues(length(levels(test2))))) +
-#  scale_fill_viridis(discrete=TRUE)+
-  #scale_y_log10() +
-#  yscale("log10", .format = TRUE) +
-#  theme_bw()
-
-
-ggplot(family_df %>% group_by(pctid,score_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), aes(pctid, log10n,fill = score_intervals)) +
-  geom_bar(color="black",stat = "identity") +
-  scale_fill_viridis(discrete=TRUE) + 
-  theme_bw() +
-  labs(title = "Coronaviridae")
+pctidInScoreIntervals(HU2, "Coronaviridae", title="Coronaviridae in HU2")
 ```
+
+```{r}
+scoreInPctidIntervals(HU2, "Coronaviridae", title="Coronaviridae in HU2")
+```
+
 
 ## FSCORE vs pctid
 
