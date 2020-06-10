@@ -21,7 +21,9 @@ library("dplyr")
 #for exploring
 library("plotly")
 library("grid")
-
+library("scales")
+library("viridis")
+library("ggpubr")
 ```
 
 ```{r}
@@ -70,7 +72,7 @@ x <- readSerratus( "../test.summary" )
 ```
 
 ```{r}
-familyScore(HU2, "Coronaviridae", log=T)
+familyScore(MAMM, "Coronaviridae", log=T)
 ```
 
 ```{r}
@@ -79,7 +81,7 @@ library(RColorBrewer)
 blues <- colorRampPalette(c('light blue', 'dark blue'))
 
 #new plot
-family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
+family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 #family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 
 test <- family_df$score
@@ -113,14 +115,20 @@ test2 <- factor(test2, levels = c("0-5", "5-15", "15-25", "25-35", "35-45", "45-
 
 family_df$score_intervals <- test2
 
-ggplot(family_df, aes(pctid, fill = score_intervals)) +
-  geom_histogram(color="black", bins = 30) +
+#ggplot(family_df, aes(pctid, fill = score_intervals)) +
+#  geom_histogram(color="black", bins = 30) +
   #scale_fill_manual(values = c(blues(length(levels(test2))))) +
-  scale_fill_viridis(discrete=TRUE)+
+#  scale_fill_viridis(discrete=TRUE)+
   #scale_y_log10() +
-  yscale("log10", .format = TRUE) +
-  theme_bw()
+#  yscale("log10", .format = TRUE) +
+#  theme_bw()
 
+
+ggplot(family_df %>% group_by(pctid,score_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), aes(pctid, log10n,fill = score_intervals)) +
+  geom_bar(color="black",stat = "identity") +
+  scale_fill_viridis(discrete=TRUE) + 
+  theme_bw() +
+  labs(title = "Coronaviridae")
 ```
 
 ## FSCORE vs pctid
@@ -128,12 +136,10 @@ ggplot(family_df, aes(pctid, fill = score_intervals)) +
 ```{r}
 #FSCORE vs pctid
 library(RColorBrewer)
-library(viridis)
-library(scales)
 blues <- colorRampPalette(c('light blue', 'dark blue'))
 
 #new plot
-family_df <- HU2@family %>% filter(family %in% c("Coronaviridae"))
+family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 #family_df <- MAMM@family %>% filter(family %in% c("Coronaviridae"))
 
 test <- family_df$pctid
@@ -162,20 +168,21 @@ family_df$pctid_intervals <- test2
 y <- factor(family_df$pctid, levels = sort(unique(family_df$pctid), decreasing = F))
 family_df$pctd <- y
 
-ggplot(family_df, aes(score, fill = pctid_intervals)) +
-  geom_histogram(color="black", bins = 30) +
-  scale_fill_viridis(discrete=TRUE)+
+#ggplot(family_df, aes(score, fill = pctid_intervals)) +
+#  geom_histogram(color="black", bins = 30) +
+#  scale_fill_viridis(discrete=TRUE)+
   #scale_y_continuous(trans = log10_trans(),
   #  breaks = trans_breaks("log10", function(x) 10^x),
   #  labels = trans_format("log10", math_format(10^.x))) +
-  yscale("log10", .format = TRUE)+
-  theme_bw()
+#  yscale("log10", .format = TRUE)+
+#  theme_bw()
 
 #Possible way around
 ggplot(family_df %>% group_by(score,pctid_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), aes(score, log10n,fill = pctid_intervals)) +
   geom_bar(color="black",stat = "identity") +
   scale_fill_viridis(discrete=TRUE) + 
-  theme_bw()
+  theme_bw() +
+  labs(title = "Coronaviridae")
 
 ```
 
@@ -186,12 +193,12 @@ x
 ```
 
 ```{r}
-p1 <- familyPctID(HU2, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100)
-p2 <- familyPctID(HU2, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100)
-p3 <- familyPctID(HU2, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100)
-p4 <- familyPctID(HU2, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100)
-p5 <- familyPctID(HU2, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100)
-p6 <- familyPctID(HU2, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100)
+p1 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100, log=T)
+p2 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100, log=T)
+p3 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100, log=T)
+p4 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100, log=T)
+p5 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100, log=T)
+p6 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100, log=T)
 
 grid.newpage()
 grid.draw(rbind(ggplotGrob(p1),
