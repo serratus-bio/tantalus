@@ -256,20 +256,19 @@ write.table(res_abundance, file="../data/otu_abundance.tsv", quote=F, sep="\t", 
 ## Playing with SRA files
 
 ```{r}
-# Download SraRunInfo File - Meta-Meta-Virome
-if ( !file.exists('Sra/viro_SraRunInfo.csv') ){
-  getSraRunInfo(runInfo = "viro_SraRunInfo.csv",
-                s3_path = "s3://serratus-public/out/200528_viro/",
-                local_path = "Sra")
-}
 # Parse SraRunInfo.csv file into a SraRunInfo Object
 sra_path='../sra/viro_SraRunInfo.csv'
 RUNINFO <- readSraRunInfo(sra_path) 
 RUNINFO_vert <- readSraRunInfo('../sra/vert_sraRunInfo.csv')
+RUNINFO_hu1 <- readSraRunInfo('../sra/hu1_SraRunInfo.csv')
+RUNINFO_hu2 <- readSraRunInfo('../sra/hu2_sraRunInfo.csv')
+RUNINFO_mamm <- readSraRunInfo('../sra/mamm_SraRunInfo.csv')
 
 load("../VIRO.RData")
 load("../VERT.RData")
-#load("../HU1.RData")
+load("../HU1.RData")
+load("../HU2.RData")
+load("../MAMM.RData")
 
 atys_viro <- Atys(Serratus = ZOO,
                   SRA = RUNINFO,
@@ -279,13 +278,26 @@ atys_vert <- Atys(Serratus = VERT,
                   SRA = RUNINFO_vert,
                   GENOME="")
 
+atys_hu1 <- Atys(Serratus = HU1,
+                  SRA = RUNINFO_hu1,
+                  GENOME="")
+
+atys_hu2 <- Atys(Serratus = HU2,
+                  SRA = RUNINFO_hu2,
+                  GENOME="")
+
+atys_mamm <- Atys(Serratus = MAMM,
+                  SRA = RUNINFO_mamm,
+                  GENOME="")
+
 saveRDS(atys_viro, "../Atys/viro_atys.rds")
 saveRDS(atys_vert, "../Atys/vert_atys.rds")
+saveRDS(atys_hu1, "../Atys/hu1_atys.rds")
+saveRDS(atys_hu2, "../Atys/hu2_atys.rds")
+saveRDS(atys_mamm, "../Atys/mamm_atys.rds")
 
-DATA_PATH='../Atys/'
+DATA='../Atys/'
 
-
-parseAtys(DATA_PATH)
+parseAtys(DATA)
 #######################################################################
 ```
-

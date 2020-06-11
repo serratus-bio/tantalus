@@ -13,7 +13,7 @@
 #'
 parseAtys <- function(folder_with_atys){
   atys_files <- paste0( folder_with_atys,
-                        system( paste0("ls ", DATA_PATH), intern = T ))
+                        system( paste0("ls ", folder_with_atys), intern = T ))
   
   test <- lapply(atys_files, function(x) {
     y <- readRDS(x)
@@ -28,15 +28,19 @@ parseAtys <- function(folder_with_atys){
   
   #number of unique sras:
   nsras <- nrow(test)
+  nsras <- as.character(nsras)
   
   #sums of mb used (and converted to gb)
   mbs <- sum(test$size_MB)
   gbs <- mbs / 1000
+  gbs <- as.character(gbs)
   
   #how many nucleotides were analyzed
   spots_sum <- sum(test$spots)
   spots_with_mates_sum <- sum(test$spots_with_mates)
   nucl_sum <- spots_sum + spots_with_mates_sum
+  #nucl_sum <- format(nucl_sum, scientific=FALSE)
+  nucl_sum <- as.character(nucl_sum)
   
   res_lis <- list(nsras, gbs, nucl_sum)
   names(res_lis) <- c("Num_SRAs", "GBs", "Nucl_SUM")
