@@ -1,6 +1,6 @@
 #' Parse list of files into S4 Serratus class
 #'
-#' @param  sumFiles A vector Path to serratus summary file
+#' @param  sumFiles A vector Path to serratus summary file (vector of path file names)
 #'
 #' @return Serratus S4 class
 #'
