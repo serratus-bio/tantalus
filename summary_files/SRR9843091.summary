@@ -1,0 +1,173 @@
+SUMZER_COMMENT=sra=SRR9843091,genome=cov3ma,date=200530-03:06;
+family=Adenoviridae;score=96;pctid=90;aln=1934629;glb=102681;panlen=33501;cvg=.....OO..o..o..oo...o....;top=NC_016895.2;topaln=18106;toplen=31806;topname=Bat adenovirus TJM;
+family=AMR;score=68;pctid=94;aln=213;glb=57;panlen=1000;cvg=.....................___O;top=FN649414.1_3004611;topaln=28;toplen=1305;topname=Escherichia coli ampC1 beta-lactamase,Escherichia coli ETEC H10407;
+family=Parvoviridae;score=48;pctid=92;aln=55068;glb=844;panlen=5075;cvg=____....___._..O...._.___;top=NC_001829.1;topaln=36539;toplen=4767;topname=Adeno-associated virus - 4;
+family=Circoviridae;score=24;pctid=94;aln=39;glb=13;panlen=1866;cvg=O.OOoOo.O__.______o_____.;top=NC_001944.1;topaln=39;toplen=1993;topname=Beak and feather disease virus;
+family=Coronaviridae;score=8;pctid=97;aln=254;glb=0;panlen=30000;cvg=____________O______._____;top=HQ166910.1;topaln=249;toplen=1102;topname=Zaria bat coronavirus strain ZBCoV, partial genome;
+family=Poxviridae;score=0;pctid=94;aln=2;glb=0;panlen=181133;cvg=__o______________________;top=NC_002642.1;topaln=2;toplen=144575;topname=Yaba-like disease virus;
+family=Anelloviridae;score=0;pctid=90;aln=4;glb=1;panlen=2878;cvg=______.o_____.___________;top=NC_015396.1;topaln=3;toplen=2383;topname=Avian gyrovirus 2;
+family=Polyomaviridae;score=0;pctid=97;aln=2;glb=0;panlen=5112;cvg=___..____________________;top=NC_010277.2;topaln=2;toplen=5387;topname=Merkel cell polyomavirus isolate R17b;
+family=Caliciviridae;score=0;pctid=87;aln=2;glb=0;panlen=7531;cvg=________________.._______;top=NC_006269.1;topaln=2;toplen=7429;topname=Sapovirus Hu/Dresden/pJG-Sap01/DE;
+acc=NC_025962.1;pctid=91.2;aln=28503;glb=7022;len=31735;cvgpct=100;len=31735;depth=2.85e+04;cvg=.oOo.o..o...o..o.o.Oo.oO.;fam=Adenoviridae;name=Psittacine adenovirus 3 isolate HKU/Parrot19;
+acc=NC_038332.1;pctid=88.9;aln=87725;glb=4479;len=43810;cvgpct=56;len=43810;depth=8.77e+04;cvg=___.OO..O...O._..._______;fam=Adenoviridae;name=Fowl adenovirus 6 strain CR119;
+acc=NC_039032.1;pctid=89.5;aln=25929;glb=463;len=40930;cvgpct=52;len=40930;depth=2.59e+04;cvg=____..oO........_..______;fam=Adenoviridae;name=Psittacine aviadenovirus B isolate CS15-4016;
+acc=NC_014969.1;pctid=88.6;aln=139489;glb=8605;len=44055;cvgpct=52;len=44055;depth=1.39e+05;cvg=__._oO......O....._______;fam=Adenoviridae;name=Fowl adenovirus E;
+acc=NC_014564.2;pctid=89.8;aln=515439;glb=35487;len=45413;cvgpct=52;len=45413;depth=5.15e+05;cvg=___.O......oo._O.________;fam=Adenoviridae;name=Turkey adenovirus 1;
+acc=NC_022613.1;pctid=91.9;aln=14003;glb=236;len=43686;cvgpct=48;len=43686;depth=1.4e+04;cvg=___......o..._.O.________;fam=Adenoviridae;name=Turkey adenovirus 5 isolate 1277BT;
+acc=NC_001720.1;pctid=91.8;aln=144697;glb=2007;len=43804;cvgpct=48;len=43804;depth=1.45e+05;cvg=___O.o......._.._________;fam=Adenoviridae;name=Fowl adenovirus A;
+acc=NC_015323.1;pctid=90.0;aln=252546;glb=12040;len=45667;cvgpct=48;len=45667;depth=2.53e+05;cvg=____o.O.o..Oo.._.________;fam=Adenoviridae;name=Fowl adenovirus C;
+acc=NC_000899.1;pctid=91.1;aln=39983;glb=658;len=45063;cvgpct=44;len=45063;depth=4e+04;cvg=___.O..o....o___.________;fam=Adenoviridae;name=Fowl adenovirus D;
+acc=NC_024474.1;pctid=89.8;aln=388434;glb=25979;len=45480;cvgpct=44;len=45480;depth=3.88e+05;cvg=____.O......O._._________;fam=Adenoviridae;name=Pigeon adenovirus 1 complete genome;
+acc=NC_022612.1;pctid=86.0;aln=55965;glb=2554;len=42940;cvgpct=40;len=42940;depth=5.6e+04;cvg=___OO...._.o_._..________;fam=Adenoviridae;name=Turkey adenovirus 4 isolate TNI1;
+acc=NC_021221.1;pctid=91.3;aln=102079;glb=158;len=45781;cvgpct=40;len=45781;depth=1.02e+05;cvg=___.Oo......._.._________;fam=Adenoviridae;name=Fowl adenovirus 5 strain 340;
+acc=NC_001944.1;pctid=94.1;aln=39;glb=13;len=1993;cvgpct=32;len=1993;depth=39;cvg=OoOOOooO._._____..____.__;fam=Circoviridae;name=Beak and feather disease virus;
+acc=NC_024486.1;pctid=90.5;aln=71256;glb=2466;len=43734;cvgpct=28;len=43734;depth=7.13e+04;cvg=___.O._o___._..__________;fam=Adenoviridae;name=Duck adenovirus 2 strain GR;
+acc=NC_031503.1;pctid=89.7;aln=12764;glb=141;len=41981;cvgpct=24;len=41981;depth=1.28e+04;cvg=______.O.__..._.___._____;fam=Adenoviridae;name=Pigeon adenovirus 2 isolate YPDS-Y-V1.A19.11-2013;
+acc=NC_017979.1;pctid=89.1;aln=24464;glb=168;len=43376;cvgpct=24;len=43376;depth=2.45e+04;cvg=__OO.__....._____________;fam=Adenoviridae;name=Goose adenovirus 4;
+acc=FN649414.1_3004611;pctid=97.9;aln=28;glb=14;len=1305;cvgpct=20;len=1305;depth=28;cvg=_____O_..oO.o_.o__O______;fam=AMR;name=Escherichia coli ampC1 beta-lactamase,Escherichia coli ETEC H10407;
+acc=NC_006260.1;pctid=86.5;aln=916;glb=19;len=4721;cvgpct=20;len=4721;depth=916;cvg=_______.____O__....______;fam=Parvoviridae;name=Adeno-associated virus - 7;
+acc=NC_014468.1;pctid=87.2;aln=7824;glb=197;len=4286;cvgpct=20;len=4286;depth=7.82e+03;cvg=______.o._______..O______;fam=Parvoviridae;name=Bat adeno-associated virus YNM;
+acc=V00618.1_3002644;pctid=99.3;aln=35;glb=15;len=795;cvgpct=16;len=795;depth=35;cvg=....____.._.O..__O.o_o._.;fam=AMR;name=APH(3')-IIa,Escherichia coli;
+acc=NC_002077.1;pctid=87.1;aln=1794;glb=15;len=4718;cvgpct=16;len=4718;depth=1.79e+03;cvg=____________O__O._.______;fam=Parvoviridae;name=Adeno-associated virus - 1;
+acc=NC_016895.2;pctid=94.3;aln=18106;glb=47;len=31806;cvgpct=16;len=31806;depth=1.81e+04;cvg=___._________O.___.______;fam=Adenoviridae;name=Bat adenovirus TJM;
+acc=U00096.3_3000216;pctid=88.5;aln=19;glb=3;len=3150;cvgpct=12;len=3150;depth=19;cvg=_______oO.o..____________;fam=AMR;name=acrB,Escherichia coli str. K-12 substr. MG1655;
+acc=AY874537_3000883;pctid=99.0;aln=15;glb=3;len=861;cvgpct=12;len=861;depth=15;cvg=..__.___O___O._O_________;fam=AMR;name=TEM-11,Proteus mirabilis;
+acc=NC_043092.1;pctid=88.9;aln=126;glb=24;len=1276;cvgpct=12;len=1276;depth=126;cvg=_____________.________.O.;fam=Adenoviridae;name=Falconid adenovirus 1 hexon-associated protein gene;
+acc=NC_004828.1;pctid=85.7;aln=1149;glb=0;len=4694;cvgpct=12;len=4694;depth=1.15e+03;cvg=____O_.._______.O________;fam=Parvoviridae;name=Avian adeno-associated virus ATCC VR-865;
+acc=NC_032105.1;pctid=90.0;aln=1182;glb=0;len=33562;cvgpct=12;len=33562;depth=1.18e+03;cvg=____._______O_____.______;fam=Adenoviridae;name=Simian mastadenovirus WIV19;
+acc=NC_006261.1;pctid=87.0;aln=706;glb=14;len=4393;cvgpct=12;len=4393;depth=706;cvg=____________Oo_____._____;fam=Parvoviridae;name=Adeno-associated virus - 8;
+acc=NC_040671.1;pctid=88.1;aln=13;glb=1;len=4857;cvgpct=8;len=4857;depth=13;cvg=_____._Oo________________;fam=Parvoviridae;name=Adeno-associated virus isolate MHH-05-2015;
+acc=NC_014899.1;pctid=93.3;aln=38;glb=0;len=35203;cvgpct=8;len=35203;depth=38;cvg=______________Oo_________;fam=Adenoviridae;name=Murine adenovirus 2;
+acc=ASTU01000063.1_3004597;pctid=94.0;aln=9;glb=4;len=1539;cvgpct=8;len=1539;depth=9;cvg=_____._____________oO__O_;fam=AMR;name=Klebsiella pneumoniae KpnH,Escherichia coli KTE14;
+acc=NC_017825.1;pctid=89.4;aln=12;glb=0;len=36711;cvgpct=8;len=36711;depth=12;cvg=___o.________O___________;fam=Adenoviridae;name=Chimpanzee adenovirus Y25;
+acc=NC_006152.1;pctid=91.3;aln=9;glb=0;len=4642;cvgpct=8;len=4642;depth=9;cvg=_______________Oo________;fam=Parvoviridae;name=Adeno-associated virus 5;
+acc=NC_012959.1;pctid=94.6;aln=11;glb=0;len=34920;cvgpct=8;len=34920;depth=11;cvg=____O________o___________;fam=Adenoviridae;name=Human adenovirus 54;
+acc=NC_002702.1;pctid=92.0;aln=27;glb=0;len=32621;cvgpct=8;len=32621;depth=27;cvg=____._______..O__________;fam=Adenoviridae;name=Porcine adenovirus 5;
+acc=L11616_3000378;pctid=90.7;aln=17;glb=2;len=3141;cvgpct=8;len=3141;depth=17;cvg=________O.O._____________;fam=AMR;name=MexB,Pseudomonas aeruginosa;
+acc=NC_031948.1;pctid=95.6;aln=70;glb=0;len=31481;cvgpct=8;len=31481;depth=70;cvg=___Oo____________________;fam=Adenoviridae;name=Bat mastadenovirus G isolate 250-A;
+acc=NC_003266.2;pctid=93.4;aln=55;glb=0;len=35994;cvgpct=8;len=35994;depth=55;cvg=___O._________.__________;fam=Adenoviridae;name=Human adenovirus E;
+acc=NC_030792.1;pctid=92.0;aln=13;glb=0;len=32690;cvgpct=8;len=32690;depth=13;cvg=___O__________O__________;fam=Adenoviridae;name=Equine adenovirus 1 strain M1;
+acc=NC_010956.1;pctid=89.7;aln=45;glb=0;len=35083;cvgpct=8;len=35083;depth=45;cvg=____._____O_...__________;fam=Adenoviridae;name=Human adenovirus D;
+acc=NC_028113.1;pctid=94.7;aln=1302;glb=0;len=35685;cvgpct=8;len=35685;depth=1.3e+03;cvg=___.._________O__________;fam=Adenoviridae;name=Simian adenovirus 8 strain P-5;
+acc=NC_001401.2;pctid=86.5;aln=1157;glb=153;len=4679;cvgpct=8;len=4679;depth=1.16e+03;cvg=______.O._________.______;fam=Parvoviridae;name=Adeno-associated virus - 2;
+acc=NC_029899.1;pctid=85.8;aln=5992;glb=141;len=37556;cvgpct=8;len=37556;depth=5.99e+03;cvg=__.._________O___________;fam=Adenoviridae;name=Bat mastadenovirus WIV10;
+acc=NC_006263.1;pctid=86.8;aln=461;glb=0;len=4682;cvgpct=8;len=4682;depth=461;cvg=____O_.________________._;fam=Parvoviridae;name=Avian adeno-associated virus strain DA-1;
+acc=NC_038539.1;pctid=86.3;aln=1421;glb=58;len=4395;cvgpct=8;len=4395;depth=1.42e+03;cvg=_______O.________._______;fam=Parvoviridae;name=California sea lion adeno-associated virus 1 isolate 1187 Rep78 and VP1 genes;
+acc=NC_027429.1;pctid=84.1;aln=1141;glb=11;len=4590;cvgpct=8;len=4590;depth=1.14e+03;cvg=______________.._O_______;fam=Parvoviridae;name=Bearded dragon parvovirus strain 2014;
+acc=NC_001701.1;pctid=93.0;aln=1735;glb=24;len=5106;cvgpct=8;len=5106;depth=1.74e+03;cvg=_______________O.________;fam=Parvoviridae;name=Goose parvovirus;
+acc=NC_001829.1;pctid=93.7;aln=36539;glb=352;len=4767;cvgpct=8;len=4767;depth=3.65e+04;cvg=_______________.O________;fam=Parvoviridae;name=Adeno-associated virus - 4;
+acc=NC_009989.1;pctid=94.4;aln=4;glb=0;len=27751;cvgpct=4;len=27751;depth=4;cvg=______________O__________;fam=Adenoviridae;name=Snake adenovirus;
+acc=NC_015225.1;pctid=96.9;aln=3;glb=0;len=35499;cvgpct=4;len=35499;depth=3;cvg=___O_____________________;fam=Adenoviridae;name=Simian adenovirus 49;
+acc=AP009048.1_3003549;pctid=98.1;aln=8;glb=3;len=2052;cvgpct=4;len=2052;depth=8;cvg=___..O_o.________________;fam=AMR;name=mdtO,Escherichia coli str. K-12 substr. W3110;
+acc=NC_001813.1;pctid=84.9;aln=4;glb=0;len=33213;cvgpct=4;len=33213;depth=4;cvg=____________O____________;fam=Adenoviridae;name=Duck adenovirus A;
+acc=NC_034382.1;pctid=94.1;aln=5;glb=0;len=35555;cvgpct=4;len=35555;depth=5;cvg=___O_____________________;fam=Adenoviridae;name=Cynomolgus adenovirus 1 isolate UK/UK-1/2004;
+acc=NC_002513.1;pctid=84.8;aln=6;glb=0;len=33034;cvgpct=4;len=33034;depth=6;cvg=_____________O___________;fam=Adenoviridae;name=Bovine adenovirus type 2;
+acc=AJ252200_3003056;pctid=88.5;aln=8;glb=0;len=3123;cvgpct=4;len=3123;depth=8;cvg=________oO.______________;fam=AMR;name=smeE,Stenotrophomonas maltophilia;
+acc=NC_005889.1;pctid=85.2;aln=3;glb=0;len=4693;cvgpct=4;len=4693;depth=3;cvg=_______________O_________;fam=Parvoviridae;name=Bovine adeno-associated virus;
+acc=NC_028103.1;pctid=93.5;aln=5;glb=0;len=32939;cvgpct=4;len=32939;depth=5;cvg=_______________O_________;fam=Adenoviridae;name=Simian adenovirus 13 strain P-9;
+acc=NC_024684.1;pctid=84.0;aln=7;glb=0;len=32965;cvgpct=4;len=32965;depth=7;cvg=__._________O____________;fam=Adenoviridae;name=Lizard adenovirus 2 isolate 23-06;
+acc=JB181528.1;pctid=98.3;aln=5;glb=0;len=19136;cvgpct=4;len=19136;depth=5;cvg=_____O___________________;fam=Coronaviridae;name=Sequence 1 from Patent WO2012117045;
+acc=NC_001876.1;pctid=84.0;aln=7;glb=0;len=34446;cvgpct=4;len=34446;depth=7;cvg=______________O__________;fam=Adenoviridae;name=Bovine adenovirus 3 complete genome;
+acc=NC_020074.1;pctid=93.2;aln=3;glb=0;len=30024;cvgpct=4;len=30024;depth=3;cvg=_____________O___________;fam=Adenoviridae;name=Bovine adenovirus 6 strain 671130;
+acc=NC_029898.1;pctid=95.0;aln=7;glb=0;len=37545;cvgpct=4;len=37545;depth=7;cvg=__O__________.___________;fam=Adenoviridae;name=Bat mastadenovirus WIV9;
+acc=NC_015932.1;pctid=82.6;aln=19;glb=0;len=31616;cvgpct=4;len=31616;depth=19;cvg=_______________O_________;fam=Adenoviridae;name=Bat adenovirus 2;
+acc=AP009048.1_3000491;pctid=93.0;aln=7;glb=0;len=3114;cvgpct=4;len=3114;depth=7;cvg=________.O.___.._________;fam=AMR;name=acrD,Escherichia coli str. K-12 substr. W3110;
+acc=NC_006147.2;pctid=86.8;aln=28;glb=0;len=5132;cvgpct=4;len=5132;depth=28;cvg=_______________O_________;fam=Parvoviridae;name=Muscovy duck parvovirus;
+acc=EU370913.1_3003923;pctid=92.2;aln=7;glb=1;len=3153;cvgpct=4;len=3153;depth=7;cvg=.O_______________________;fam=AMR;name=oqxB,Escherichia coli;
+acc=M94066_3002549;pctid=97.0;aln=13;glb=5;len=441;cvgpct=4;len=441;depth=13;cvg=____O...__..____..__.____;fam=AMR;name=AAC(6')-Ic,Serratia marcescens;
+acc=NC_040562.1;pctid=94.9;aln=13;glb=0;len=3999;cvgpct=4;len=3999;depth=13;cvg=_______________________O_;fam=Parvoviridae;name=Porcine parvovirus 7 isolate GX49;
+acc=AE004091.2_3000808;pctid=90.8;aln=11;glb=0;len=3090;cvgpct=4;len=3090;depth=11;cvg=o________________o__oO.__;fam=AMR;name=mexI,Pseudomonas aeruginosa PAO1;
+acc=NC_001958.1;pctid=94.4;aln=29;glb=0;len=26263;cvgpct=4;len=26263;depth=29;cvg=___O_____________________;fam=Adenoviridae;name=Hemorrhagic enteritis virus;
+acc=NC_001405.1;pctid=88.8;aln=46;glb=0;len=35937;cvgpct=4;len=35937;depth=46;cvg=______________O__________;fam=Adenoviridae;name=Human adenovirus C;
+acc=NC_002501.1;pctid=90.6;aln=18;glb=0;len=26163;cvgpct=4;len=26163;depth=18;cvg=____O____________________;fam=Adenoviridae;name=Frog adenovirus 1;
+acc=NC_040843.1;pctid=91.6;aln=157;glb=0;len=4442;cvgpct=4;len=4442;depth=157;cvg=_____________________.O__;fam=Parvoviridae;name=Mouse kidney parvovirus strain Centenary Institute;
+acc=HQ166910.1;pctid=97.3;aln=249;glb=0;len=1102;cvgpct=4;len=1102;depth=249;cvg=________________________O;fam=Coronaviridae;name=Zaria bat coronavirus strain ZBCoV, partial genome;
+acc=NC_006879.1;pctid=92.2;aln=2584;glb=6;len=34450;cvgpct=4;len=34450;depth=2.58e+03;cvg=______________O__________;fam=Adenoviridae;name=Simian adenovirus 1;
+acc=NC_001460.1;pctid=88.0;aln=1608;glb=0;len=34125;cvgpct=4;len=34125;depth=1.61e+03;cvg=______________O__________;fam=Adenoviridae;name=Human adenovirus A;
+acc=X13543.1_3002533;pctid=97.0;aln=2;glb=2;len=861;cvgpct=0;len=861;depth=2;cvg=______________.__._______;fam=AMR;name=AAC(3)-IIa,Plasmid pWP113a;
+acc=CP014358.1_3001327;pctid=80.7;aln=2;glb=1;len=1425;cvgpct=0;len=1425;depth=2;cvg=_________.___.___________;fam=AMR;name=mdtK,Salmonella enterica subsp. enterica serovar Typhimurium;
+acc=U00096.3_3003950;pctid=86.1;aln=1;glb=0;len=1749;cvgpct=0;len=1749;depth=1;cvg=_____.___________________;fam=AMR;name=msbA,Escherichia coli str. K-12 substr. MG1655;
+acc=NC_002642.1;pctid=94.3;aln=2;glb=0;len=144575;cvgpct=0;len=144575;depth=2;cvg=__o______________________;fam=Poxviridae;name=Yaba-like disease virus;
+acc=NC_028107.1;pctid=86.4;aln=1;glb=0;len=34064;cvgpct=0;len=34064;depth=1;cvg=____.____________________;fam=Adenoviridae;name=Simian adenovirus 19 strain AA153;
+acc=NC_028105.1;pctid=88.1;aln=1;glb=0;len=35159;cvgpct=0;len=35159;depth=1;cvg=____.____________________;fam=Adenoviridae;name=Simian adenovirus 16 strain C-8;
+acc=NC_001427.1;pctid=91.9;aln=1;glb=0;len=2319;cvgpct=0;len=2319;depth=1;cvg=________________.________;fam=Anelloviridae;name=Chicken anemia virus;
+acc=NC_001729.1;pctid=85.7;aln=2;glb=0;len=4726;cvgpct=0;len=4726;depth=2;cvg=_______________o_________;fam=Parvoviridae;name=Adeno-associated virus - 3;
+acc=U00096.3_3002986;pctid=99.4;aln=2;glb=0;len=822;cvgpct=0;len=822;depth=2;cvg=__.____._________________;fam=AMR;name=bacA,Escherichia coli str. K-12 substr. MG1655;
+acc=NC_027705.1;pctid=85.5;aln=1;glb=0;len=33090;cvgpct=0;len=33090;depth=1;cvg=__________________.______;fam=Adenoviridae;name=Equine adenovirus 2 isolate EAdV2.385/75.9;
+acc=NC_006144.1;pctid=89.0;aln=4;glb=0;len=34246;cvgpct=0;len=34246;depth=4;cvg=___.________._o__________;fam=Adenoviridae;name=Simian adenovirus 3;
+acc=AP012030.1_3004612;pctid=100.0;aln=1;glb=1;len=1158;cvgpct=0;len=1158;depth=1;cvg=______________.__________;fam=AMR;name=Escherichia coli ampH,Escherichia coli DH1;
+acc=NC_035619.1;pctid=86.6;aln=2;glb=0;len=30620;cvgpct=0;len=30620;depth=2;cvg=______________o__________;fam=Adenoviridae;name=Odocoileus adenovirus 1;
+acc=U00096_3000794;pctid=83.3;aln=1;glb=0;len=3078;cvgpct=0;len=3078;depth=1;cvg=_______________________._;fam=AMR;name=mdtC,Escherichia coli str. K-12 substr. MG1655;
+acc=NC_044936.1;pctid=89.6;aln=2;glb=0;len=33501;cvgpct=0;len=33501;depth=2;cvg=_____________o___________;fam=Adenoviridae;name=Tree shrew adenovirus 1;
+acc=U00096_3000796;pctid=86.9;aln=3;glb=0;len=3114;cvgpct=0;len=3114;depth=3;cvg=_________o_._____________;fam=AMR;name=mdtF,Escherichia coli str. K-12 substr. MG1655;
+acc=AY264780.2_3000569;pctid=95.8;aln=2;glb=1;len=1182;cvgpct=0;len=1182;depth=2;cvg=.____.___________________;fam=AMR;name=tet(41),Serratia marcescens;
+acc=AP009048_3003576;pctid=98.2;aln=2;glb=0;len=1644;cvgpct=0;len=1644;depth=2;cvg=_______________._._______;fam=AMR;name=eptA,Escherichia coli str. K-12 substr. W3110;
+acc=AF173226_3003051;pctid=92.1;aln=2;glb=0;len=1197;cvgpct=0;len=1197;depth=2;cvg=_________..______________;fam=AMR;name=smeA,Stenotrophomonas maltophilia;
+acc=NC_040811.1;pctid=95.7;aln=2;glb=0;len=27952;cvgpct=0;len=27952;depth=2;cvg=___o_____________________;fam=Adenoviridae;name=Polar bear mastadenovirus 1 isolate BK35;
+acc=U00096_3000793;pctid=84.6;aln=3;glb=0;len=3123;cvgpct=0;len=3123;depth=3;cvg=____________________.._._;fam=AMR;name=mdtB,Escherichia coli str. K-12 substr. MG1655;
+acc=AE004091.2_3000804;pctid=87.5;aln=2;glb=0;len=3189;cvgpct=0;len=3189;depth=2;cvg=____________________._.__;fam=AMR;name=MexF,Pseudomonas aeruginosa PAO1;
+acc=NC_015396.1;pctid=89.9;aln=3;glb=1;len=2383;cvgpct=0;len=2383;depth=3;cvg=________.o_______________;fam=Anelloviridae;name=Avian gyrovirus 2;
+acc=NC_027708.1;pctid=94.4;aln=2;glb=0;len=31848;cvgpct=0;len=31848;depth=2;cvg=_____________o___________;fam=Adenoviridae;name=Skunk adenovirus PB1;
+acc=U00096_3000833;pctid=99.7;aln=4;glb=2;len=3594;cvgpct=0;len=3594;depth=4;cvg=____________________._.o_;fam=AMR;name=evgS,Escherichia coli str. K-12 substr. MG1655;
+acc=AB015853_3003033;pctid=89.7;aln=2;glb=0;len=3141;cvgpct=0;len=3141;depth=2;cvg=__________.._____________;fam=AMR;name=mexY,Pseudomonas aeruginosa PAO1;
+acc=AF534183.1_3000165;pctid=98.2;aln=1;glb=0;len=1275;cvgpct=0;len=1275;depth=1;cvg=_._______________________;fam=AMR;name=tet(A),Shigella sonnei;
+acc=NC_010277.2;pctid=97.1;aln=2;glb=0;len=5387;cvgpct=0;len=5387;depth=2;cvg=___..____________________;fam=Polyomaviridae;name=Merkel cell polyomavirus isolate R17b;
+acc=NC_012584.1;pctid=91.7;aln=1;glb=0;len=30570;cvgpct=0;len=30570;depth=1;cvg=______________.__________;fam=Adenoviridae;name=Murine adenovirus 3;
+acc=AJ011502.1_3004122;pctid=88.0;aln=4;glb=0;len=1125;cvgpct=0;len=1125;depth=4;cvg=__________________o__o___;fam=AMR;name=Klebsiella pneumoniae OmpK37,Klebsiella pneumoniae;
+acc=NC_006269.1;pctid=87.2;aln=2;glb=0;len=7429;cvgpct=0;len=7429;depth=2;cvg=_________________o_______;fam=Caliciviridae;name=Sapovirus Hu/Dresden/pJG-Sap01/DE;
+acc=NC_011203.1;pctid=90.7;aln=1;glb=0;len=35343;cvgpct=0;len=35343;depth=1;cvg=___._____________________;fam=Adenoviridae;name=Human adenovirus B1;
+acc=U00096.3_3003952;pctid=90.7;aln=1;glb=0;len=1644;cvgpct=0;len=1644;depth=1;cvg=__.______________________;fam=AMR;name=yojI,Escherichia coli str. K-12 substr. MG1655;
+acc=AFRQ01000061.1_3004144;pctid=90.5;aln=1;glb=0;len=3138;cvgpct=0;len=3138;depth=1;cvg=___________._____________;fam=AMR;name=AxyY,Achromobacter insuavis AXX-A;
+acc=NC_021168.1;pctid=88.9;aln=2;glb=0;len=34391;cvgpct=0;len=34391;depth=2;cvg=____o____________________;fam=Adenoviridae;name=Simian adenovirus C isolate BaAdV-2;
+>Cov.13
+GACCATCTAGCGACCTCCACATTCAACACGTAAAAAGTGGTGCAAGAAGCGGATCTGGCAAAAAGCTTGGAAGGCAAAGCGTGAAGTAGCACTGATATGCT
+>Cov.20
+CCTTATAAATCAAAAGAATAGACCGAGATAGGGTTGAGTGTTGTTTCAGTTTGGAACAAGAGTCCACTATTAAAGAGAGACTGTGGAGGTCGCTAGATGGT
+>Other.1
+ACGGCGAGTAAATGGGCAATGTTCTCTGCTGCCTAGCCCGTACGTGCAGCTCTACGGTAATATCTAGGAAGGTGTGGGCCTGTGGAGGTCGCTAGATGGTC
+>Other.2
+TTATGTACTGCATTTGTGAGTACGCCCTTTTCCTGAAGACCCGCCGTATTTCCTGGCAGGACATGTAGAAAAGGGTCTGCAAGTTCATGAATATCGGCCTC
+>Other.3
+GCATCTGTTCTCGGGTTGGGGTGCTTCACATCGTACGGGTACAAGAGGCAGTTTGTTGTCGTCCAGGCACCGGATCTCATTGTCTTGTCCGTCCAGGGCCG
+>Other.4
+TTGCAATCGTAGTTGGAGTTGATGAGCTGCAGGTTCCAGGCGGTCTGCTCTACGGGCGGTATCATGTTTTTCTCGGGGGTGACGAATATGACGGTTTCCGG
+>Other.5
+CATGCACTCGTCCATGATAATGGCGATGGGTCCGCTTTTAGAGCACTTGACATAGACGTTTTCTGGGTTGTCAATGTGTAGGTGGAGGTCGCTAGATGGTC
+>Other.6
+ACCTTGTTGAGGAGCGTGGTCTTGAAGATGGTTCTCCTGGTGTGCAGCTCCGGTATGCGGCTCTGGGCTCCGTACAGTTCGTCCTCGTATTTAAGCCAGCT
+>Other.7
+GCGTTGCTGAGCATTTTTGAGATGGACCTCATGACCTCGTTCTTTTCCCTGTCCGCCTTTTCCTTGGCGTTGATGTTGAGGGTGGAGGTCGCTAGATGGTC
+>Other.8
+CGTTTACGGCCTCGTACGGACACTCCCCCTTGCACAGCTCTAGCGCGTAAGCGCCCGCGGCTTTGGCTAGCTTGGCGCCGCTGGTGAGCTGGAGCGTGTCT
+>Other.9
+TACCCCAGCATGGCGCAGATGGCCAAGGCGCAAGAGTTTTTTTACAGAGTGATGGAGGCTATCCTAGATCTCGGCGTGCAAGTGGGTGTGTACAACAATCG
+>Other.10
+GTAGAGGACCCACTTCCTGAGGAAGGATTCGGAAACCATGTTGGAGTCTCTGGCTCTGAGGAGGAGTCGGTAAAAGTCGGTTCCGAATCTGAATAGCTCGT
+>Other.11
+CGGTGAGGTCTGCGAAGACTCTGTAAGCCTGAAACCGAGCCATAACGTTTTAGATAGGAACGACGCCAAATCAATCATCAGCACTCGTCAGCATGCACCCT
+>Other.12
+GTGGGAGACAGCTGGGTGCTGGACATGGGGGCCACTTACTTTGACATCAAAGGGGTGTTGGACCGCGGTCCTTCCTTTAAGCCCTACGGCGGCACCGCCTA
+>Other.13
+TTATGCCCATGGACCACAACACCAGCAACCAGCTGGAGCTGATGATGAGAAACGCCACCAACGACCAGACGTTCGCCGACTACCTCGGCGCCAAGTCCGCC
+>Other.14
+GTACACCAACAACTCGCACAGCATGGTCATCAACTTTGAGCTGGACCCCATGGACGAAAACACCTACGTGTACATGCTGTACGGCGTTTTCGACACCGTGC
+>Other.15
+CCGCGCTTTCTCCGCACGTCGGTGCCAGGGCCCTGCGAGATGATTACCTCGGAGACTCTAGCCTGCGAGGTGGAGCCATCAATTGGAGCAACATCGGGTCG
+>Other.16
+AGTTCAGGCAAACTGTGGTGGCGCCCACCCGAAATGTCACCACCGAGAAGGCCCAGCGTCTGCAGATACGCTTTTACCCCATCCAGACAGATGAAACCAAC
+>Other.17
+AGGACTTGTTCCTGGTGCAGATGGCCACCAACAACAACTACGTGTACAACGGCTTCCGCTTCTGGCCGGACAGGCACTACAACCAGTACGACTTTTTGAGA
+>Other.18
+TGTACGACCCGTTCGGGTGGTCCGACCGCAGCCTGTGGGACATTTACCGCGTTAAATACGACTCACTGATGAGGCGCACCGGGCTGAGCCAGCCTGACAAG
+>Other.19
+GGTACAGCGCCATGGTCCACTCTATGTCGTGCTTCATGGCGCTCACGGCCTTCTGCAGGTCGGAAAACACGACCGCGCAGCTCCCGTGGGCGTGCGGGTGG
+>Other.20
+CTCAGCTTCTGGGTCAGCGTCTGTCGGGCTAACGTTAGCAGCGCTGACGCCGTGCTATCTGCCCTCTTAGAGGAGGACGCAGATCTAGACGCTGTCCACGC
+>Other.21
+ATGCAGCGCGTCCTCAGAGAGCCCTCCTCCGTCAAAAAGTGCCAGGAGGTGCTGCACCACACGCTGCACCACGGATACGTCTCCATCATAAGGGAGGTCTC
+>Other.22
+TACTGCCCCTGCAACCTCTGCAGCCCCCACCGCATGCCCCAGGACAACATGGCCTTGCACAACGAGATGCTGGCCATCAACACCTTCGAGATTAGGAGCGC
+>Other.23
+ACAACCCCCTCTCGGGCATTCCCGCCGGCGCGCAACAGAATTATGGTGCGACCATAAACTGGGTGTTGCCAGGAGGGCGTTTCATGGCTAGGGTTGCTGAA
+>Other.25
+ATCGCCATGGTGCTGTCGGCGGTATTCGTGCCGATGGCGTTCTTCGGCGGTTCAACCGGCGCCATCTATCGCCAGTTCTCGATCACCATCGTGTCCGCGAT
