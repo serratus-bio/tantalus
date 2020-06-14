@@ -10,19 +10,22 @@
 #' 
 #' @return Serratus S4 class
 #' 
-#' @examples
-#' sras <- c("SRR9701190", "SRR9705127", "SRR975462", "SRR9843091", "SRR9843092")
-#' serr <- getSummaryFiles(sras, 's3://serratus-public/out/200528_viro/summary/', "summary_files")
 #' 
 #' @export
 #' 
 getLoadedSummaryFiles <- function(sras, path_to_files=""){
   
+  #not optimal
+  sumWheres_all <- paste(path_to_files, system( paste0("ls ", path_to_files), intern = T), sep="/")
+  
   summary_files <- paste(sras, "summary", sep=".")
   
   sumWheres <- paste(path_to_files, summary_files, sep="/")
   
-  serratusObj <- readSerratus( sumWheres )
+  #remove files that are absent in the specified folder
+  files_to_analyze <- intersect(sumWheres_all, sumWheres)
+  
+  serratusObj <- readSerratus( files_to_analyze )
   
   return(serratusObj)
   

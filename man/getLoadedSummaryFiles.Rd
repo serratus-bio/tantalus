@@ -20,8 +20,3 @@ Serratus S4 class
 Implicit system dependcies
 - aws cli
 }
-\examples{
-sras <- c("SRR9701190", "SRR9705127", "SRR975462", "SRR9843091", "SRR9843092")
-serr <- getSummaryFiles(sras, 's3://serratus-public/out/200528_viro/summary/', "summary_files")
-
-}

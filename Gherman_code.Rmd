@@ -309,8 +309,38 @@ serr <- getSummaryFiles(sras, 's3://serratus-public/out/200528_viro/summary/', "
 ## First phase is done (1.14M files). Get Atys objects for them
 
 ```{r}
-sra_names <- c("DRR000897", "DRR001151", "DRR001152")
+#sra_names <- c("DRR000897", "DRR001151", "DRR001152")
 
-test <- getLoadedSummaryFiles(sra_names, "../summary_files/")
+#test <- getLoadedSummaryFiles(sra_names, "../summary_files/")
+
+#######################################################################
+#VIRO
+#######################################################################
+viro_sra <- readSraRunInfo("../sra/viro_SraRunInfo.csv")
+
+viro_serratus <- getLoadedSummaryFiles(viro_sra@runInfo$Run, "../summary_files/") #8530 sras
+
+viro_sra@runInfo <- viro_sra@runInfo %>% filter(Run %in% viro_serratus@header$sra)
+
+viro_atys <- Atys(Serratus = viro_serratus,
+                  SRA = viro_sra,
+                  GENOME="")
+
+saveRDS(viro_atys, "../Atys/viro_atys.rds")
+
+#######################################################################
+#MOUSE
+#######################################################################
+mu_sra <- readSraRunInfo("../sra/mu_SraRunInfo.csv")
+
+mu_serratus <- getLoadedSummaryFiles(mu_sra@runInfo$Run, "../summary_files/") #8530 sras
+
+viro_sra@runInfo <- viro_sra@runInfo %>% filter(Run %in% viro_serratus@header$sra)
+
+viro_atys <- Atys(Serratus = viro_serratus,
+                  SRA = viro_sra,
+                  GENOME="")
+
+saveRDS(viro_atys, "../Atys/viro_atys.rds")
 ```
 
