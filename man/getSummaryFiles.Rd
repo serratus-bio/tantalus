@@ -8,7 +8,7 @@ into a Serratus S4 object}
 \usage{
 getSummaryFiles(
   sras,
-  s3_path = "s3://serratus-public/out/200528_viro/summary/",
+  s3_path = "s3://lovelywater/summary/",
   local_path = "summary_files"
 )
 }
@@ -28,7 +28,7 @@ Implicit system dependcies
 }
 \examples{
 sras <- c("SRR9701190", "SRR9705127", "SRR975462", "SRR9843091", "SRR9843092")
-serr <- getSummaryFiles(sras, 's3://serratus-public/out/200528_viro/summary/', "summary_files")
+serr <- getSummaryFiles(sras, 's3://lovelywater/summary/', "summary_files")
 
 }
 \keyword{S4,}

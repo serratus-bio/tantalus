@@ -8,7 +8,7 @@ output: html_document
 ```{r, include=FALSE}
 # Acquire data (run once)
 system('mkdir -p 200518')
-system('aws s3 sync s3://serratus-public/out/200518_zoo3/summary/ 200518/')
+system('aws s3 sync s3://lovelywater/summary/ 200518/')
 ```
 
 ```{r}
@@ -28,7 +28,7 @@ library("gridExtra")
 ```{r, include=FALSE}
 # Download/access data
 
-getBAM <- function(sra, s3path = 's3://serratus-public/out/200517_zoo2/' ){
+getBAM <- function(sra, s3path = 's3://lovelywater/' ){
   system('mkdir -p bam')
   
   system_getBam <- paste0('aws s3 cp ', s3path, "bam/", sra,'.bam',' ', 'bam/')

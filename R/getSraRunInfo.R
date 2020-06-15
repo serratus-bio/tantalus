@@ -11,13 +11,13 @@
 #' @keywords Tantalus, S3, runInfo, sra
 #' @examples
 #' getRunInfo(runInfo = "viro_SraRunInfo.csv",
-#'            s3_path = "s3://serratus-public/out/200528_viro/",
+#'            s3_path = "s3://lovelywater/sra/",
 #'            local_path = "sra")
 #' 
 #' @export
 #' 
 getSraRunInfo <- function(runInfo,
-                          s3_path = 's3://serratus-public/out/200528_viro/',
+                          s3_path = 's3://lovelywater/sra/',
                           local_path = 'sra'){
   
   system(paste0( 'mkdir -p ', local_path))

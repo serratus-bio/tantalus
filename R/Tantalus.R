@@ -1,4 +1,4 @@
-#' Tantalus package
+#' tantalus package
 #'
 #' R Data Exploration for Serratus
 #'
@@ -6,5 +6,5 @@
 #'
 #' @author Gherman Novakovsky \email{gnovakovsky@cmmt.ubc.ca}, Artem Babaian \email{ababaian@bccrc.ca}
 #'
-#' @name Tantalus
+#' @name tantalus
 NULL

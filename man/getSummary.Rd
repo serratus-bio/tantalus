@@ -23,7 +23,7 @@ Your system should have `aws s3` properly configured for this function
 to work.
 }
 \examples{
-getSummary( s3_path = 's3://serratus-public/out/200528_viro',
+getSummary( s3_path = 's3://lovelywater/summary/',
             local_path = '200528_viro')
 }
 \keyword{S3,}

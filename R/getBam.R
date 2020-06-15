@@ -14,12 +14,12 @@
 #' @keywords Tantalus, S3, bam, samtools
 #' @examples
 #' 
-#' getBam(sra = 'SRR5447135', s3_path = 's3://serratus-public/out/200528_viro/bam/')
+#' getBam(sra = 'SRR5447135', s3_path = 's3://lovelywater/bam/')
 #' 
 #' @export
 #' 
 getBAM <- function(sra,
-                   s3_path = 's3://serratus-public/out/200528_viro/bam/',
+                   s3_path = 's3://lovelywater/bam/',
                    local_path = 'bam'){
   
   system(paste0( 'mkdir -p ', local_path))

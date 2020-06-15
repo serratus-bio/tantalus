@@ -9,11 +9,11 @@
 #' @param local_path local path into which to download the data
 #' @keywords Tantalus, S3, summary
 #' @examples
-#' getSummary( s3_path = 's3://serratus-public/out/200528_viro',
+#' getSummary( s3_path = 's3://lovelywater/summary/',
 #'             local_path = '200528_viro')
 #' @export
 #' 
-# s3_path    <- 's3://serratus-public/out/200528_viro'
+# s3_path    <- 's3://lovelywater/summary/'
 # local_path <- '200528_viro'
 #
 getSummary <- function( s3_path, local_path ){

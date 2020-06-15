@@ -7,11 +7,7 @@
 2) sort bam file (samtools)
 3) index bam file (samtools)}
 \usage{
-getBAM(
-  sra,
-  s3_path = "s3://serratus-public/out/200528_viro/bam/",
-  local_path = "bam"
-)
+getBAM(sra, s3_path = "s3://lovelywater/bam/", local_path = "bam")
 }
 \arguments{
 \item{sra}{SRA accession to download}
@@ -27,7 +23,7 @@ Implicit system dependcies
 }
 \examples{
 
-getBam(sra = 'SRR5447135', s3_path = 's3://serratus-public/out/200528_viro/bam/')
+getBam(sra = 'SRR5447135', s3_path = 's3://lovelywater/bam/')
 
 }
 \keyword{S3,}

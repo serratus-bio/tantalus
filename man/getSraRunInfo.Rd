@@ -5,11 +5,7 @@
 \title{Downloads an SRA runInfo file and parses
 into a RunInfo S4 object}
 \usage{
-getSraRunInfo(
-  runInfo,
-  s3_path = "s3://serratus-public/out/200528_viro/",
-  local_path = "sra"
-)
+getSraRunInfo(runInfo, s3_path = "s3://lovelywater/sra/", local_path = "sra")
 }
 \arguments{
 \item{runInfo}{a string of the name of the sraRunInfo.csv file}
@@ -24,7 +20,7 @@ Implicit system dependcies
 }
 \examples{
 getRunInfo(runInfo = "viro_SraRunInfo.csv",
-           s3_path = "s3://serratus-public/out/200528_viro/",
+           s3_path = "s3://lovelywater/sra/",
            local_path = "sra")
 
 }
