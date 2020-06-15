@@ -309,38 +309,84 @@ serr <- getSummaryFiles(sras, 's3://serratus-public/out/200528_viro/summary/', "
 ## First phase is done (1.14M files). Get Atys objects for them
 
 ```{r}
+vert_sra <- readSraRunInfo("../sra/mamm_SraRunInfo.csv")
+
+mamm_serratus <- getLoadedSummaryFiles(mamm_sra@runInfo$Run, "../summary_files/")
+
+mamm_sra@runInfo <- mamm_sra@runInfo %>% filter(Run %in% mamm_serratus@header$sra)
+
+mamm_atys <- Atys(Serratus = mamm_serratus,
+                  SRA = mamm_sra,
+                  GENOME="")
+
+print("Save to rds")
+saveRDS(mamm_atys, "../Atys/mamm_atys.rds")
+```
+
+
+```{r}
 #sra_names <- c("DRR000897", "DRR001151", "DRR001152")
 
 #test <- getLoadedSummaryFiles(sra_names, "../summary_files/")
 
 #######################################################################
-#VIRO
-#######################################################################
 viro_sra <- readSraRunInfo("../sra/viro_SraRunInfo.csv")
+viro_sra <- viro_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
 
-viro_serratus <- getLoadedSummaryFiles(viro_sra@runInfo$Run, "../summary_files/") #8530 sras
-
-viro_sra@runInfo <- viro_sra@runInfo %>% filter(Run %in% viro_serratus@header$sra)
-
-viro_atys <- Atys(Serratus = viro_serratus,
-                  SRA = viro_sra,
-                  GENOME="")
-
-saveRDS(viro_atys, "../Atys/viro_atys.rds")
-
-#######################################################################
-#MOUSE
-#######################################################################
 mu_sra <- readSraRunInfo("../sra/mu_SraRunInfo.csv")
+mu_sra <- mu_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
 
-mu_serratus <- getLoadedSummaryFiles(mu_sra@runInfo$Run, "../summary_files/") #8530 sras
+vert_sra <- readSraRunInfo("../sra/vert_SraRunInfo.csv")
+vert_sra <- vert_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
 
-viro_sra@runInfo <- viro_sra@runInfo %>% filter(Run %in% viro_serratus@header$sra)
+mamm_sra <- readSraRunInfo("../sra/mamm_SraRunInfo.csv")
+mamm_sra <- mamm_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
 
-viro_atys <- Atys(Serratus = viro_serratus,
-                  SRA = viro_sra,
-                  GENOME="")
+hu_sra <- readSraRunInfo("../sra/hu_SraRunInfo.csv")
+hu_sra <- hu_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
 
-saveRDS(viro_atys, "../Atys/viro_atys.rds")
+hu_meta_sra <- readSraRunInfo("../sra/hu_meta_SraRunInfo.csv")
+hu_meta_sra <- hu_meta_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+all_sras <- rbind(viro_sra, vert_sra, mu_sra, mamm_sra, hu_sra, hu_meta_sra)
+
+all_sras <- all_sras[!duplicated(all_sras$Run), ]
+
+#filter files
+###################################################
+#sumWheres_all <- paste("../summary_files/", system( paste0("ls ", "../summary_files/"), intern = T), sep="/")
+sumWheres_all <- system( paste0("ls ", "../summary_files/"), intern = T)
+sumWheres_all <- sapply(sumWheres_all, function(x) {
+  unlist(strsplit(x, ".", fixed = TRUE))[1]
+})
+#summary_files <- paste(all_sras$Run, "summary", sep=".")
+
+#sumWheres <- paste("../summary_files/", summary_files, sep="/")
+
+#remove files that are absent in the specified folder
+#files_to_analyze <- intersect(sumWheres_all, sumWheres)
+
+all_sras <- all_sras %>% filter(Run %in% sumWheres_all)
+################################################
+
+#number of unique sras:
+nsras <- nrow(all_sras)
+nsras <- as.character(nsras)
+
+#sums of mb used (and converted to gb)
+mbs <- sum(all_sras$size_MB)
+gbs <- mbs / 1000
+gbs <- as.character(gbs)
+
+#how many nucleotides were analyzed
+spots_sum <- sum(all_sras$spots)
+spots_with_mates_sum <- sum(all_sras$spots_with_mates)
+nucl_sum <- spots_sum + spots_with_mates_sum
+#nucl_sum <- format(nucl_sum, scientific=FALSE)
+nucl_sum <- as.character(nucl_sum)
+
+res_lis <- list(nsras, gbs, nucl_sum)
+names(res_lis) <- c("Num_SRAs", "GBs", "Nucl_SUM")
+res_lis
 ```
 

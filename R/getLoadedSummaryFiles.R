@@ -1,4 +1,5 @@
 #' getLoadedSummaryFiles
+#' 
 #' Parses the specified list of SRA accessions (which are supposed to be present in the specified folder)
 #' into a Serratus S4 object
 #' 

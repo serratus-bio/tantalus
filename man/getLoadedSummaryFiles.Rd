@@ -2,9 +2,7 @@
 % Please edit documentation in R/getLoadedSummaryFiles.R
 \name{getLoadedSummaryFiles}
 \alias{getLoadedSummaryFiles}
-\title{getLoadedSummaryFiles
-Parses the specified list of SRA accessions (which are supposed to be present in the specified folder)
-into a Serratus S4 object}
+\title{getLoadedSummaryFiles}
 \usage{
 getLoadedSummaryFiles(sras, path_to_files = "")
 }
@@ -17,6 +15,10 @@ getLoadedSummaryFiles(sras, path_to_files = "")
 Serratus S4 class
 }
 \description{
+Parses the specified list of SRA accessions (which are supposed to be present in the specified folder)
+into a Serratus S4 object
+}
+\details{
 Implicit system dependcies
 - aws cli
 }
