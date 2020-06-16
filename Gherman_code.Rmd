@@ -297,7 +297,37 @@ sras <- c("SRR9701190", "SRR9705127", "SRR975462", "SRR9843091", "SRR9843092")
 serr <- getSummaryFiles(sras, 's3://lovelywater/summary/', "summary_files")
 ```
 
-## First phase is done (1.14M files). Get Atys objects for them
+
+```{r}
+#TEST
+DATA_PATH='../summary_test/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+SRA <- as.character(sapply(sumWheres, readSra)) #Time difference of 0.01752162 secs
+HEADER <- data.frame(t(sapply(sumWheres, readHeader))) #Time difference of 1.364799 secs
+HITS_Family <- lapply(sumWheres, readHits, family=T) #Time difference of 15.47495 secs
+HITS_Family <- do.call(rbind.data.frame, HITS_Family) #Time difference of 0.4746368 secs
+HITS_ACC <- lapply(sumWheres, readHits, family=F) #Time difference of 1.758523 mins
+HITS_ACC <- do.call(rbind.data.frame, HITS_ACC) #Time difference of 1.099728 secs
+
+start.time <- Sys.time()
+
+HITS_ACC <- do.call(rbind.data.frame, HITS_ACC)
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+```
+
+## First phase is done (1.14M files). Get Atys objects for 
+
+VIRO - 8530 files
+VERT - 94453 files
+MAMM - 94743
+MU - 264281
+HUMAN - 651614
+HUMAN_META - 35709
 
 ```{r}
 vert_sra <- readSraRunInfo("../sra/vert_SraRunInfo.csv")
@@ -312,6 +342,78 @@ vert_atys <- Atys(Serratus = vert_serratus,
 
 print("Save to rds")
 saveRDS(vert_atys, "../Atys/vert_atys.rds")
+```
+
+
+Temporary code for the analysis
+```{r}
+mu_sra <- readSraRunInfo("../sra/mu_SraRunInfo.csv")
+
+sumWheres_all <- paste("../summary_files/", system( paste0("ls ", "../summary_files/"), intern = T), sep="/")
+  
+summary_files <- paste(mu_sra@runInfo$Run, "summary", sep=".")
+
+sumWheres <- paste("../summary_files/", summary_files, sep="/")
+
+#remove files that are absent in the specified folder
+files_to_analyze <- intersect(sumWheres_all, sumWheres)
+
+HITS_Family <- lapply(files_to_analyze, function(x){
+  
+  sra  <-  sub('^.*/', '', x)
+  sra  <-  sub('.summary', '', sra)
+  
+  res <- readHits(x, family = T)
+  
+  if (nrow(res) != 0){
+    write.fst(res, paste("../temp_folder_mu_F/", sra, ".fst", sep=""), compress = 100)
+  }
+})
+
+HITS_ACC <- lapply(files_to_analyze, function(x){
+  
+  sra  <-  sub('^.*/', '', x)
+  sra  <-  sub('.summary', '', sra)
+  
+  res <- readHits(x, family = F)
+  
+  if (nrow(res) != 0){
+    write.fst(res, paste("../temp_folder_mu_Acc/", sra, ".fst", sep=""), compress = 100)
+  }
+})
+
+################################################################################################
+start.time <- Sys.time()
+
+DATA_PATH='../temp_folder_vert_F/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+hits <- lapply(sumWheres, function(x){
+  df_subset <- read.fst(x, c("sra","score", "pctid"))
+  return(df_subset)
+})
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+start.time <- Sys.time()
+
+test <- hits#[1:10000]
+#x <- do.call(rbind.data.frame, test) #12 secs 63256     3
+suppressWarnings(y <- bind_rows(test)) #1.5 sec 63256     3
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+library(compare)
+comparison <- compare(x,y,allowAll=TRUE)
+
+difference <-
+   data.frame(lapply(1:ncol(x),function(i)setdiff(x[,i],comparison$tM[,i])))
+colnames(difference) <- colnames(x)
 ```
 
 
