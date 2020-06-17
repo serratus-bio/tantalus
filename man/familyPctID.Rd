@@ -5,7 +5,7 @@
 \title{Plot a histogram of percentage identity for a given family}
 \usage{
 familyPctID(
-  serratus,
+  family_df,
   family_name,
   score_threshold = 0,
   title = "",
@@ -15,7 +15,7 @@ familyPctID(
 )
 }
 \arguments{
-\item{serratus}{serattus S4 object with family data frame}
+\item{family_df}{family data frame}
 
 \item{family_name}{name of the family}
 

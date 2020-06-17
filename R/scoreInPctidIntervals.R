@@ -1,7 +1,7 @@
 #' Plot a histogram of family score for the given family within pctid score intervals
 #'
 #'
-#' @param  serratus serattus S4 object with family data frame
+#' @param  family_df family data frame
 #' @param  family_name name of the family
 #' @param title title of the plot
 #'
@@ -13,8 +13,8 @@
 #' 
 #' @export
 #'
-scoreInPctidIntervals <- function(serratus, family_name, title=""){
-  family_df <- serratus@family %>% filter(family %in% c(family_name))
+scoreInPctidIntervals <- function(family_df, family_name, title=""){
+  family_df <- family_df %>% filter(family %in% c(family_name))
   
   test <- family_df$pctid
   test2 <- sapply(test, function(x){

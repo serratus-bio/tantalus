@@ -5,6 +5,13 @@ Version: 0.1.0
 Author: Gherman Novakovsky, Artem Babaian
 Maintainer: Gherman Novakovsky <gnovakovsky@cmmt.ubc.ca>, Artem Babaian <ababaian@bccrc.ca>
 Description: Parses the output summary files from Serratus and provides data structures to work with the data.
+Depends:
+    dplyr,
+    ggplot2,
+    fst,
+    ggpubr,
+    viridis,
+    scales
 Imports:
     gridExtra,
     ggplot2,
@@ -15,7 +22,8 @@ Imports:
     scales,
     viridis,
     ggpubr,
-    data.table
+    data.table,
+    fst
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

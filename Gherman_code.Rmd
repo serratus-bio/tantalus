@@ -18,6 +18,7 @@ library("grid")
 library("scales")
 library("viridis")
 library("ggpubr")
+library("fts")
 ```
 
 
@@ -64,37 +65,37 @@ MAMM <- MAMM@Serratus
 ```
 
 ```{r}
-familyScore(MAMM, "Coronaviridae", log=T)
+#familyScore(MAMM, "Coronaviridae", log=T)
 ```
 
 ```{r}
-x <- familyScorPctID(MAMM, "Coronaviridae")
+#x <- familyScorPctID(MAMM, "Coronaviridae")
 ```
 
 ```{r}
-p1 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100, log=T)
-p2 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100, log=T)
-p3 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100, log=T)
-p4 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100, log=T)
-p5 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100, log=T)
-p6 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100, log=T)
+#p1 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100, log=T)
+#p2 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100, log=T)
+#p3 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100, log=T)
+#p4 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100, log=T)
+#p5 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100, log=T)
+#p6 <- familyPctID(MAMM, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100, log=T)
 
-grid.newpage()
-grid.draw(rbind(ggplotGrob(p1),
-                ggplotGrob(p2),
-                ggplotGrob(p3),
-                ggplotGrob(p4),
-                ggplotGrob(p5),
-                ggplotGrob(p6),
-                size = "last"))
+#grid.newpage()
+#grid.draw(rbind(ggplotGrob(p1),
+#                ggplotGrob(p2),
+#                ggplotGrob(p3),
+#                ggplotGrob(p4),
+#                ggplotGrob(p5),
+#                ggplotGrob(p6),
+#                size = "last"))
 ```
 
 ```{r}
-pctidInScoreIntervals(MAMM, "Coronaviridae", title="Coronaviridae")
+pctidInScoreIntervals(MAMM@family, "Coronaviridae", title="Coronaviridae")
 ```
 
 ```{r}
-scoreInPctidIntervals(MAMM, "Coronaviridae", title="Coronaviridae")
+scoreInPctidIntervals(MAMM@family, "Coronaviridae", title="Coronaviridae")
 ```
 
 
@@ -202,19 +203,19 @@ saveRDS(vert_atys, "../Atys/vert_atys.rds")
 ## Temporary code for the analysis (big data sets)
 
 ```{r}
-hu_sra <- readSraRunInfo("../sra/hu_SraRunInfo.csv")
-hu_m_sra <- readSraRunInfo("../sra/hu_meta_SraRunInfo.csv")
+mamm_sra <- readSraRunInfo("../sra/mamm_SraRunInfo.csv")
+#hu_m_sra <- readSraRunInfo("../sra/hu_meta_SraRunInfo.csv")
 
-x <- rbind(hu_sra@runInfo, hu_m_sra@runInfo)
-x <- x[!duplicated(x$Run), ]
+#x <- rbind(hu_sra@runInfo, hu_m_sra@runInfo)
+#x <- x[!duplicated(x$Run), ]
 
-hu_sra@runInfo <- x
-rm(hu_m_sra)
-rm(x)
+#hu_sra@runInfo <- x
+#rm(hu_m_sra)
+#rm(x)
 
 sumWheres_all <- paste("../summary_files/", system( paste0("ls ", "../summary_files/"), intern = T), sep="/")
 
-summary_files <- paste(hu_sra@runInfo$Run, "summary", sep=".")
+summary_files <- paste(mamm_sra@runInfo$Run, "summary", sep=".")
 
 sumWheres <- paste("../summary_files/", summary_files, sep="/")
 
@@ -229,7 +230,7 @@ HITS_Family <- lapply(files_to_analyze, function(x){
   res <- readHits(x, family = T)
   
   if (nrow(res) != 0){
-    write.fst(res, paste("../temp_folder_hu_F/", sra, ".fst", sep=""), compress = 100)
+    write.fst(res, paste("../temp_folder_mamm_F/", sra, ".fst", sep=""), compress = 100)
   }
 })
 
@@ -241,7 +242,7 @@ HITS_ACC <- lapply(files_to_analyze, function(x){
   res <- readHits(x, family = F)
   
   if (nrow(res) != 0){
-    write.fst(res, paste("../temp_folder_hu_Acc/", sra, ".fst", sep=""), compress = 100)
+    write.fst(res, paste("../temp_folder_mamm_Acc/", sra, ".fst", sep=""), compress = 100)
   }
 })
 

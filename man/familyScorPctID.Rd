@@ -4,10 +4,10 @@
 \alias{familyScorPctID}
 \title{Plot a scatterplot/histogram of percentage identity vs family score for a given family}
 \usage{
-familyScorPctID(serratus, family_name)
+familyScorPctID(family_df, family_name)
 }
 \arguments{
-\item{serratus}{serattus S4 object with family data frame}
+\item{family_df}{family data frame}
 
 \item{family_name}{name of the family}
 }

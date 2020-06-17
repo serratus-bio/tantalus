@@ -4,10 +4,10 @@
 \alias{familyScore}
 \title{Plot a histogram of scores for a given family}
 \usage{
-familyScore(serratus, family_name, x1 = 0, x2 = 100, log = F)
+familyScore(family_df, family_name, x1 = 0, x2 = 100, log = F)
 }
 \arguments{
-\item{serratus}{serattus S4 object with family data frame}
+\item{family_df}{family data frame}
 
 \item{family_name}{name of the family}
 

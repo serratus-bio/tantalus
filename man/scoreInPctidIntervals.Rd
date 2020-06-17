@@ -4,10 +4,10 @@
 \alias{scoreInPctidIntervals}
 \title{Plot a histogram of family score for the given family within pctid score intervals}
 \usage{
-scoreInPctidIntervals(serratus, family_name, title = "")
+scoreInPctidIntervals(family_df, family_name, title = "")
 }
 \arguments{
-\item{serratus}{serattus S4 object with family data frame}
+\item{family_df}{family data frame}
 
 \item{family_name}{name of the family}
 
