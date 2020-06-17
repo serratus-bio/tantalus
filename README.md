@@ -92,11 +92,17 @@ Now we can use this data frame to do plots:
 ```R
 #plot fscore histogram
 familyScore(viro, "Coronaviridae", log=T)
+```
+![example_img1](img/example_img1.png)
 
+```R
 #plot fscore/pctid histogram/scatterplot
 x <- familyScorPctID(viro, "Coronaviridae")
 x
+```
+![](img/example_img2.png)
 
+```R
 #plot pctid histograms
 library("grid")
 p1 <- familyPctID(viro, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100, log=T)
@@ -114,10 +120,20 @@ grid.draw(rbind(ggplotGrob(p1),
                 ggplotGrob(p5),
                 ggplotGrob(p6),
                 size = "last"))
+```
 
+![](img/example_img3.png)
+
+```R
 #plot pctid histogram with family score intervals
 pctidInScoreIntervals(viro, "Coronaviridae", title="Coronaviridae")
+```
 
+![](img/example_img4.png)
+
+```R
 #plot score histogram with pctid intervals
 scoreInPctidIntervals(viro, "Coronaviridae", title="Coronaviridae")
 ```
+
+![](img/example_img5.png)
