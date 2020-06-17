@@ -97,94 +97,6 @@ pctidInScoreIntervals(MAMM, "Coronaviridae", title="Coronaviridae")
 scoreInPctidIntervals(MAMM, "Coronaviridae", title="Coronaviridae")
 ```
 
-## Chao-1 analysis
-
-Building an OTU-SRA correspondance file:
-```{r}
-load("../VIRO.RData")
-#
-load("../VERT.RData")
-#
-load("../HU1.RData")
-
-otus <- read.table("../data/otus92.tsv", sep="\t", stringsAsFactors = F)
-colnames(otus) <- c("OTU", "NAME")
-cov3ma <- read.table("../data/cov3ma.sumzer.tsv", sep="\t", stringsAsFactors = F, quote = "", comment.char = "$")
-```
-
-```{r}
-################################################################################################################
-#VIRO
-################################################################################################################
-VIRO <- ZOO
-rm(ZOO)
-
-Coron_viro <- VIRO@family %>% filter(family %in% c("Coronaviridae")) %>%
-                         filter(score >= 80) %>%
-                         filter(pctid >= 95)
-
-accessions <- as.character(Coron_viro$top)
-accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
-Coron_viro$NAME <- accessions
-Coron_viro_short <- Coron_viro %>% dplyr::select("sra", "NAME")
-
-otus_viro <- merge(Coron_viro_short, otus, by="NAME")
-
-################################################################################################################
-#VERT
-################################################################################################################
-Coron_vert <- VERT@family %>% filter(family %in% c("Coronaviridae")) %>%
-                         filter(score >= 80) %>%
-                         filter(pctid >= 95)
-
-accessions <- as.character(Coron_vert$top)
-accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
-Coron_vert$NAME <- accessions
-Coron_vert_short <- Coron_vert %>% dplyr::select("sra", "NAME")
-
-otus_vert <- merge(Coron_vert_short, otus, by="NAME")
-
-################################################################################################################
-#VIRO
-################################################################################################################
-Coron_hu1 <- HU1@family %>% filter(family %in% c("Coronaviridae")) %>%
-                         filter(score >= 80) %>%
-                         filter(pctid >= 95)
-
-accessions <- as.character(Coron_hu1$top)
-accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
-Coron_hu1$NAME <- accessions
-Coron_hu1_short <- Coron_hu1 %>% dplyr::select("sra", "NAME")
-
-otus_hu1 <- merge(Coron_hu1_short, otus, by="NAME")
-
-```
-
-
-Count number of datasets per otu (species):
-```{r}
-otus_datasets <- rbind(otus_viro, otus_vert, otus_hu1)
-otus_datasets <- unique(otus_datasets)
-
-otus_species <- unique(otus$OTU)
-
-test <- sapply(otus_species, function(x) { otus_datasets %>% filter(OTU == x) %>% nrow() })
-
-res_abundance <- data.frame(OTU = as.character(), Number_of_datasets = as.numeric())
-for (otu_num in otus_species){
-  name_of_otu <- paste("OTU", otu_num, sep="")
-  num_of_datasets <- otus_datasets %>% filter(OTU == otu_num) %>% nrow()
-  
-  interim_res <- data.frame(OTU = name_of_otu, Number_of_datasets = num_of_datasets)
-  
-  res_abundance <- rbind(res_abundance, interim_res)
-}
-
-res_abundance <- res_abundance[order(-res_abundance$Number_of_datasets),]
-
-write.table(res_abundance, file="../data/otu_abundance.tsv", quote=F, sep="\t", row.names = F)
-```
-
 
 ## Playing with SRA files
 
@@ -564,5 +476,155 @@ nucl_sum <- as.character(nucl_sum)
 res_lis <- list(nsras, gbs, nucl_sum)
 names(res_lis) <- c("Num_SRAs", "GBs", "Nucl_SUM")
 res_lis
+```
+
+## Chao-1 analysis
+
+Building an OTU-SRA correspondance file:
+```{r}
+otus <- read.table("../data/otus92.tsv", sep="\t", stringsAsFactors = F)
+colnames(otus) <- c("OTU", "NAME")
+cov3ma <- read.table("../data/cov3ma.sumzer.tsv", sep="\t", stringsAsFactors = F, quote = "", comment.char = "$")
+```
+
+```{r}
+################################################################################################################
+#VIRO
+################################################################################################################
+VIRO <- readRDS("../Atys/viro_atys.rds")
+VIRO <- VIRO@Serratus
+
+Coron_viro <- VIRO@family %>% filter(family %in% c("Coronaviridae")) %>%
+                         filter(score >= 80) %>%
+                         filter(pctid >= 95)
+
+accessions <- as.character(Coron_viro$top)
+accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
+Coron_viro$NAME <- accessions
+Coron_viro_short <- Coron_viro %>% dplyr::select("sra", "NAME")
+
+otus_viro <- merge(Coron_viro_short, otus, by="NAME")
+rm(VIRO)
+
+################################################################################################################
+#MAMM
+################################################################################################################
+MAMM <- readRDS("../Atys/mamm_atys.rds")
+MAMM <- MAMM@Serratus
+
+Coron_mamm <- MAMM@family %>% filter(family %in% c("Coronaviridae")) %>%
+                         filter(score >= 80) %>%
+                         filter(pctid >= 95)
+
+accessions <- as.character(Coron_mamm$top)
+accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
+Coron_mamm$NAME <- accessions
+Coron_mamm_short <- Coron_mamm %>% dplyr::select("sra", "NAME")
+
+otus_mamm <- merge(Coron_mamm_short, otus, by="NAME")
+rm(MAMM)
+
+################################################################################################################
+#VERT
+################################################################################################################
+DATA_PATH='../vert_dfs/temp_folder_vert_F/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+hits <- lapply(sumWheres, function(x){
+  df_subset <- read.fst(x, c("sra","score", "pctid", "family", "top"))
+  return(df_subset)
+})
+
+suppressWarnings(VERT <- bind_rows(hits))
+
+Coron_vert <- VERT %>% filter(family %in% c("Coronaviridae")) %>%
+                         filter(score >= 80) %>%
+                         filter(pctid >= 95)
+rm(VERT)
+
+accessions <- as.character(Coron_vert$top)
+accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
+Coron_vert$NAME <- accessions
+Coron_vert_short <- Coron_vert %>% dplyr::select("sra", "NAME")
+
+otus_vert <- merge(Coron_vert_short, otus, by="NAME")
+
+################################################################################################################
+#MOUSE
+################################################################################################################
+DATA_PATH='../mu_dfs/temp_folder_mu_F/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+hits <- lapply(sumWheres, function(x){
+  df_subset <- read.fst(x, c("sra","score", "pctid", "family", "top"))
+  return(df_subset)
+})
+
+suppressWarnings(MU <- bind_rows(hits))
+
+Coron_mu <- MU %>% filter(family %in% c("Coronaviridae")) %>%
+                         filter(score >= 80) %>%
+                         filter(pctid >= 95)
+rm(MU)
+
+accessions <- as.character(Coron_mu$top)
+accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
+Coron_mu$NAME <- accessions
+Coron_mu_short <- Coron_mu %>% dplyr::select("sra", "NAME")
+
+otus_mu <- merge(Coron_mu_short, otus, by="NAME")
+
+################################################################################################################
+#HUMAN
+################################################################################################################
+DATA_PATH='../hu_dfs/temp_folder_hu_F/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+hits <- lapply(sumWheres, function(x){
+  df_subset <- read.fst(x, c("sra","score", "pctid", "family", "top"))
+  return(df_subset)
+})
+
+suppressWarnings(HU <- bind_rows(hits))
+
+Coron_hu <- HU %>% filter(family %in% c("Coronaviridae")) %>%
+                         filter(score >= 80) %>%
+                         filter(pctid >= 95)
+rm(HU)
+
+accessions <- as.character(Coron_hu$top)
+accessions <- sapply(accessions, function(x) { unlist(strsplit(x, "[.]"))[1] })
+Coron_hu$NAME <- accessions
+Coron_hu_short <- Coron_hu %>% dplyr::select("sra", "NAME")
+
+otus_hu <- merge(Coron_hu_short, otus, by="NAME")
+```
+
+
+Count number of datasets per otu (species):
+```{r}
+otus_datasets <- rbind(otus_viro, otus_vert, otus_mamm, otus_mu, otus_hu)
+otus_datasets <- unique(otus_datasets)
+
+otus_species <- unique(otus$OTU)
+
+test <- sapply(otus_species, function(x) { otus_datasets %>% filter(OTU == x) %>% nrow() })
+
+res_abundance <- data.frame(OTU = as.character(), Number_of_datasets = as.numeric())
+for (otu_num in otus_species){
+  name_of_otu <- paste("OTU", otu_num, sep="")
+  num_of_datasets <- otus_datasets %>% filter(OTU == otu_num) %>% nrow()
+  
+  interim_res <- data.frame(OTU = name_of_otu, Number_of_datasets = num_of_datasets)
+  
+  res_abundance <- rbind(res_abundance, interim_res)
+}
+
+res_abundance <- res_abundance[order(-res_abundance$Number_of_datasets),]
+
+write.table(res_abundance, file="../data/otu_abundance_all.tsv", quote=F, sep="\t", row.names = F)
 ```
 
