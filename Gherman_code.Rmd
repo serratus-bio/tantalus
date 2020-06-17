@@ -345,13 +345,22 @@ saveRDS(vert_atys, "../Atys/vert_atys.rds")
 ```
 
 
-Temporary code for the analysis
+## Temporary code for the analysis (big data sets)
+
 ```{r}
-mu_sra <- readSraRunInfo("../sra/mu_SraRunInfo.csv")
+hu_sra <- readSraRunInfo("../sra/hu_SraRunInfo.csv")
+hu_m_sra <- readSraRunInfo("../sra/hu_meta_SraRunInfo.csv")
+
+x <- rbind(hu_sra@runInfo, hu_m_sra@runInfo)
+x <- x[!duplicated(x$Run), ]
+
+hu_sra@runInfo <- x
+rm(hu_m_sra)
+rm(x)
 
 sumWheres_all <- paste("../summary_files/", system( paste0("ls ", "../summary_files/"), intern = T), sep="/")
-  
-summary_files <- paste(mu_sra@runInfo$Run, "summary", sep=".")
+
+summary_files <- paste(hu_sra@runInfo$Run, "summary", sep=".")
 
 sumWheres <- paste("../summary_files/", summary_files, sep="/")
 
@@ -366,7 +375,7 @@ HITS_Family <- lapply(files_to_analyze, function(x){
   res <- readHits(x, family = T)
   
   if (nrow(res) != 0){
-    write.fst(res, paste("../temp_folder_mu_F/", sra, ".fst", sep=""), compress = 100)
+    write.fst(res, paste("../temp_folder_hu_F/", sra, ".fst", sep=""), compress = 100)
   }
 })
 
@@ -378,42 +387,174 @@ HITS_ACC <- lapply(files_to_analyze, function(x){
   res <- readHits(x, family = F)
   
   if (nrow(res) != 0){
-    write.fst(res, paste("../temp_folder_mu_Acc/", sra, ".fst", sep=""), compress = 100)
+    write.fst(res, paste("../temp_folder_hu_Acc/", sra, ".fst", sep=""), compress = 100)
   }
 })
 
-################################################################################################
-start.time <- Sys.time()
+```
 
-DATA_PATH='../temp_folder_vert_F/'
+```{r}
+###############################################################################################
+DATA_PATH='../vert_dfs/temp_folder_vert_F/'
 sumWheres <- paste0( DATA_PATH,
                      system( paste0("ls ", DATA_PATH), intern = T ))
 
+start.time <- Sys.time()
+
 hits <- lapply(sumWheres, function(x){
-  df_subset <- read.fst(x, c("sra","score", "pctid"))
+  df_subset <- read.fst(x, c("sra","score", "pctid", "family"))
   return(df_subset)
 })
 
-end.time <- Sys.time()
-time.taken <- end.time - start.time
-time.taken
-
-start.time <- Sys.time()
-
-test <- hits#[1:10000]
-#x <- do.call(rbind.data.frame, test) #12 secs 63256     3
-suppressWarnings(y <- bind_rows(test)) #1.5 sec 63256     3
+suppressWarnings(y <- bind_rows(hits))
 
 end.time <- Sys.time()
 time.taken <- end.time - start.time
 time.taken
 
-library(compare)
-comparison <- compare(x,y,allowAll=TRUE)
+#familyScore(HU2, "Coronaviridae", log=T)
+family_df <- y %>% filter(family %in% c("Coronaviridae"))
+p <- ggplot(data=family_df, aes(family_df$score)) + 
+      geom_histogram(fill="blue", bins = 30) +
+      theme_bw() +
+      scale_y_log10() +
+      coord_cartesian(xlim=c(0,100)) +
+      labs(x = "Family score") +
+      labs(title = paste("Coronaviridae", "family (log10 y axis)", sep = " "))
 
-difference <-
-   data.frame(lapply(1:ncol(x),function(i)setdiff(x[,i],comparison$tM[,i])))
-colnames(difference) <- colnames(x)
+#x <- familyScorPctID(HU2, "Coronaviridae")
+p <- ggplot(data=family_df, aes(x = score, y = pctid)) +
+  geom_jitter(color="blue", alpha = 0.4) + 
+  theme_bw() +
+  labs(x = "Family score", y = "Percentage identity") +
+  labs(title = paste("Coronaviridae", "family", sep = " "))
+s <- ggExtra::ggMarginal(p, type = "histogram")
+
+p1 <- ggplot(data=family_df[which(family_df$score >= 0), ], aes(pctid)) + 
+      geom_histogram(fill="blue", bins = 30) +
+      theme_bw() + 
+      coord_cartesian(xlim=c(70,100)) +
+      scale_y_log10() +
+      labs(x = "Percentage Identity") +
+      labs(title = "Coronaviridae - all")
+p2 <- ggplot(data=family_df[which(family_df$score >= 50), ], aes(pctid)) + 
+      geom_histogram(fill="blue", bins = 30) +
+      theme_bw() + 
+      coord_cartesian(xlim=c(70,100)) +
+      scale_y_log10() +
+      labs(x = "Percentage Identity") +
+      labs(title = "Coronaviridae - 50+")
+p3 <- ggplot(data=family_df[which(family_df$score >= 60), ], aes(pctid)) + 
+      geom_histogram(fill="blue", bins = 30) +
+      theme_bw() + 
+      coord_cartesian(xlim=c(70,100)) +
+      scale_y_log10() +
+      labs(x = "Percentage Identity") +
+      labs(title = "Coronaviridae - 60+")
+p4 <- ggplot(data=family_df[which(family_df$score >= 70), ], aes(pctid)) + 
+      geom_histogram(fill="blue", bins = 30) +
+      theme_bw() + 
+      coord_cartesian(xlim=c(70,100)) +
+      scale_y_log10() +
+      labs(x = "Percentage Identity") +
+      labs(title = "Coronaviridae - 70+")
+p5 <- ggplot(data=family_df[which(family_df$score >= 80), ], aes(pctid)) + 
+      geom_histogram(fill="blue", bins = 30) +
+      theme_bw() + 
+      coord_cartesian(xlim=c(70,100)) +
+      scale_y_log10() +
+      labs(x = "Percentage Identity") +
+      labs(title = "Coronaviridae - 80+")
+p6 <- ggplot(data=family_df[which(family_df$score >= 90), ], aes(pctid)) + 
+      geom_histogram(fill="blue", bins = 30) +
+      theme_bw() + 
+      coord_cartesian(xlim=c(70,100)) +
+      scale_y_log10() +
+      labs(x = "Percentage Identity") +
+      labs(title = "Coronaviridae - 90+")
+
+grid.newpage()
+grid.draw(rbind(ggplotGrob(p1),
+                ggplotGrob(p2),
+                ggplotGrob(p3),
+                ggplotGrob(p4),
+                ggplotGrob(p5),
+                ggplotGrob(p6),
+                size = "last"))
+```
+
+```{r}
+#pctidInScoreIntervals(HU2, "Coronaviridae", title="Coronaviridae in HU2")
+test <- family_df$score
+test2 <- sapply(test, function(x){
+  if ((x <= 100) & (x > 95)){
+    return("95-100")
+  } else if ((x <= 95) & (x > 85)){
+    return("85-95")
+  } else if ((x <= 85) & (x > 75)){
+    return("75-85")
+  } else if ((x <= 75) & (x > 65)){
+    return("65-75")
+  } else if ((x <= 65) & (x > 55)){
+    return("55-65")
+  } else if ((x <= 55) & (x > 45)){
+    return("45-55")
+  } else if ((x <= 45) & (x > 35)){
+    return("35-45")
+  } else if ((x <= 35) & (x > 25)){
+    return("25-35")
+  } else if ((x <= 25) & (x > 15)){
+    return("15-25")
+  } else if ((x <= 15) & (x > 5)){
+    return("5-15")
+  } else {
+    return("0-5")
+  }
+})
+
+test2 <- factor(test2, levels = c("0-5", "5-15", "15-25", "25-35", "35-45", "45-55", "55-65", "65-75", "75-85", "85-95", "95-100"))
+
+family_df$score_intervals <- test2
+
+p <- ggplot(family_df %>% group_by(pctid,score_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), 
+            aes(pctid, log10n,fill = score_intervals)) +
+  geom_bar(color="black",stat = "identity") +
+  scale_fill_viridis(discrete=TRUE) + 
+  theme_bw() +
+  labs(title = "Coronaviridae - Vert")
+```
+
+```{r}
+#scoreInPctidIntervals(HU2, "Coronaviridae", title="Coronaviridae in HU2")
+test <- family_df$pctid
+test2 <- sapply(test, function(x){
+  if ((x <= 100) & (x > 97)){
+    return("97-100")
+  } else if ((x <= 97) & (x > 94)){
+    return("94-97")
+  } else if ((x <= 94) & (x > 91)){
+    return("91-94")
+  } else if ((x <= 91) & (x > 88)){
+    return("88-91")
+  } else if ((x <= 88) & (x > 85)){
+    return("85-88")
+  } else if ((x <= 85) & (x > 82)){
+    return("82-85")
+  } else {
+    return("<82")
+  }
+})
+
+test2 <- factor(test2, levels = c("<82", "82-85", "85-88", "88-91", "91-94", "94-97", "97-100"))
+
+family_df$pctid_intervals <- test2
+
+p <- ggplot(family_df %>% group_by(score,pctid_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), 
+       aes(score, log10n,fill = pctid_intervals)) +
+  geom_bar(color="black",stat = "identity") +
+  scale_fill_viridis(discrete=TRUE) + 
+  theme_bw() +
+  labs(title = "Coronaviridae - Vert")
 ```
 
 
