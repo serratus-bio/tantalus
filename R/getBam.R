@@ -19,7 +19,7 @@
 #' @export
 #' 
 getBAM <- function(sra,
-                   s3_path = 's3://lovelywater/bam/',
+                   s3_path = 's3://lovelywater/',
                    local_path = 'bam'){
   
   system(paste0( 'mkdir -p ', local_path))
