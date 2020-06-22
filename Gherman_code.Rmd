@@ -18,7 +18,7 @@ library("grid")
 library("scales")
 library("viridis")
 library("ggpubr")
-library("fts")
+library("fst")
 ```
 
 
@@ -203,7 +203,7 @@ saveRDS(vert_atys, "../Atys/vert_atys.rds")
 ## Temporary code for the analysis (big data sets)
 
 ```{r}
-mamm_sra <- readSraRunInfo("../sra/mamm_SraRunInfo.csv")
+viro2_sra <- readSraRunInfo("../sra/viro2_SraRunInfo.csv")
 #hu_m_sra <- readSraRunInfo("../sra/hu_meta_SraRunInfo.csv")
 
 #x <- rbind(hu_sra@runInfo, hu_m_sra@runInfo)
@@ -213,39 +213,56 @@ mamm_sra <- readSraRunInfo("../sra/mamm_SraRunInfo.csv")
 #rm(hu_m_sra)
 #rm(x)
 
-sumWheres_all <- paste("../summary_files/", system( paste0("ls ", "../summary_files/"), intern = T), sep="/")
+sumWheres_all <- paste("../summary_viro/", system( paste0("ls ", "../summary_viro/"), intern = T), sep="/")
 
-summary_files <- paste(mamm_sra@runInfo$Run, "summary", sep=".")
+summary_files <- paste(viro2_sra@runInfo$Run, "summary", sep=".")
 
-sumWheres <- paste("../summary_files/", summary_files, sep="/")
+sumWheres <- paste("../summary_viro/", summary_files, sep="/")
 
 #remove files that are absent in the specified folder
 files_to_analyze <- intersect(sumWheres_all, sumWheres)
 
-HITS_Family <- lapply(files_to_analyze, function(x){
-  
-  sra  <-  sub('^.*/', '', x)
-  sra  <-  sub('.summary', '', sra)
-  
-  res <- readHits(x, family = T)
-  
-  if (nrow(res) != 0){
-    write.fst(res, paste("../temp_folder_mamm_F/", sra, ".fst", sep=""), compress = 100)
-  }
-})
+parseSummaryFiles(files_to_analyze, outputFolder="../viro2/viro2_F/", parseFamily=T)
 
-HITS_ACC <- lapply(files_to_analyze, function(x){
-  
-  sra  <-  sub('^.*/', '', x)
-  sra  <-  sub('.summary', '', sra)
-  
-  res <- readHits(x, family = F)
-  
-  if (nrow(res) != 0){
-    write.fst(res, paste("../temp_folder_mamm_Acc/", sra, ".fst", sep=""), compress = 100)
-  }
-})
+parseSummaryFiles(files_to_analyze, outputFolder="../viro2/viro2_Acc/", parseFamily=F)
 
+
+#read all family dfs
+DATA_PATH='../viro2_dfs/viro2_F/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+#read subset of columns
+viro2 <- readDFs(sumWheres, all=F, columns = c("sra","score", "pctid", "family"))
+
+#plot fscore histogram
+familyScore(viro2, "Coronaviridae", log=T)
+
+#plot fscore/pctid histogram/scatterplot
+x <- familyScorPctID(viro2, "Coronaviridae")
+x
+
+#plot pctid histograms
+library("grid")
+p1 <- familyPctID(viro2, "Coronaviridae", score_threshold = 0, title="Coronaviridae - all", x1=70, x2=100, log=T)
+p2 <- familyPctID(viro2, "Coronaviridae", score_threshold = 50, title="Coronaviridae - 50+", x1=70, x2=100, log=T)
+p3 <- familyPctID(viro2, "Coronaviridae", score_threshold = 60, title="Coronaviridae - 60+", x1=70, x2=100, log=T)
+p4 <- familyPctID(viro2, "Coronaviridae", score_threshold = 70, title="Coronaviridae - 70+", x1=70, x2=100, log=T)
+p5 <- familyPctID(viro2, "Coronaviridae", score_threshold = 80, title="Coronaviridae - 80+", x1=70, x2=100, log=T)
+p6 <- familyPctID(viro2, "Coronaviridae", score_threshold = 90, title="Coronaviridae - 90+", x1=70, x2=100, log=T)
+
+grid.newpage()
+grid.draw(rbind(ggplotGrob(p1),
+                ggplotGrob(p2),
+                ggplotGrob(p3),
+                ggplotGrob(p4),
+                ggplotGrob(p5),
+                ggplotGrob(p6),
+                size = "last"))
+
+pctidInScoreIntervals(viro2, "Coronaviridae", title="Coronaviridae")
+
+scoreInPctidIntervals(viro2, "Coronaviridae", title="Coronaviridae")
 ```
 
 ```{r}
