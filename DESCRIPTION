@@ -9,7 +9,6 @@ Depends:
     dplyr,
     ggplot2,
     fst,
-    ggpubr,
     viridis,
     scales
 Imports:
@@ -21,7 +20,6 @@ Imports:
     utils,
     scales,
     viridis,
-    ggpubr,
     data.table,
     fst
 License: GPL-3
