@@ -496,6 +496,73 @@ names(res_lis) <- c("Num_SRAs", "GBs", "Nucl_SUM")
 res_lis
 ```
 
+
+```{r}
+#NEW DATA SET - 3.8 M
+#######################################################################
+viro_sra <- readSraRunInfo("../new_sra/viro_SraRunInfo.csv")
+viro_sra <- viro_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+mu_sra <- readSraRunInfo("../new_sra/mu_SraRunInfo.csv")
+mu_sra <- mu_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+vert_sra <- readSraRunInfo("../new_sra/vert_SraRunInfo.csv")
+vert_sra <- vert_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+mamm_sra <- readSraRunInfo("../new_sra/mamm_SraRunInfo.csv")
+mamm_sra <- mamm_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+hu_sra <- readSraRunInfo("../new_sra/hu_SraRunInfo.csv")
+hu_sra <- hu_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+hu_meta_sra <- readSraRunInfo("../new_sra/hu_meta_SraRunInfo.csv")
+hu_meta_sra <- hu_meta_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+bat_sra <- readSraRunInfo("../new_sra/bat_SraRunInfo.csv")
+bat_sra <- bat_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+inv_sra <- readSraRunInfo("../new_sra/inv_SraRunInfo.csv")
+inv_sra <- inv_sra@runInfo[,c("Run","size_MB","spots", "spots_with_mates")]
+
+all_sras <- rbind(viro_sra, vert_sra, mu_sra, mamm_sra, hu_sra, hu_meta_sra, bat_sra, inv_sra)
+
+all_sras <- all_sras[!duplicated(all_sras$Run), ]
+
+#filter files
+###################################################
+#sumWheres_all <- system( paste0("ls ", "../summary_files/"), intern = T)
+new_summary <- read.table("../new_summary_files.txt", stringsAsFactors = F)
+new_summary_files <- new_summary$V4
+
+sumWheres_all <- sapply(new_summary_files, function(x) {
+  unlist(strsplit(x, ".", fixed = TRUE))[1]
+})
+
+
+all_sras <- all_sras %>% filter(Run %in% sumWheres_all)
+################################################
+
+#number of unique sras:
+nsras <- nrow(all_sras)
+nsras <- as.character(nsras)
+
+#sums of mb used (and converted to gb)
+mbs <- sum(all_sras$size_MB)
+gbs <- mbs / 1000
+gbs <- as.character(gbs)
+
+#how many nucleotides were analyzed
+spots_sum <- sum(all_sras$spots)
+spots_with_mates_sum <- sum(all_sras$spots_with_mates)
+nucl_sum <- spots_sum + spots_with_mates_sum
+#nucl_sum <- format(nucl_sum, scientific=FALSE)
+nucl_sum <- as.character(nucl_sum)
+
+res_lis <- list(nsras, gbs, nucl_sum)
+names(res_lis) <- c("Num_SRAs", "GBs", "Nucl_SUM")
+res_lis
+```
+
 ## Chao-1 analysis
 
 Building an OTU-SRA correspondance file:
@@ -644,5 +711,48 @@ for (otu_num in otus_species){
 res_abundance <- res_abundance[order(-res_abundance$Number_of_datasets),]
 
 write.table(res_abundance, file="../data/otu_abundance_all.tsv", quote=F, sep="\t", row.names = F)
+```
+
+
+## Heatmap construction (per accession)
+
+```{r}
+#viro2_dfs
+#NC_014468.1 - example
+accession <- "NC_014468.1"
+newvals <- c('_'=0,'.'=0.25,'o'=0.5, 'O'=0.75)
+#df_subset <- read.fst(path = "../viro2_dfs/viro2_Acc/DRR001793.fst", c("acc", "cvg"))
+
+DATA_PATH='../viro2_dfs/viro2_Acc/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+dfs <- readDFs(sumWheres, columns = c("sra", "acc", "cvg"), acc = accession)
+
+listcover <- lapply(dfs$cvg, function(x) { substring(x, seq(1, nchar(x), 1), seq(1, nchar(x), 1)) })
+
+test <- lapply(listcover, function(x){ 
+  newvals <- c('_'=0,'.'=0.25,'o'=0.5, 'O'=0.75)
+  return(newvals[x])
+  }
+)
+
+heatmap <- as.data.frame(test)
+heatmap <- t(heatmap)
+rownames(heatmap) <- dfs$sra
+colnames(heatmap) <- seq(1,25)
+
+library(plotly)
+fig <- plot_ly(x = seq(1,25), y = rownames(heatmap), z = heatmap, type = "heatmap",name = accession) %>% layout(title = accession)
+
+fig
+```
+
+
+```{r}
+#install.packages("heatmaply")
+
+#library(heatmaply)
+#heatmaply(scale(mtcars), k_row = 3, k_col = 2)
 ```
 
