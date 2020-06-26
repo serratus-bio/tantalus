@@ -12,10 +12,18 @@
 #'
 #' @export
 #`
+# lapply Wrapper for readFST
+readDFs <- function(files, all=T, columns = NULL, family = NULL, acc = NULL){
+
+  hits <- lapply( files, readFST, columns = columns, family = family, acc = acc)
+  suppressWarnings(y <- dplyr::bind_rows(hits))
+  return(y)
+  
+}
 
 # Serratus Summary read.fst function
 readFST <- function(file, columns = NULL, family = NULL, acc = NULL){
-
+  
   if (is.null(columns)){
     df_subset <- read.fst(path = file)
   } else {
@@ -25,7 +33,7 @@ readFST <- function(file, columns = NULL, family = NULL, acc = NULL){
   if (!is.null(family)){
     df_subset <- df_subset[ df_subset$family == family, ]
   }
-
+  
   
   if (!is.null(acc)){
     if ( sum( grepl('acc', colnames(df_subset))) > 0 ){
@@ -38,14 +46,5 @@ readFST <- function(file, columns = NULL, family = NULL, acc = NULL){
   }
   
   return(df_subset)
-  
-}
-
-# lapply Wrapper for readFST
-readDFs <- function(files, all=T, columns = NULL, family = NULL, acc = NULL){
-
-  hits <- lapply( files, readFST, columns = columns, family = family, acc = acc)
-  suppressWarnings(y <- dplyr::bind_rows(hits))
-  return(y)
   
 }

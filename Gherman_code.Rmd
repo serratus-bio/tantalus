@@ -528,6 +528,7 @@ all_sras <- rbind(viro_sra, vert_sra, mu_sra, mamm_sra, hu_sra, hu_meta_sra, bat
 
 all_sras <- all_sras[!duplicated(all_sras$Run), ]
 
+
 #filter files
 ###################################################
 #sumWheres_all <- system( paste0("ls ", "../summary_files/"), intern = T)
@@ -541,6 +542,47 @@ sumWheres_all <- sapply(new_summary_files, function(x) {
 
 all_sras <- all_sras %>% filter(Run %in% sumWheres_all)
 ################################################
+
+hu_sra_present <- hu_sra %>% filter(Run %in% all_sras$Run)
+
+hu_sra_absent <- hu_sra %>% filter(!Run %in% all_sras$Run)
+
+#plotting the size distribution
+###################################################
+library(plotly)
+fig <- plot_ly(alpha = 0.6)
+fig <- fig %>% add_histogram(x = hu_sra$size_MB, name = "humans")
+fig <- fig %>% add_histogram(x = hu_sra_present$size_MB, name = "available humans")
+fig <- fig %>% layout(xaxis = list(title="MBs"))#, range = c(0, 50000)))
+fig <- fig %>% layout(yaxis = list(type = "log"))
+fig <- fig %>% layout(xaxis = list(type = "log"))
+fig <- fig %>% layout(barmode = "overlay")
+
+fig <- plot_ly(y = log10(hu_sra$size_MB+1), type = "box", name="humans")
+fig <- fig %>% add_trace(y = log10(hu_sra_present$size_MB+1), type="box", name="available humans")
+fig <- fig %>% add_trace(y = log10(hu_sra_absent$size_MB+1), type="box", name="absent humans")
+
+density1 <- density(hu_sra$size_MB)
+density2 <- density(hu_sra_present$size_MB)
+density3 <- density(hu_sra_absent$size_MB)
+
+fig <- plot_ly(x = ~density1$x, y = ~density1$y, type = 'scatter', mode = 'lines', name = 'All humans', fill = 'tozeroy')
+fig <- fig %>% add_trace(x = ~density2$x, y = ~density2$y, name = 'Available humans', fill = 'tozeroy')
+fig <- fig %>% add_trace(x = ~density3$x, y = ~density3$y, name = 'Missing humans', fill = 'tozeroy')
+fig <- fig %>% layout(xaxis = list(title = 'MBs'),
+         yaxis = list(title = 'Density'))
+fig <- fig %>% layout(xaxis = list(type = "log"))
+
+#the bump
+bump <- hu_sra_absent %>% filter(size_MB > 500 & size_MB < 1000)
+saveRDS(bump, file = "../human_absent_bump.rds")
+####################################################
+all_hum_size <- sum(hu_sra$size_MB)
+gbs_all <- all_hum_size/1000
+
+missing_hum_size <- sum(hu_sra_absent$size_MB)
+gbs_missing <- missing_hum_size/1000
+###################################################
 
 #number of unique sras:
 nsras <- nrow(all_sras)
@@ -727,25 +769,7 @@ DATA_PATH='../viro2_dfs/viro2_Acc/'
 sumWheres <- paste0( DATA_PATH,
                      system( paste0("ls ", DATA_PATH), intern = T ))
 
-dfs <- readDFs(sumWheres, columns = c("sra", "acc", "cvg"), acc = accession)
-
-listcover <- lapply(dfs$cvg, function(x) { substring(x, seq(1, nchar(x), 1), seq(1, nchar(x), 1)) })
-
-test <- lapply(listcover, function(x){ 
-  newvals <- c('_'=0,'.'=0.25,'o'=0.5, 'O'=0.75)
-  return(newvals[x])
-  }
-)
-
-heatmap <- as.data.frame(test)
-heatmap <- t(heatmap)
-rownames(heatmap) <- dfs$sra
-colnames(heatmap) <- seq(1,25)
-
-library(plotly)
-fig <- plot_ly(x = seq(1,25), y = rownames(heatmap), z = heatmap, type = "heatmap",name = accession) %>% layout(title = accession)
-
-fig
+fig <- getHeatmap(accession, sumWheres)
 ```
 
 

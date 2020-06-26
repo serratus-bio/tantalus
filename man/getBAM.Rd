@@ -7,7 +7,7 @@
 2) sort bam file (samtools)
 3) index bam file (samtools)}
 \usage{
-getBAM(sra, s3_path = "s3://lovelywater/bam/", local_path = "bam")
+getBAM(sra, s3_path = "s3://lovelywater/", local_path = "bam")
 }
 \arguments{
 \item{sra}{SRA accession to download}

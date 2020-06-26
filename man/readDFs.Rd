@@ -4,14 +4,18 @@
 \alias{readDFs}
 \title{readDFs}
 \usage{
-readDFs(files, all = T, columns = c())
+readDFs(files, all = T, columns = NULL, family = NULL, acc = NULL)
 }
 \arguments{
 \item{files}{Files to parse into a single df}
 
-\item{all}{If you want to parse all columns (True by default)}
+\item{all}{DEPRECATED: If you want to parse all columns (True by default)}
 
-\item{columns}{if all is False, you need to provide a vector of column names you want to extract}
+\item{columns}{character vector of columns to return. NULL returns all [Default]}
+
+\item{family}{character, if specified return only matching "family"}
+
+\item{acc}{character, if specified return only matching virus accesion "top"}
 }
 \value{
 data frame
