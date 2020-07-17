@@ -7,12 +7,16 @@ Maintainer: Gherman Novakovsky <gnovakovsky@cmmt.ubc.ca>, Artem Babaian <ababaia
 Description: Parses the output summary files from Serratus and provides data structures to work with the data.
 Depends:
     dplyr,
+    dbplyr,
+    RPostgreSQL,
     ggplot2,
     fst,
     viridis,
     scales
 Imports:
     gridExtra,
+    dbplyr,
+    RPostgreSQL,
     ggplot2,
     methods,
     dplyr,

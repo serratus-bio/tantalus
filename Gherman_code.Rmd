@@ -762,8 +762,6 @@ write.table(res_abundance, file="../data/otu_abundance_all.tsv", quote=F, sep="\
 #viro2_dfs
 #NC_014468.1 - example
 accession <- "NC_014468.1"
-newvals <- c('_'=0,'.'=0.25,'o'=0.5, 'O'=0.75)
-#df_subset <- read.fst(path = "../viro2_dfs/viro2_Acc/DRR001793.fst", c("acc", "cvg"))
 
 DATA_PATH='../viro2_dfs/viro2_Acc/'
 sumWheres <- paste0( DATA_PATH,

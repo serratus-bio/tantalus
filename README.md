@@ -47,7 +47,7 @@ Now imagine you have a folder with summary files from all data sets. You need to
 sumWheres_all <- paste("../summary_files/", system( paste0("ls ", "../summary_files/"), intern = T), sep="/")
 
 #convert all SRA accessions from viro_sra object to file format
-summary_files <- paste(mamm_sra@runInfo$Run, "summary", sep=".")
+summary_files <- paste(viro_sra@runInfo$Run, "summary", sep=".")
 sumWheres <- paste("../summary_files/", summary_files, sep="/")
 
 #remove files that are absent in the specified folder
@@ -137,3 +137,70 @@ scoreInPctidIntervals(viro, "Coronaviridae", title="Coronaviridae")
 ```
 
 ![](img/example_img5.png)
+
+## Database analysis
+
+Instead of fst data frames, the data can be obtained from the Postgres SQL database:
+
+```R
+library("tantalus")
+library("dbplyr")
+library("RPostgreSQL") 
+
+drv <- DBI::dbDriver("PostgreSQL")
+con <- DBI::dbConnect(drv, 
+                      user="postgres", 
+                      password="serratus",
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      port=5432, 
+                      dbname="postgres")
+#with a database
+##tbls: __EFMigrationsHistory, AccessionSections, FamilySections, FastaSections, Runs
+
+#get Family table, and Coronaviridae family
+x <- readDfSQL(con, "FamilySections", family = "Coronaviridae")
+
+#get specific SRAs
+sras <- c("SRR10144611", "SRR6906297", "SRR6906298",  "SRR6906299", 
+          "SRR6906300", "SRR6906303", "SRR3229029", "SRR3229077", 
+          "SRR3229078", "SRR3229081")
+
+x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", sras = sras)
+```
+
+
+
+Essentially everything else remains the same. However, if we want to do plots, we need to convert the database list into dataframe and rename the columns to their old names:
+
+```R
+#convert database output into dataframe
+x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
+dim(x) #1163633       4
+
+colnames(x) <- tolower(colnames(x))
+
+familyScore(x, "Coronaviridae", log=T)
+```
+
+![](img/familyscore_db.png)
+
+```R
+y <- familyScorPctID(x, "Coronaviridae")
+y
+```
+
+![](img/score_pctid_db.png)
+
+```R
+#plot pctid histogram with family score intervals
+pctidInScoreIntervals(x, "Coronaviridae", title="Coronaviridae")
+```
+
+![](img/pstidscore_db.png)
+
+```R
+#plot score histogram with pctid intervals
+scoreInPctidIntervals(x, "Coronaviridae", title="Coronaviridae")
+```
+
+![](img/scorepctid_db.png)
