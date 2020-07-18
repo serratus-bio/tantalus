@@ -1,7 +1,7 @@
 ---
 title: "Tantalus"
 author: "ababaian"
-date: "6/1/2020"
+date: "7/18/2020"
 output: html_document
 ---
 
@@ -36,13 +36,19 @@ if ( !dir.exists('data/200528_viro') ){
 }
 
 # Download SraRunInfo File - Meta-Meta-Virome
-if ( !file.exists('sra/viro_SraRunInfo.csv'){
+if ( !file.exists('sra/viro_SraRunInfo.csv') ){
     
   getSraRunInfo(runInfo = "viro_SraRunInfo.csv",
                 s3_path = "s3://serratus-public/out/200528_viro/",
                 local_path = "sra")
 }
 
+# Download Sequence Reference - cov3ma
+if ( !file.exists('seq/cov3ma/cov3ma.Rdata') ){
+  getReference( refName = "cov3ma",
+                s3_path = "s3://lovelywater/seq/",
+                local_path = "seq")
+}
 ```
 
 ```{r}
@@ -51,14 +57,191 @@ if ( !file.exists('sra/viro_SraRunInfo.csv'){
 DATA_PATH='data/test/'
 sumFiles <- paste0( DATA_PATH,
                     system( paste0("ls ", DATA_PATH), intern = T ))
-TEST <- readSerratus(sumFiles = sumWheres)
-
+TEST <- readSerratus(sumFiles = sumFiles)
 
 # Parse SraRunInfo.csv file into a SraRunInfo Object
+sra_path='sra/viro_SraRunInfo.csv'
+RUNINFO <- readSraRunInfo(sra_path)
+
+```
+
+## 
+```{r}
+library("dplyr")
+library("ggplot2")
+load("data/viro.RData")
+
+families <- unique(ZOO@family$family)
+Coronaviridae  <- ZOO@family %>% filter(family %in% c("Coronaviridae"))
+Coronaviridae <- Coronaviridae %>% filter(score >= 75)
+Coronaviridae <- Coronaviridae %>% filter(pctid <= 92)
+
+for (sra in Coronaviridae$sra){
+  getBAM(sra, s3_path = 's3://serratus-public/out/200528_viro')
+}
+
+
+ggplot(data=Coronaviridae, aes(Coronaviridae$aln)) + 
+  geom_histogram( bins = 100) +
+  theme_bw() + scale_x_log10() +
+  labs(x = "Aligned Reads") +
+  labs(title = "Coronaviridae family")
+
+ggplot(data=Coronaviridae, aes(Coronaviridae$score)) + 
+  geom_histogram(fill="blue", bins = 100) +
+  theme_bw() +
+  labs(x = "Family score") +
+  labs(title = "Coronaviridae family")
+
+  p <- ggplot(data=Coronaviridae2, aes(x = score, y = pctid)) +
+  geom_jitter(color="blue", alpha = 0.4) + 
+  theme_bw() +
+  labs(x = "Family score", y = "Percentage identity") +
+  labs(title = "Coronaviridae family")
+ggExtra::ggMarginal(p, type = "histogram")
+
+p <- ggplot(data=Coronaviridae3, aes(x = score, y = pctid)) +
+  geom_jitter(color="blue", alpha = 0.4) + 
+  theme_bw() +
+  labs(x = "Family score", y = "Percentage identity") +
+  labs(title = "Coronaviridae family")
+ggExtra::ggMarginal(p, type = "histogram")
+```
+
+```{r}
+
+
+p1 <- ggplot(data=Coronaviridae, aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - all")
+
+
+p2 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 50), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 50+")
+
+  
+p3 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 60), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 60+")
+
+p4 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 70), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 70+")
+
+p5 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 80), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 80+")
+
+p6 <- ggplot(data=Coronaviridae[which(Coronaviridae$score >= 90), ], aes(pctid)) + 
+  geom_histogram( bins = 30) +
+  theme_bw() + xlim(c(75,100)) +
+  labs(x = "Percentage Identity") +
+  labs(title = "Coronaviridae - 90+")
+
+library(grid)
+grid.newpage()
+grid.draw(rbind(ggplotGrob(p1),
+                ggplotGrob(p2),
+                ggplotGrob(p3),
+                ggplotGrob(p4),
+                ggplotGrob(p5),
+                ggplotGrob(p6),
+                size = "last"))
+  
+```
+
+
+```{r}
+library(fst)
+library(tantalus)
+library(stringr)
+
+# Serratus Data Release 200612 -- Family Hits
+DATA_PATH='data/200612_df/Acc/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+# See SRA Queries
+scRNA <- read.csv(file = 'data/scRNA_SraRunInfo.csv')
+scRNA <- scRNA$Run
+save(scRNA, file = "data/scRNA.RData")
+
+#read all columns
+COV      <- readDFs(sumWheres,
+                    columns = c("sra","family","score","pctid","aln","cvg","top","topname"),
+                    family = "Coronaviridae")
+
+HDV     <- readDFs(sumWheres,
+                   columns = c("sra","pctid","aln","cvg","acc","name"),
+                   acc = "NC_001653.2")
+
+HDV$no_read_bin <- str_count(HDV$cvg, "_")
+
+RATG13  <- readDFs(sumWheres,
+                   columns = c("sra","pctid","aln","cvg","acc","name"),
+                   acc = "MN996532.1"	)
+RATG13$no_read_bin <- str_count(RATG13$cvg, "_")
+
+
+HDV     <- readDFs(sumWheres,
+                   columns = c("sra","pctid","aln","cvg","acc","name"),
+                   acc = "NC_001653.2")
+HDV$no_read_bin <- str_count(HDV$cvg, "_")
+
+SDV     <- readDFs(sumWheres,
+                   columns = c("sra","pctid","aln","cvg","acc","name"),
+                   acc = "NC_040729.1")
+SDV$no_read_bin <- str_count(SDV$cvg, "_")
+```
+
+```{r}
+library(fst)
+library(tantalus)
+library(stringr)
+
+# Serratus Data Release 200612 -- Family Hits
+DATA_PATH='data/200612_df/F/'
+sumWheres <- paste0( DATA_PATH,
+                     system( paste0("ls ", DATA_PATH), intern = T ))
+
+POX      <- readDFs(sumWheres,
+                    columns = c("sra","family","score","pctid","aln","cvg","top","topname"),
+                    family = "Poxviridae")
+
+POX2 <- POX[ POX$score > 90, ]
+
+POX3 <- POX[ POX$topname == 'Salmon gill poxvirus;', ]
+
+save(POX, POX2, file = '200626_POX.Rdata')
+write.csv(POX3, file ='200626_Salmon_POX_lhf.csv')
 
 ```
 
 
 
-## 
+```{r}
+library(tantalus)
+load("data/cov.fam.200612.Rdata")
+load("data/scRNA.Rdata")
 
+scCOV <- COV$sra %in% scRNA
+
+# 417 248
+COV <- COV[ !scCOV, ]
+#  
+COV2 <- COV[ COV$score > 20, ]
+# 
+COV2 <- COV2[ COV2$aln > 100, ]
+
+```
