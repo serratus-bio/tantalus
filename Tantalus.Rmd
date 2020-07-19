@@ -9,11 +9,11 @@ output: html_document
 
 ```{r, include = FALSE}
 # Install Tantalus Dependencies
-install.packages("devtools")
+#install.packages("devtools")
 library(devtools)
 
 # Install roxygen2 for development
-install.packages("roxygen2")
+#install.packages("roxygen2")
 library(roxygen2)
 roxygenize()
 ```

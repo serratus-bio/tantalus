@@ -11,7 +11,9 @@ readDfSQL(
   family = NULL,
   acc = NULL,
   sras = NULL,
-  dataframe = F
+  dataframe = F,
+  score = NULL,
+  pctid = NULL
 )
 }
 \arguments{
@@ -33,7 +35,7 @@ readDfSQL(
 data frame
 }
 \description{
-Read fst serialized objects into data frame
+Read SQL data into data frame
 }
 \keyword{Serratus,}
 \keyword{parsing}
