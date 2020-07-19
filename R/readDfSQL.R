@@ -1,9 +1,9 @@
 #' readDfSQL
 #' 
-#' Read fst serialized objects into data frame
+#' Read SQL data into data frame
 #'
-#' @param  dbs   Database object (SQL)
-#' @param  table    Table in the database
+#' @param  dbs     Database object (SQL)
+#' @param  table   Table in the database
 #' @param  columns character vector of columns to return. NULL returns all [Default] 
 #' @param  family  character, if specified return only matching "Family"
 #' @param  acc     character, if specified return only matching virus accesion "Top"
@@ -15,7 +15,7 @@
 #' @export
 #`
 readDfSQL <- function(dbs, table, columns = NULL, family = NULL, acc = NULL, 
-                      sras = NULL, dataframe=F){
+                      sras = NULL, dataframe=F, score = NULL, pctid = NULL){
   db_table <- tbl(dbs, table)
   
   if (!is.null(sras)){
@@ -44,6 +44,14 @@ readDfSQL <- function(dbs, table, columns = NULL, family = NULL, acc = NULL,
       # In family_df accession == `Top`
       db_table <- db_table %>% filter(Top %in% acc)
     }
+  }
+  
+  if (!is.null(score)){
+    db_table <- db_table %>% filter(Score > score)
+  }
+  
+  if (!is.null(pctid)){
+    db_table <- db_table %>% filter(Pctid > pctid)
   }
   
   if (dataframe == T){

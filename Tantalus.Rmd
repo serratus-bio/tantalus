@@ -9,23 +9,83 @@ output: html_document
 
 ```{r, include = FALSE}
 # Install Tantalus Dependencies
-#install.packages("devtools")
+install.packages("devtools")
 library(devtools)
 
 # Install roxygen2 for development
-#install.packages("roxygen2")
+install.packages("roxygen2")
 library(roxygen2)
 roxygenize()
+```
 
-# Install Tantalus
-#install_github("serratus-bio/tantalus")
+## Access SQL database
 
-# Load R RNAframework functions
-#library(tantalus)
+```{r}
+# Load packages
+library("tantalus")
+library("dbplyr")
+library("RPostgreSQL") 
+
+
+# Connect to Serratus Database
+drv <- DBI::dbDriver("PostgreSQL")
+con <- DBI::dbConnect(drv, 
+                      user="postgres", 
+                      password="serratus",
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      port=5432, 
+                      dbname="postgres")
+
+## Tables: AccessionSections, FamilySections, FastaSections, Runs
 
 ```
 
-## Get + Parse Data =============================
+
+## Retreive all Coronavirus Family entries
+
+```{r}
+#get Family table, and Coronaviridae family
+CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae")
+
+#convert database output into dataframe
+CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 dataframe = T)
+
+
+#dim(CoV) #1163633       4
+colnames(CoV) <- tolower(colnames(CoV))
+
+# Plot 
+familyScorPctID(CoV, "Coronaviridae")
+pctidInScoreIntervals(CoV, "Coronaviridae", title="Coronaviridae")
+
+```
+
+```{r}
+# Retrivew all viral entries above score 80
+
+#with a database
+##tbls: AccessionSections, FamilySections, FastaSections, Runs
+
+#get Family table, and Coronaviridae family
+CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae")
+
+#convert database output into dataframe
+CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 79,
+                 dataframe = T)
+
+
+#dim(CoV) #1163633       4
+colnames(CoV) <- tolower(colnames(CoV))
+familyScore(CoV, "Coronaviridae", log=T)
+
+pctidInScoreIntervals(CoV, "Coronaviridae", title="Coronaviridae")
+
+
+```
 
 ```{r}
 # Download data directory - Meta-Meta-Virome
