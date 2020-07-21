@@ -778,3 +778,131 @@ fig <- getHeatmap(accession, sumWheres)
 #heatmaply(scale(mtcars), k_row = 3, k_col = 2)
 ```
 
+## Supplementary code for database
+
+```{r}
+library("dbplyr")
+library("RPostgreSQL") 
+
+drv <- DBI::dbDriver("PostgreSQL")
+con <- DBI::dbConnect(drv, 
+                      user="postgres", 
+                      password="serratus",
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      port=5432, 
+                      dbname="postgres")
+
+# Retrivew all viral familiy-level hits above score 79 as df
+score_threshold <- 79
+Viro <- readDfSQL(con, "FamilySections",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = score_threshold,
+                 dataframe = T)
+
+colnames(Viro) <- tolower(colnames(Viro))
+# Deplete AMR sets
+Viro <- Viro[ !(Viro$family == "AMR"), ]
+# Read taxid for viral famalies
+vtax <- read.table( file = "data/virus_taxid.tsv", header = TRUE)
+levels(vtax$family_name)[27] = "Unknown"
+RNAtaxa <- 1:26 # RNA viruses in vtax
+
+rna_families <- vtax$family_name[RNAtaxa]
+
+Viro_RNA <- Viro %>% filter(family %in% rna_families)
+```
+
+
+```{r}
+test <- Viro_RNA$score
+test2 <- sapply(test, function(x){
+  if ((x <= 100) & (x > 95)){
+    return("95-100")
+  } else if ((x <= 95) & (x > 85)){
+    return("85-95")
+  } else if ((x <= 85) & (x > 75)){
+    return("75-85")
+  } else if ((x <= 75) & (x > 65)){
+    return("65-75")
+  } else if ((x <= 65) & (x > 55)){
+    return("55-65")
+  } else if ((x <= 55) & (x > 45)){
+    return("45-55")
+  } else if ((x <= 45) & (x > 35)){
+    return("35-45")
+  } else if ((x <= 35) & (x > 25)){
+    return("25-35")
+  } else if ((x <= 25) & (x > 15)){
+    return("15-25")
+  } else if ((x <= 15) & (x > 5)){
+    return("5-15")
+  } else {
+    return("0-5")
+  }
+})
+
+test2 <- factor(test2, levels = c("0-5", "5-15", "15-25", "25-35", "35-45", "45-55", "55-65", "65-75", "75-85", "85-95", "95-100"))
+
+Viro_RNA$score_intervals <- test2
+
+tbl <- table(Viro_RNA$family)
+tbl <- sort(tbl, decreasing=T)
+
+x <- Viro_RNA %>% group_by(pctid,score_intervals, family) %>% summarize(n=n(), log10n = log10(n() + 1))
+x <- transform(x, family = factor(family, levels = names(tbl)))
+
+p <- ggplot(x, 
+            aes(pctid, log10n,fill = score_intervals)) +
+  geom_bar(color="black",stat = "identity", position = "dodge") +
+  scale_fill_viridis(discrete=TRUE) + 
+  theme_bw() +
+  facet_wrap(~ family)
+```
+
+```{r}
+#try to fix the bar plot - doesn't work
+x <- Viro_RNA %>% group_by(pctid,score_intervals, family) %>% summarize(n=n(), log10n_old = log10(n+1))
+x <- x %>% filter(family == "Coronaviridae")
+sums <- aggregate(n ~ pctid, x, sum)
+y <- sums$n
+names(y) <- sums$pctid
+x$sums <- y[as.character(x$pctid)]
+x <- transform(x, perct= n/sums)
+x <- transform(x, log10n = log10n_old*perct)
+
+```
+
+
+```{r}
+#per families
+for (f in families){
+  x <- readDfSQL(con, "FamilySections", family = f, columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
+  colnames(x) <- tolower(colnames(x))
+  
+  p <- pctidInScoreIntervals(x, f, title=f)
+  ggsave(file=paste("img_families/", f, ".svg", sep=""), plot=p, width=10, height=10)
+  
+}
+
+#TEST
+x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
+colnames(x) <- tolower(colnames(x))
+corona <- pctidInScoreIntervals(x, "Coronaviridae", title="Coronaviridae")
+
+x <- readDfSQL(con, "FamilySections", family = "Picornaviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
+colnames(x) <- tolower(colnames(x))
+picorna <- pctidInScoreIntervals(x, "Picornaviridae", title="Picornaviridae")
+
+x <- readDfSQL(con, "FamilySections", family = "Papillomaviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
+colnames(x) <- tolower(colnames(x))
+papillo <- pctidInScoreIntervals(x, "Papillomaviridae", title="Papillomaviridae")
+
+x <- readDfSQL(con, "FamilySections", family = "Alloherpesviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
+colnames(x) <- tolower(colnames(x))
+allo <- pctidInScoreIntervals(x, "Alloherpesviridae", title="Alloherpesviridae")
+
+ggarrange(corona, picorna, papillo, allo, 
+          labels = c("A", "B", "C", "D"),
+          ncol = 2, nrow = 2)
+```
+
