@@ -4,7 +4,13 @@
 \alias{pctidInScoreIntervals}
 \title{Plot a histogram of pctid for the given family within family score intervals}
 \usage{
-pctidInScoreIntervals(family_df, family_name, title = "")
+pctidInScoreIntervals(
+  family_df,
+  family_name,
+  title = "",
+  scale_log = F,
+  bin_scores = T
+)
 }
 \arguments{
 \item{family_df}{family data frame}
