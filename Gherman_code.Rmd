@@ -793,10 +793,10 @@ con <- DBI::dbConnect(drv,
                       dbname="postgres")
 
 # Retrivew all viral familiy-level hits above score 79 as df
-score_threshold <- 79
+#score_threshold <- 79
 Viro <- readDfSQL(con, "FamilySections",
                  columns = c("Sra","Score", "PctId", "Family"),
-                 score = score_threshold,
+                 score=79,
                  dataframe = T)
 
 colnames(Viro) <- tolower(colnames(Viro))
@@ -810,67 +810,71 @@ RNAtaxa <- 1:26 # RNA viruses in vtax
 rna_families <- vtax$family_name[RNAtaxa]
 
 Viro_RNA <- Viro %>% filter(family %in% rna_families)
+
+Viro_DNA <- Viro %>% filter(!family %in% rna_families)
 ```
 
-
 ```{r}
-test <- Viro_RNA$score
-test2 <- sapply(test, function(x){
-  if ((x <= 100) & (x > 95)){
-    return("95-100")
-  } else if ((x <= 95) & (x > 85)){
-    return("85-95")
-  } else if ((x <= 85) & (x > 75)){
-    return("75-85")
-  } else if ((x <= 75) & (x > 65)){
-    return("65-75")
-  } else if ((x <= 65) & (x > 55)){
-    return("55-65")
-  } else if ((x <= 55) & (x > 45)){
-    return("45-55")
-  } else if ((x <= 45) & (x > 35)){
-    return("35-45")
-  } else if ((x <= 35) & (x > 25)){
-    return("25-35")
-  } else if ((x <= 25) & (x > 15)){
-    return("15-25")
-  } else if ((x <= 15) & (x > 5)){
-    return("5-15")
-  } else {
-    return("0-5")
-  }
-})
-
-test2 <- factor(test2, levels = c("0-5", "5-15", "15-25", "25-35", "35-45", "45-55", "55-65", "65-75", "75-85", "85-95", "95-100"))
-
-Viro_RNA$score_intervals <- test2
-
 tbl <- table(Viro_RNA$family)
 tbl <- sort(tbl, decreasing=T)
 
-x <- Viro_RNA %>% group_by(pctid,score_intervals, family) %>% summarize(n=n(), log10n = log10(n() + 1))
-x <- transform(x, family = factor(family, levels = names(tbl)))
+families <- names(tbl)
 
-p <- ggplot(x, 
-            aes(pctid, log10n,fill = score_intervals)) +
-  geom_bar(color="black",stat = "identity", position = "dodge") +
-  scale_fill_viridis(discrete=TRUE) + 
-  theme_bw() +
-  facet_wrap(~ family)
+k <- 1
+for (f in families){
+  p <- pctidInScoreIntervals(Viro_RNA, f, title=f)
+  ggsave(file=paste("img_families/RNAs/", f, "_", k, ".svg", sep=""), plot=p, width=10, height=10)
+  k <- k +1
+  
+}
 ```
 
 ```{r}
-#try to fix the bar plot - doesn't work
-x <- Viro_RNA %>% group_by(pctid,score_intervals, family) %>% summarize(n=n(), log10n_old = log10(n+1))
-x <- x %>% filter(family == "Coronaviridae")
-sums <- aggregate(n ~ pctid, x, sum)
-y <- sums$n
-names(y) <- sums$pctid
-x$sums <- y[as.character(x$pctid)]
-x <- transform(x, perct= n/sums)
-x <- transform(x, log10n = log10n_old*perct)
+tbl <- table(Viro_DNA$family)
+tbl <- sort(tbl, decreasing=T)
 
+families <- names(tbl)
+
+k <- 1
+for (f in families){
+  p <- pctidInScoreIntervals(Viro_DNA, f, title=f)
+  ggsave(file=paste("img_families/DNAs/", f, "_", k, ".svg", sep=""), plot=p, width=10, height=10)
+  k <- k +1
+  
+}
 ```
+
+
+```{r}
+#a toy example
+#corona <- Viro_RNA %>% filter(family == "Coronaviridae")
+
+#x <- corona %>% group_by(pctid,score_intervals, family) %>% summarize(n=n(), log10n = log10(n() + 1))
+#x <- transform(x, family = factor(family, levels = names(tbl)))
+#y <- x[with(x, order(pctid, -n)), ]
+
+#sums <- rev(aggregate(n ~ pctid, y, cumsum))
+#sums <- unlist(sums$n)
+#y$cumsum <- sums
+#y$log10_old <- log10(y$cumsum+1)
+
+#cumm_difference
+#test <- c(3.10, 3.13, 3.14)
+#cumm_difference <- function(vec){
+#  test <- c(vec[1], vec[-1] - vec[-length(vec)])
+#  return(test)
+#}
+
+#y <- y %>% group_by(pctid) %>% 
+#  mutate(log10n= cumm_difference(log10_old))
+
+#p <- ggplot(y, 
+#            aes(pctid, log10n,fill = score_intervals)) +
+#  geom_bar(color="black",stat = "identity", position = "stack") +
+#  scale_fill_viridis(discrete=TRUE) + 
+#  theme_bw()
+```
+
 
 
 ```{r}
@@ -885,7 +889,9 @@ for (f in families){
 }
 
 #TEST
-x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
+x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", columns = c("Sra","Score", "PctId", "Family"),
+               score=79,
+               dataframe = T)
 colnames(x) <- tolower(colnames(x))
 corona <- pctidInScoreIntervals(x, "Coronaviridae", title="Coronaviridae")
 

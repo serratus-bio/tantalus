@@ -47,12 +47,33 @@ pctidInScoreIntervals <- function(family_df, family_name, title=""){
   
   family_df$score_intervals <- test2
   
-  p <- ggplot(family_df %>% group_by(pctid,score_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), 
-              aes(pctid, log10n,fill = score_intervals)) +
+  tbl <- table(family_df$family)
+  tbl <- sort(tbl, decreasing=T)
+  
+  family_df <- family_df %>% group_by(pctid,score_intervals, family) %>% summarize(n=n(), log10n = log10(n() + 1))
+  family_df <- transform(family_df, family = factor(family, levels = names(tbl)))
+  family_df <- family_df[with(family_df, order(pctid, -n)), ]
+  
+  sums <- rev(aggregate(n ~ pctid, family_df, cumsum))
+  sums <- as.vector(unlist(sums$n))
+  family_df$cumsum <- sums
+  family_df$log10_old <- log10(family_df$cumsum+1)
+  
+  family_df <- family_df %>% group_by(pctid) %>% 
+    mutate(log10n= cumm_difference(log10_old))
+  
+  p <- ggplot(family_df, 
+              aes(pctid, log10n, fill = score_intervals)) +
     geom_bar(color="black",stat = "identity") +
     scale_fill_viridis(discrete=TRUE) + 
     theme_bw() +
     labs(title = title)
   
   return(p)
+}
+
+#helping function for cumulative difference
+cumm_difference <- function(vec){
+  test <- c(vec[1], vec[-1] - vec[-length(vec)])
+  return(test)
 }
