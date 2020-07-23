@@ -64,6 +64,12 @@ pctidInScoreIntervals <- function(family_df, family_name, title="", scale_log = 
   
   # Reform DF around Score
   family_df <- family_df %>% group_by(pctid, score, family) %>% summarize(n=n(), log10n = log10(n() + 1))
+  
+  #sort by family sizes
+  #pointless if there is just one family
+  tbl <- table(family_df$family)
+  tbl <- sort(tbl, decreasing=T)
+  
   family_df <- transform(family_df, family = factor(family, levels = names(tbl)))
   family_df <- family_df[with(family_df, order(pctid, score, decreasing = T)), ]
   
@@ -78,15 +84,21 @@ pctidInScoreIntervals <- function(family_df, family_name, title="", scale_log = 
   family_df <- family_df %>% group_by(pctid) %>% 
   mutate(log10n= cumm_difference(log10_old))
   
+  #define the colorscale
+  cc <- viridis(101)
+  names(cc) <- 0:100
+  
   if (scale_log){
     # Plot log-scaled
     p <- ggplot(family_df, 
                 aes(pctid, log10n, color = score, fill = score)) +
       geom_bar(stat = "identity") +
-      scale_fill_viridis(discrete=TRUE) + 
-      scale_color_viridis(discrete=TRUE) + 
+      #scale_fill_viridis(discrete=TRUE) + 
+      #scale_color_viridis(discrete=TRUE) + 
       theme_bw() + xlim(c(75,101)) +
-      labs(title = title)
+      labs(title = title) +
+      scale_colour_manual(values=cc) +
+      scale_fill_manual(values=cc) 
     
     p <- c("TODO: LOG SCALE BROKEN")
     
@@ -95,10 +107,12 @@ pctidInScoreIntervals <- function(family_df, family_name, title="", scale_log = 
     p <- ggplot(family_df, 
                 aes(pctid, n, color = score, fill = score)) +
       geom_bar(stat = "identity") +
-      scale_fill_viridis(discrete=TRUE) + 
-      scale_color_viridis(discrete=TRUE) + 
+      #scale_fill_viridis(discrete=TRUE) + 
+      #scale_color_viridis(discrete=TRUE) + 
       theme_bw() + xlim(c(75,101)) +
-      labs(title = title)
+      labs(title = title) +
+      scale_colour_manual(values=cc) +
+      scale_fill_manual(values=cc) 
   }
   return(p)
 }

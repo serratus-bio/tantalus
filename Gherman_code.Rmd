@@ -792,123 +792,99 @@ con <- DBI::dbConnect(drv,
                       port=5432, 
                       dbname="postgres")
 
-# Retrivew all viral familiy-level hits above score 79 as df
-#score_threshold <- 79
-Viro <- readDfSQL(con, "FamilySections",
-                 columns = c("Sra","Score", "PctId", "Family"),
-                 score=79,
-                 dataframe = T)
-
-colnames(Viro) <- tolower(colnames(Viro))
-# Deplete AMR sets
-Viro <- Viro[ !(Viro$family == "AMR"), ]
-# Read taxid for viral famalies
 vtax <- read.table( file = "data/virus_taxid.tsv", header = TRUE)
 levels(vtax$family_name)[27] = "Unknown"
 RNAtaxa <- 1:26 # RNA viruses in vtax
 
 rna_families <- vtax$family_name[RNAtaxa]
-
-Viro_RNA <- Viro %>% filter(family %in% rna_families)
-
-Viro_DNA <- Viro %>% filter(!family %in% rna_families)
 ```
 
 ```{r}
-tbl <- table(Viro_RNA$family)
-tbl <- sort(tbl, decreasing=T)
+#convert database output into dataframe
+CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 24,
+                 dataframe = T)
 
-families <- names(tbl)
+OrV <- readDfSQL(con, "FamilySections", family = "Orthomyxoviridae",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 24,
+                 dataframe = T)
 
-k <- 1
-for (f in families){
-  p <- pctidInScoreIntervals(Viro_RNA, f, title=f)
-  ggsave(file=paste("img_families/RNAs/", f, "_", k, ".svg", sep=""), plot=p, width=10, height=10)
-  k <- k +1
-  
-}
-```
+Para <- readDfSQL(con, "FamilySections", family = "Paramyxoviridae",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 24,
+                 dataframe = T)
 
-```{r}
-tbl <- table(Viro_DNA$family)
-tbl <- sort(tbl, decreasing=T)
+Nairo <- readDfSQL(con, "FamilySections", family = "Nairoviridae",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 24,
+                 dataframe = T)
 
-families <- names(tbl)
+colnames(CoV) <- tolower(colnames(CoV))
+colnames(OrV) <- tolower(colnames(OrV))
+colnames(Para) <- tolower(colnames(Para))
+colnames(Nairo) <- tolower(colnames(Nairo))
 
-k <- 1
-for (f in families){
-  p <- pctidInScoreIntervals(Viro_DNA, f, title=f)
-  ggsave(file=paste("img_families/DNAs/", f, "_", k, ".svg", sep=""), plot=p, width=10, height=10)
-  k <- k +1
-  
-}
-```
-
-
-```{r}
-#a toy example
-#corona <- Viro_RNA %>% filter(family == "Coronaviridae")
-
-#x <- corona %>% group_by(pctid,score_intervals, family) %>% summarize(n=n(), log10n = log10(n() + 1))
-#x <- transform(x, family = factor(family, levels = names(tbl)))
-#y <- x[with(x, order(pctid, -n)), ]
-
-#sums <- rev(aggregate(n ~ pctid, y, cumsum))
-#sums <- unlist(sums$n)
-#y$cumsum <- sums
-#y$log10_old <- log10(y$cumsum+1)
-
-#cumm_difference
-#test <- c(3.10, 3.13, 3.14)
-#cumm_difference <- function(vec){
-#  test <- c(vec[1], vec[-1] - vec[-length(vec)])
-#  return(test)
-#}
-
-#y <- y %>% group_by(pctid) %>% 
-#  mutate(log10n= cumm_difference(log10_old))
-
-#p <- ggplot(y, 
-#            aes(pctid, log10n,fill = score_intervals)) +
-#  geom_bar(color="black",stat = "identity", position = "stack") +
-#  scale_fill_viridis(discrete=TRUE) + 
-#  theme_bw()
+p <- pctidInScoreIntervals(CoV, "Coronaviridae", title="Coronaviridae",
+                      scale_log = F, bin_scores = F)
+d <- pctidInScoreIntervals(OrV, "Orthomyxoviridae", title="Orthomyxoviridae",
+                      scale_log = F, bin_scores = F)
+s <- pctidInScoreIntervals(Para, "Paramyxoviridae", title="Paramyxoviridae",
+                      scale_log = F, bin_scores = F)
+n <- pctidInScoreIntervals(Nairo, "Nairoviridae", title="Nairoviridae",
+                      scale_log = F, bin_scores = F)
 ```
 
 
-
 ```{r}
-#per families
-for (f in families){
-  x <- readDfSQL(con, "FamilySections", family = f, columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
-  colnames(x) <- tolower(colnames(x))
-  
-  p <- pctidInScoreIntervals(x, f, title=f)
-  ggsave(file=paste("img_families/", f, ".svg", sep=""), plot=p, width=10, height=10)
-  
-}
-
 #TEST
-x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", columns = c("Sra","Score", "PctId", "Family"),
-               score=79,
-               dataframe = T)
-colnames(x) <- tolower(colnames(x))
-corona <- pctidInScoreIntervals(x, "Coronaviridae", title="Coronaviridae")
+Borna <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 64,
+                 dataframe = T)
+colnames(Borna) <- tolower(colnames(Borna))
 
-x <- readDfSQL(con, "FamilySections", family = "Picornaviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
-colnames(x) <- tolower(colnames(x))
-picorna <- pctidInScoreIntervals(x, "Picornaviridae", title="Picornaviridae")
+family_df <- Borna %>% filter(family %in% c("Coronaviridae"))
+family_df$score <- factor(family_df$score, levels = 0:100)
 
-x <- readDfSQL(con, "FamilySections", family = "Papillomaviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
-colnames(x) <- tolower(colnames(x))
-papillo <- pctidInScoreIntervals(x, "Papillomaviridae", title="Papillomaviridae")
+# Reform DF around Score
+family_df <- family_df %>% group_by(pctid, score, family) %>% summarize(n=n(), log10n = log10(n() + 1))
 
-x <- readDfSQL(con, "FamilySections", family = "Alloherpesviridae", columns = c("Sra","Score", "PctId", "Family"), dataframe = T)
-colnames(x) <- tolower(colnames(x))
-allo <- pctidInScoreIntervals(x, "Alloherpesviridae", title="Alloherpesviridae")
+tbl <- table(family_df$family)
+tbl <- sort(tbl, decreasing=T)
 
-ggarrange(corona, picorna, papillo, allo, 
-          labels = c("A", "B", "C", "D"),
-          ncol = 2, nrow = 2)
+family_df <- transform(family_df, family = factor(family, levels = names(tbl)))
+family_df <- family_df[with(family_df, order(pctid, score, decreasing = T)), ]
+
+# Calculate cumulative sum for intervals
+# clusterfuck here
+sums <- aggregate(n ~ pctid, family_df, cumsum)
+sums <- unlist(sums$n)
+family_df$cumsum <- sums
+
+#helping function for cumulative difference
+cumm_difference <- function(vec){
+  test <- c(vec[1], vec[-1] - vec[-length(vec)])
+  return(test)
+}
+
+# Perform log calculations
+family_df$log10_old <- log10(family_df$cumsum+1)
+family_df <- family_df %>% group_by(pctid) %>% 
+mutate(log10n= cumm_difference(log10_old))
+
+#cc <- scales::seq_gradient_pal("black", "yellow", "Lab")(seq(0,1,length.out=101))
+cc <- viridis(101)
+names(cc) <- 0:100
+p <- ggplot(family_df, 
+                aes(pctid, n, color = score, fill = score)) +
+      geom_bar(stat = "identity") +
+      #scale_fill_viridis(discrete=TRUE) + 
+      #scale_color_viridis(discrete=TRUE) + 
+      theme_bw() + xlim(c(75,101)) +
+      labs(title = "") +
+      scale_colour_manual(values=cc) +
+      scale_fill_manual(values=cc) 
 ```
 
