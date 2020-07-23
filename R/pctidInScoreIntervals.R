@@ -2,7 +2,7 @@
 #'
 #'
 #' @param  family_df family data frame
-#' @param  family_name name of the family
+#' @param  family_name name of the family (single value)
 #' @param title title of the plot
 #'
 #' @return ggplot
@@ -14,14 +14,16 @@
 #' @export
 #'
 
-pctidInScoreIntervals <- function(family_df, family_name, title="", scale_log = F, bin_scores = T){
+pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_log = F, bin_scores = T){
   
   # Testing
   #family_df   <- CoV
   #family_name <- "Coronaviridae"
   
   # Filter by input family name
-  family_df <- family_df %>% filter(family %in% c(family_name))
+  if (!is.null(family_name)){
+    family_df <- family_df %>% filter(family %in% c(family_name))
+  }
   
   # Bin scores
   if (bin_scores){
@@ -67,10 +69,11 @@ pctidInScoreIntervals <- function(family_df, family_name, title="", scale_log = 
   
   #sort by family sizes
   #pointless if there is just one family
-  tbl <- table(family_df$family)
-  tbl <- sort(tbl, decreasing=T)
+  sum_families <- aggregate(family_df$n, by=list(family=family_df$family), FUN=sum)
+  sum_families <- setNames(sum_families$x, sum_families$family)
+  sorted_families <- sort(sum_families, decreasing = T) 
   
-  family_df <- transform(family_df, family = factor(family, levels = names(tbl)))
+  family_df <- transform(family_df, family = factor(family, levels = names(sorted_families)))
   family_df <- family_df[with(family_df, order(pctid, score, decreasing = T)), ]
   
   # Calculate cumulative sum for intervals

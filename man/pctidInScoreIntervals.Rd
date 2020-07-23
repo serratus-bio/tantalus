@@ -6,7 +6,7 @@
 \usage{
 pctidInScoreIntervals(
   family_df,
-  family_name,
+  family_name = NULL,
   title = "",
   scale_log = F,
   bin_scores = T

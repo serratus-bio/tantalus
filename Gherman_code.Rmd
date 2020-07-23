@@ -803,7 +803,7 @@ rna_families <- vtax$family_name[RNAtaxa]
 #convert database output into dataframe
 CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
                  columns = c("Sra","Score", "PctId", "Family"),
-                 score = 24,
+                 score = 64,
                  dataframe = T)
 
 OrV <- readDfSQL(con, "FamilySections", family = "Orthomyxoviridae",
@@ -886,5 +886,47 @@ p <- ggplot(family_df,
       labs(title = "") +
       scale_colour_manual(values=cc) +
       scale_fill_manual(values=cc) 
+```
+
+```{r}
+#working with facet_wrap
+drv <- DBI::dbDriver("PostgreSQL")
+con <- DBI::dbConnect(drv, 
+                      user="postgres", 
+                      password="serratus",
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      port=5432, 
+                      dbname="postgres")
+
+vtax <- read.table( file = "data/virus_taxid.tsv", header = TRUE)
+levels(vtax$family_name)[27] = "Unknown"
+RNAtaxa <- 1:26 # RNA viruses in vtax
+DNAtaxa <- 27:42
+
+rna_families <- vtax$family_name[RNAtaxa]
+dna_families <- vtax$family_name[DNAtaxa]
+
+RNA_spec <- readDfSQL(con, "FamilySections", family = rna_families,
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 64,
+                 dataframe = T)
+
+DNA_spec <- readDfSQL(con, "FamilySections", family = dna_families,
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 64,
+                 dataframe = T)
+
+colnames(RNA_spec) <- tolower(colnames(RNA_spec))
+colnames(DNA_spec) <- tolower(colnames(DNA_spec))
+
+p <- pctidInScoreIntervals(RNA_spec, family_name = NULL, title="",
+                      scale_log = F, bin_scores = F)
+p + facet_wrap(~ family)
+```
+
+```{r}
+d <- pctidInScoreIntervals(DNA_spec, family_name = NULL, title="",
+                      scale_log = F, bin_scores = F)
+d + facet_wrap(~ family)
 ```
 
