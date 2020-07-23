@@ -54,7 +54,7 @@ pctidInScoreIntervals <- function(family_df, family_name, title="", scale_log = 
     Scores_bin <- factor(Scores_bin,
                          levels = c("0-5", "5-15", "15-25", "25-35",
                                     "35-45", "45-55", "55-65", "65-75",
-                                    "75-85", "85-95", "95-100"))
+                                    "75-85", "85-95", "95-100")) 
     
     # Replace scores with score_bin for easier discrete categories
     family_df$score <- Scores_bin
@@ -73,34 +73,10 @@ pctidInScoreIntervals <- function(family_df, family_name, title="", scale_log = 
   sums <- unlist(sums$n)
   family_df$cumsum <- sums
   
-<<<<<<< HEAD
   # Perform log calculations
   family_df$log10_old <- log10(family_df$cumsum+1)
   family_df <- family_df %>% group_by(pctid) %>% 
   mutate(log10n= cumm_difference(log10_old))
-=======
-  tbl <- table(family_df$family)
-  tbl <- sort(tbl, decreasing=T)
-  
-  family_df <- family_df %>% group_by(pctid,score_intervals, family) %>% summarize(n=n(), log10n = log10(n() + 1))
-  family_df <- transform(family_df, family = factor(family, levels = names(tbl)))
-  family_df <- family_df[with(family_df, order(pctid, -n)), ]
-  
-  sums <- rev(aggregate(n ~ pctid, family_df, cumsum))
-  sums <- as.vector(unlist(sums$n))
-  family_df$cumsum <- sums
-  family_df$log10_old <- log10(family_df$cumsum+1)
-  
-  family_df <- family_df %>% group_by(pctid) %>% 
-    mutate(log10n= cumm_difference(log10_old))
-  
-  p <- ggplot(family_df, 
-              aes(pctid, log10n, fill = score_intervals)) +
-    geom_bar(color="black",stat = "identity") +
-    scale_fill_viridis(discrete=TRUE) + 
-    theme_bw() +
-    labs(title = title)
->>>>>>> 08f19c7d806e4e2e8038f8d1f32d77e8c34df019
   
   if (scale_log){
     # Plot log-scaled
@@ -131,8 +107,4 @@ pctidInScoreIntervals <- function(family_df, family_name, title="", scale_log = 
 cumm_difference <- function(vec){
   test <- c(vec[1], vec[-1] - vec[-length(vec)])
   return(test)
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 08f19c7d806e4e2e8038f8d1f32d77e8c34df019
