@@ -836,57 +836,7 @@ n <- pctidInScoreIntervals(Nairo, "Nairoviridae", title="Nairoviridae",
                       scale_log = F, bin_scores = F)
 ```
 
-
-```{r}
-#TEST
-Borna <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
-                 columns = c("Sra","Score", "PctId", "Family"),
-                 score = 64,
-                 dataframe = T)
-colnames(Borna) <- tolower(colnames(Borna))
-
-family_df <- Borna %>% filter(family %in% c("Coronaviridae"))
-family_df$score <- factor(family_df$score, levels = 0:100)
-
-# Reform DF around Score
-family_df <- family_df %>% group_by(pctid, score, family) %>% summarize(n=n(), log10n = log10(n() + 1))
-
-tbl <- table(family_df$family)
-tbl <- sort(tbl, decreasing=T)
-
-family_df <- transform(family_df, family = factor(family, levels = names(tbl)))
-family_df <- family_df[with(family_df, order(pctid, score, decreasing = T)), ]
-
-# Calculate cumulative sum for intervals
-# clusterfuck here
-sums <- aggregate(n ~ pctid, family_df, cumsum)
-sums <- unlist(sums$n)
-family_df$cumsum <- sums
-
-#helping function for cumulative difference
-cumm_difference <- function(vec){
-  test <- c(vec[1], vec[-1] - vec[-length(vec)])
-  return(test)
-}
-
-# Perform log calculations
-family_df$log10_old <- log10(family_df$cumsum+1)
-family_df <- family_df %>% group_by(pctid) %>% 
-mutate(log10n= cumm_difference(log10_old))
-
-#cc <- scales::seq_gradient_pal("black", "yellow", "Lab")(seq(0,1,length.out=101))
-cc <- viridis(101)
-names(cc) <- 0:100
-p <- ggplot(family_df, 
-                aes(pctid, n, color = score, fill = score)) +
-      geom_bar(stat = "identity") +
-      #scale_fill_viridis(discrete=TRUE) + 
-      #scale_color_viridis(discrete=TRUE) + 
-      theme_bw() + xlim(c(75,101)) +
-      labs(title = "") +
-      scale_colour_manual(values=cc) +
-      scale_fill_manual(values=cc) 
-```
+## Ploting for SUPPLEMENTARY
 
 ```{r}
 #working with facet_wrap
@@ -921,12 +871,13 @@ colnames(DNA_spec) <- tolower(colnames(DNA_spec))
 
 p <- pctidInScoreIntervals(RNA_spec, family_name = NULL, title="",
                       scale_log = F, bin_scores = F)
-p + facet_wrap(~ family)
+p + facet_wrap(~ family, ncol=5, scales="free_y")
 ```
 
 ```{r}
 d <- pctidInScoreIntervals(DNA_spec, family_name = NULL, title="",
                       scale_log = F, bin_scores = F)
-d + facet_wrap(~ family)
+d + facet_wrap(~ family, scales="free_y")
 ```
+
 
