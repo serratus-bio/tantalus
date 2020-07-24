@@ -10,6 +10,7 @@ To install directly from the repo:
 ```
 install.packages("devtools")
 library(devtools)
+install.packages("plotly")
 
 install_github("serratus-bio/tantalus")
 ```
