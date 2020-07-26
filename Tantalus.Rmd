@@ -23,7 +23,8 @@ roxygenize()
 ```{r}
 # Load packages
 library("tantalus")
-library("dbplyr")
+# library("dbplyr")
+library("reshape2")
 library("RPostgreSQL") 
 
 
@@ -52,8 +53,6 @@ CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
                  columns = c("Sra","Score", "PctId", "Family"),
                  dataframe = T)
 
-
-#dim(CoV) #1163633       4
 colnames(CoV) <- tolower(colnames(CoV))
 
 # Plot 
@@ -63,27 +62,216 @@ pctidInScoreIntervals(CoV, "Coronaviridae", title="Coronaviridae")
 ```
 
 ```{r}
-# Retrivew all viral entries above score 80
+# Retrivew all viral familiy-level hits above score 79 as df
+score_threshold <- 79
 
-#with a database
-##tbls: AccessionSections, FamilySections, FastaSections, Runs
+Viro <- readDfSQL(con, "FamilySections",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = score_threshold,
+                 dataframe = T)
+colnames(Viro) <- tolower(colnames(Viro))
 
+# Deplete AMR sets
+Viro <- Viro[ !(Viro$family == "AMR"), ]
+
+# Read taxid for viral famalies
+vtax <- read.table( file = "data/virus_taxid.tsv", header = TRUE)
+  levels(vtax$family_name)[27] = "Unknown"
+  RNAtaxa <- 1:26 # RNA viruses in vtax
+
+```
+
+
+```{r}
+# Summarize Counts Globally
+Viro2 <- Viro %>% group_by(family) %>% count(pctid)
+Viro2 <- cast(Viro2, family~pctid, fill = 0)
+
+# Clean-up table - RNA viruses only, tax order
+Viro2 <- Viro2[ match(vtax$family_name[RNAtaxa], Viro2$family), ]
+
+# Melt-down for plotting
+Viro2 <- melt(Viro2)
+Viro2 <- Viro2[ order(Viro2$family), ]
+Viro2$family <- factor(Viro2$family, levels = rev(unique(vtax$family_name)))
+Viro2$pctid  <- factor(Viro2$pctid)
+#Viro2$pctid  <- factor(Viro2$pctid,  levels = rev(unique(Viro2$pctid)))
+
+# Plot Family-summaries
+pViro <- ggplot(Viro2, aes(family, value, fill = pctid)) +
+  coord_flip() +
+  geom_bar(stat = 'identity') +
+  scale_fill_viridis(discrete = TRUE) + theme_bw()
+pViro
+```
+
+```{r}
+# Under the lamp-post plot
+ViroLP <- Viro %>% group_by(family) %>% count(pctid)
+ViroLP <- cast(ViroLP, family~pctid, fill = 0)
+
+# Clean-up table - RNA viruses only, tax order
+ViroLP <- ViroLP[ match(vtax$family_name[RNAtaxa], ViroLP$family), ]
+
+# Take Right-Sum for each column
+Rcumsum <- function(X){
+  return(rev(cumsum(rev(as.numeric(X)))))
+}
+
+# Take cumulative sum of values
+nCol <- length(ViroLP[1,])
+
+# Weird behaviour in apply/sapply. Use for loop
+for (i in 1:nrow(ViroLP)){
+  ViroLP[i , 2:nCol] <- Rcumsum( ViroLP[i , 2:nCol])
+}
+
+
+# Melt-down for plotting
+ViroLP2 <- melt(ViroLP)
+ViroLP2$family <- factor(ViroLP2$family, levels = rev(unique(vtax$family_name)))
+ViroLP2 <- ViroLP2[ order(ViroLP2$family), ]
+
+# X offset
+ViroLP2$X <- as.numeric(factor(ViroLP2$family))*100
+
+# Y offset
+ViroLP2$Y  <- factor(vtax$order[match(ViroLP2$family, vtax$family_name)])
+ViroLP2$Y2 <- as.numeric(ViroLP2$Y)*100
+
+# Summaries
+ViroLPS <- ViroLP2[ !duplicated(ViroLP2$family), ]
+
+# Plot "Under the lamp-post"
+pViro <- ggplot(ViroLP2, aes(X, Y, color = pctid, size = value)) +
+  geom_point() +
+  scale_size("value") + scale_size_area() +
+  scale_color_viridis() + theme_bw()
+pViro
+
+```
+
+```{r}
 #get Family table, and Coronaviridae family
 CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae")
 
 #convert database output into dataframe
 CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
                  columns = c("Sra","Score", "PctId", "Family"),
-                 score = 79,
+                 score = 24,
                  dataframe = T)
 
-
-#dim(CoV) #1163633       4
 colnames(CoV) <- tolower(colnames(CoV))
-familyScore(CoV, "Coronaviridae", log=T)
 
-pctidInScoreIntervals(CoV, "Coronaviridae", title="Coronaviridae")
+pctidInScoreIntervals(CoV, "Coronaviridae", title="Coronaviridae",
+                      scale_log = F, bin_scores = F)
+  
+```
 
+
+```{r}
+#working with facet_wrap
+drv <- DBI::dbDriver("PostgreSQL")
+con <- DBI::dbConnect(drv, 
+                      user="postgres", 
+                      password="serratus",
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      port=5432, 
+                      dbname="postgres")
+
+vtax <- read.table( file = "data/virus_taxid.tsv", header = TRUE)
+levels(vtax$family_name)[27] = "Unknown"
+RNAtaxa <- 1:26 # RNA viruses in vtax
+DNAtaxa <- 27:42 # DNA viruses
+
+rna_families <- vtax$family_name[RNAtaxa]
+dna_families <- vtax$family_name[DNAtaxa]
+
+RNA_spec <- readDfSQL(con, "FamilySections", family = rna_families,
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 20,
+                 dataframe = T)
+
+DNA_spec <- readDfSQL(con, "FamilySections", family = dna_families,
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 score = 59,
+                 dataframe = T)
+
+colnames(RNA_spec) <- tolower(colnames(RNA_spec))
+colnames(DNA_spec) <- tolower(colnames(DNA_spec))
+
+p <- pctidInScoreIntervals(RNA_spec, family_name = NULL, title="",
+                      scale_log = F, bin_scores = F)
+
+p <- p + facet_wrap(~ family, ncol=4, scales="free_y")
+
+p
+```
+
+```{r}
+d <- pctidInScoreIntervals(DNA_spec, family_name = NULL, title="",
+                      scale_log = F, bin_scores = F)
+d <- d + facet_wrap(~ family, ncol=4, scales="free_y")
+
+d
+```
+
+```{r}
+# Deconstruct SQL query for family-level summary plots
+# for Serratus.io "Family" page
+
+#get Family table, and Coronaviridae family
+sIO <- readDfSQL(con, "FamilySections")
+
+#convert database output into dataframe
+sIO <- readDfSQL(con, "FamilySections",
+                 columns = c("Sra","Score", "PctId", "Family"),
+                 dataframe = T)
+
+colnames(sIO) <- tolower(colnames(sIO))
+
+# Temp holder in case of error
+sIO_holder <- sIO
+
+## Group data by score/pctid 
+sIO$score <- factor(sIO$score)
+sIO       <- sIO %>% group_by(pctid, score, family) %>% summarize(n=n(), log10n = log10(n() + 1))
+sIO       <- sIO[,c(3,1,2,4)]
+
+# Order by Family / score / pctid
+sIO       <- sIO[order(sIO$pctid, decreasing = T), ]
+sIO       <- sIO[order(sIO$score, decreasing = T), ]
+sIO       <- sIO[order(sIO$family), ]
+
+# Write csv output
+write.csv(sIO, file = 'SerratusIO_scoreID.csv', row.names = F, quote = F)
+
+```
+
+
+
+```{r}
+release_stats <- read.table(file = 'release2_stats.txt', header = T)
+# 
+
+
+```
+
+
+```{r}
+# Correlation matrix between virus occurence
+library(ggcorrplot)
+
+# Convert Viro df to a binary matrix of virus family
+Viro3 <- dcast(Viro, sra~family, fun.aggregate = function(x){as.integer(length(x) > 0)} )
+
+# Calculate corrleation matrix
+Vcorr <- round(cor(Viro3[ ,-1]), 1)
+p.corr <- cor_pmat(Vcorr)
+
+# Visualize correlation matrix
+ggcorrplot(Vcorr, hc.order = TRUE,
+            type = "upper", outline.col = "white")
 
 ```
 

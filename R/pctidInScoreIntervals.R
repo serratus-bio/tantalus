@@ -14,7 +14,12 @@
 #' @export
 #'
 
-pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_log = F, bin_scores = T){
+pctidInScoreIntervals <- function(family_df,
+                                  family_name=NULL,
+                                  title="",
+                                  scale_log = F,
+                                  bin_scores = T,
+                                  return.df = F){
   
   # Testing
   #family_df   <- CoV
@@ -117,7 +122,13 @@ pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_l
       scale_colour_manual(values=cc) +
       scale_fill_manual(values=cc) 
   }
-  return(p)
+  
+  
+  if(return.df){
+    return(family_df)
+  }else{
+    return(p)  
+  }
 }
 
 #helping function for cumulative difference
