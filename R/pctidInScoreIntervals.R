@@ -4,6 +4,8 @@
 #' @param  family_df family data frame
 #' @param  family_name name of the family (single value)
 #' @param title title of the plot
+#' @param scale_log if plot log scale (not implemented)
+#' @param bin_scores if split scores into bins for plotting
 #'
 #' @return ggplot
 #'
@@ -14,12 +16,7 @@
 #' @export
 #'
 
-pctidInScoreIntervals <- function(family_df,
-                                  family_name=NULL,
-                                  title="",
-                                  scale_log = F,
-                                  bin_scores = T,
-                                  return.df = F){
+pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_log = F, bin_scores = T){
   
   # Testing
   #family_df   <- CoV
@@ -93,8 +90,14 @@ pctidInScoreIntervals <- function(family_df,
   mutate(log10n= cumm_difference(log10_old))
   
   #define the colorscale
-  cc <- viridis(101)
-  names(cc) <- 0:100
+  if (bin_scores){
+    cc <- viridis(11)
+    names(cc) <- c("0-5", "5-15", "15-25", "25-35", "35-45", "45-55", "55-65", "65-75",
+                   "75-85", "85-95", "95-100")
+  } else {
+    cc <- viridis(101)
+    names(cc) <- 0:100
+  }
   
   if (scale_log){
     # Plot log-scaled
@@ -122,13 +125,7 @@ pctidInScoreIntervals <- function(family_df,
       scale_colour_manual(values=cc) +
       scale_fill_manual(values=cc) 
   }
-  
-  
-  if(return.df){
-    return(family_df)
-  }else{
-    return(p)  
-  }
+  return(p)
 }
 
 #helping function for cumulative difference

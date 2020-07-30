@@ -881,3 +881,47 @@ d + facet_wrap(~ family, scales="free_y")
 ```
 
 
+## FOR README
+
+```{r}
+library("tantalus")
+library("dbplyr")
+library("RPostgreSQL") 
+
+drv <- DBI::dbDriver("PostgreSQL")
+con <- DBI::dbConnect(drv, 
+                      user="postgres", 
+                      password="serratus",
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      port=5432, 
+                      dbname="postgres")
+#with a database
+##tbls: __EFMigrationsHistory, AccessionSections, FamilySections, FastaSections, Runs
+
+#get Family table, and Coronaviridae family (and get just specific columns)
+x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", dataframe = T, 
+               columns = c("Sra","Score", "PctId", "Family"))
+#get specific SRAs
+sras <- c("SRR10144611", "SRR6906297", "SRR6906298",  "SRR6906299", 
+          "SRR6906300", "SRR6906303", "SRR3229029", "SRR3229077", 
+          "SRR3229078", "SRR3229081")
+
+x_specific <- readDfSQL(con, "FamilySections", family = "Coronaviridae", sras = sras, dataframe = T, 
+                        columns = c("Sra","Score", "PctId", "Family"))
+```
+
+```{r}
+colnames(x) <- tolower(colnames(x))
+
+#plot pctid histogram with family score intervals
+p <- pctidInScoreIntervals(x, family_name = "Coronaviridae", title="Coronaviridae",
+                      scale_log = F, bin_scores = F)
+p
+```
+
+```{r}
+#plot pctid histogram with family score intervals
+p <- scoreInPctidIntervals(x, family_name = "Coronaviridae", title="Coronaviridae",
+                      scale_log = F, bin_percent = T)
+p
+```
