@@ -18,10 +18,10 @@ tree = etree.iterparse(handle, events=("end", "start"))
 def preprocess(line):
     line = line.replace(' ', '_')
     line = line.replace('-', '_')
-    line = line.replace(',', '_')
-    line = line.replace('(', '_')
-    line = line.replace(')', '_')
-    line = line.replace('/', '_')
+    line = line.replace(',', '')
+    line = line.replace('(', '')
+    line = line.replace(')', '')
+    line = line.replace('/', '')
     line = line.lower()
     return line
 
