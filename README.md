@@ -14,6 +14,8 @@ library(devtools)
 install_github("serratus-bio/tantalus")
 ```
 
+(Optional) For more efficient data-access, install `aws-cli`and input your credentials with `aws-cli`.
+
 Note, if you install tantalus with R version <3.6.0, then you first need to install older version of pbkrtest:
 
 ```
