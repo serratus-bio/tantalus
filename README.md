@@ -14,7 +14,15 @@ library(devtools)
 install_github("serratus-bio/tantalus")
 ```
 
-(Optional) For more efficient data-access, install `aws-cli`and input your credentials with `aws-cli`.
+(Optional) For more efficient data-access, install `aws-cli`and input your credentials with `aws-cli`. Then add the system environmental variables from your R workspace, be sure to use `us-east-1`.
+
+```
+Sys.setenv(
+  "AWS_ACCESS_KEY_ID" = "my_public_key",
+  "AWS_SECRET_ACCESS_KEY" = "my_secret_key",
+  "AWS_DEFAULT_REGION" = "us-east-1"
+)
+```
 
 Note, if you install tantalus with R version <3.6.0, then you first need to install older version of pbkrtest:
 
