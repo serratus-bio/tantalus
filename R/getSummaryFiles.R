@@ -35,7 +35,7 @@ getSummaryFiles <- function(sras,
   })
   
   sumWheres <- paste( local_path,
-                      system( paste0("ls ", local_path), intern = T ), sep="/")
+                      system( paste0("ls ", local_path, "*.summary"), intern = T ), sep="/")
   
   serratusObj <- readSerratus( sumWheres )
   
