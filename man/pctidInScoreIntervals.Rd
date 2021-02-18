@@ -15,9 +15,13 @@ pctidInScoreIntervals(
 \arguments{
 \item{family_df}{family data frame}
 
-\item{family_name}{name of the family}
+\item{family_name}{name of the family (single value)}
 
 \item{title}{title of the plot}
+
+\item{scale_log}{if plot log scale (not implemented)}
+
+\item{bin_scores}{if split scores into bins for plotting}
 }
 \value{
 ggplot

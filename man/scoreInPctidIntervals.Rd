@@ -4,14 +4,24 @@
 \alias{scoreInPctidIntervals}
 \title{Plot a histogram of family score for the given family within pctid score intervals}
 \usage{
-scoreInPctidIntervals(family_df, family_name, title = "")
+scoreInPctidIntervals(
+  family_df,
+  family_name = NULL,
+  title = "",
+  scale_log = F,
+  bin_percent = T
+)
 }
 \arguments{
 \item{family_df}{family data frame}
 
-\item{family_name}{name of the family}
+\item{family_name}{name of the family (single value)}
 
 \item{title}{title of the plot}
+
+\item{scale_log}{if plot log scale (not implemented)}
+
+\item{bin_percent}{if split pctid into bins for plotting}
 }
 \value{
 ggplot

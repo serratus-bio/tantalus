@@ -13,9 +13,9 @@
 #' @export
 #'
 familyScorPctID <- function(family_df, family_name){
-  family_df <- family_df %>% filter(family %in% c(family_name))
+  family_df <- family_df %>% filter(family_name %in% c(family_name))
   
-  p <- ggplot(data=family_df, aes(x = score, y = pctid)) +
+  p <- ggplot(data=family_df, aes(x = score, y = percent_identity)) +
     geom_jitter(color="blue", alpha = 0.4) + 
     theme_bw() +
     labs(x = "Family score", y = "Percentage identity") +
