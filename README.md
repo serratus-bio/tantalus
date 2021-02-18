@@ -58,14 +58,15 @@ con <- DBI::dbConnect(drv,
 
 #get Family table, and Coronaviridae family (and get just specific columns)
 x <- readDfSQL(con, "nfamily", family = "Coronaviridae", dataframe = T, 
-               columns = c("Sra","Score", "PctId", "Family"))
+               columns = c('sra_id', 'score', 'percent_identity', 'family_name'))
+               
 #get specific SRAs
 sras <- c("SRR10144611", "SRR6906297", "SRR6906298",  "SRR6906299", 
           "SRR6906300", "SRR6906303", "SRR3229029", "SRR3229077", 
           "SRR3229078", "SRR3229081")
 
 x_specific <- readDfSQL(con, "nfamily", family = "Coronaviridae", sras = sras, dataframe = T, 
-                        columns = c("Sra","Score", "PctId", "Family"))
+                        ccolumns = c('sra_id', 'score', 'percent_identity', 'family_name'))
 ```
 
 Plot examples:
