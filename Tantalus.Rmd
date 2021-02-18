@@ -31,11 +31,11 @@ library("RPostgreSQL")
 # Connect to Serratus Database
 drv <- DBI::dbDriver("PostgreSQL")
 con <- DBI::dbConnect(drv, 
-                      user="postgres", 
+                      user="tantalus", 
                       password="serratus",
-                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      host="serratus-aurora-20210215-cluster.cluster-ro-ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
                       port=5432, 
-                      dbname="postgres")
+                      dbname="summary")
 
 ## Tables: AccessionSections, FamilySections, FastaSections, Runs
 
@@ -46,14 +46,12 @@ con <- DBI::dbConnect(drv,
 
 ```{r}
 #get Family table, and Coronaviridae family
-CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae")
-
-#convert database output into dataframe
-CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
-                 columns = c("Sra","Score", "PctId", "Family"),
+CoV <- readDfSQL(con,
+                 table = "nfamily",
+                 family = "Coronaviridae",
+                 columns = c('sra_id', 'score', 'percent_identity', 'family_name'),
+                 score = 100, 
                  dataframe = T)
-
-colnames(CoV) <- tolower(colnames(CoV))
 
 # Plot 
 familyScorPctID(CoV, "Coronaviridae")
