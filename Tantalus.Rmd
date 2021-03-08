@@ -25,17 +25,15 @@ roxygenize()
 library("tantalus")
 # library("dbplyr")
 library("reshape2")
-library("RPostgreSQL") 
+library("RPostgres")
 
-
-# Connect to Serratus Database
 drv <- DBI::dbDriver("PostgreSQL")
 con <- DBI::dbConnect(drv, 
-                      user="postgres", 
-                      password="serratus",
-                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
-                      port=5432, 
-                      dbname="postgres")
+                     user="postgres", 
+                     password="serratus",
+                     host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                     port=5432, 
+                     dbname="postgres")
 
 ## Tables: AccessionSections, FamilySections, FastaSections, Runs
 
@@ -99,6 +97,14 @@ Viro2$pctid  <- factor(Viro2$pctid)
 
 # Plot Family-summaries
 pViro <- ggplot(Viro2, aes(family, value, fill = pctid)) +
+  coord_flip() +
+  geom_bar(stat = 'identity') +
+  scale_fill_viridis(discrete = TRUE) + theme_bw()
+pViro
+
+# Plot Family-summaries
+Viro3 <- Viro2[ (as.numeric(as.character(Viro2$pctid)) < 91), ]
+pViro <- ggplot(Viro3, aes(family, value, fill = pctid)) +
   coord_flip() +
   geom_bar(stat = 'identity') +
   scale_fill_viridis(discrete = TRUE) + theme_bw()
@@ -252,9 +258,11 @@ write.csv(sIO, file = 'SerratusIO_scoreID.csv', row.names = F, quote = F)
 
 ```{r}
 release_stats <- read.table(file = 'release2_stats.txt', header = T)
-# 
-
-
+  
+#> sum(release_stats$bases)
+#[1] 5.620087e+15           
+#> sum(release_stats$size_MB)
+#[1] 2663778088
 ```
 
 
