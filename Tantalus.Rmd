@@ -28,7 +28,7 @@ library("reshape2")
 library("RPostgres")
 
 drv <- DBI::dbDriver("PostgreSQL")
-con <- DBI::dbConnect(drv, 
+con <- DBI::dbConnect(drv,
                      user="postgres", 
                      password="serratus",
                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
@@ -44,14 +44,12 @@ con <- DBI::dbConnect(drv,
 
 ```{r}
 #get Family table, and Coronaviridae family
-CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae")
-
-#convert database output into dataframe
-CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
-                 columns = c("Sra","Score", "PctId", "Family"),
+CoV <- readDfSQL(con,
+                 table = "nfamily",
+                 family = "Coronaviridae",
+                 columns = c('sra_id', 'score', 'percent_identity', 'family_name'),
+                 score = 100, 
                  dataframe = T)
-
-colnames(CoV) <- tolower(colnames(CoV))
 
 # Plot 
 familyScorPctID(CoV, "Coronaviridae")

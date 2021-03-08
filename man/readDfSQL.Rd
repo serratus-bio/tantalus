@@ -23,13 +23,17 @@ readDfSQL(
 
 \item{columns}{character vector of columns to return. NULL returns all [Default]}
 
-\item{family}{character, if specified return only matching "Family"}
+\item{family}{character, if specified return only matching "family_name"}
 
-\item{acc}{character, if specified return only matching virus accesion "Top"}
+\item{acc}{character, if specified return only matching virus accession "top_genbank_id"}
 
 \item{sras}{character, return only specified accessions}
 
 \item{dataframe}{boolean, if T, convert the output to dataframe}
+
+\item{score}{character, return only score greater than threshold}
+
+\item{pctid}{character, return only percent_identity greater than threshold}
 }
 \value{
 data frame

@@ -4,6 +4,10 @@ An R package for exploration of [Serratus](https://github.com/ababaian/serratus)
 
 ![Tantalus Mountain in Squamish, BC. Canada](img/tantalus.png)
 
+## Upgrade in Progress
+
+We are currently upgrading to a new database server. Some functions may be broken. Please open an [issue](https://github.com/serratus-bio/tantalus/issues) if a problem arises.
+
 ## Installation
 To install directly from the repo:
 
@@ -40,33 +44,34 @@ library("tantalus")
 library("dbplyr")
 library("RPostgreSQL") 
 
+# Connect to Serratus Database
 drv <- DBI::dbDriver("PostgreSQL")
 con <- DBI::dbConnect(drv, 
-                      user="postgres", 
+                      user="tantalus", 
                       password="serratus",
-                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      host="serratus-aurora-20210215-cluster.cluster-ro-ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
                       port=5432, 
-                      dbname="postgres")
+                      dbname="summary")
+
 #with a database
 ##tbls: __EFMigrationsHistory, AccessionSections, FamilySections, FastaSections, Runs
 
 #get Family table, and Coronaviridae family (and get just specific columns)
-x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", dataframe = T, 
-               columns = c("Sra","Score", "PctId", "Family"))
+x <- readDfSQL(con, "nfamily", family = "Coronaviridae", dataframe = T, 
+               columns = c('sra_id', 'score', 'percent_identity', 'family_name'))
+               
 #get specific SRAs
 sras <- c("SRR10144611", "SRR6906297", "SRR6906298",  "SRR6906299", 
           "SRR6906300", "SRR6906303", "SRR3229029", "SRR3229077", 
           "SRR3229078", "SRR3229081")
 
-x_specific <- readDfSQL(con, "FamilySections", family = "Coronaviridae", sras = sras, dataframe = T, 
-                        columns = c("Sra","Score", "PctId", "Family"))
+x_specific <- readDfSQL(con, "nfamily", family = "Coronaviridae", sras = sras, dataframe = T, 
+                        ccolumns = c('sra_id', 'score', 'percent_identity', 'family_name'))
 ```
 
 Plot examples:
 
 ```R
-colnames(x) <- tolower(colnames(x))
-
 #plot pctid histogram with family score intervals
 p <- pctidInScoreIntervals(x, family_name = "Coronaviridae", title="Coronaviridae",
                       scale_log = F, bin_scores = F)

@@ -1,11 +1,11 @@
 #' Plot a histogram of pctid for the given family within family score intervals
 #'
 #'
-#' @param  family_df family data frame
-#' @param  family_name name of the family (single value)
-#' @param title title of the plot
-#' @param scale_log if plot log scale (not implemented)
-#' @param bin_scores if split scores into bins for plotting
+#' @param family_df    family data frame
+#' @param family_name  name of the family (single value)
+#' @param title        title of the plot
+#' @param scale_log    if plot log scale (not implemented)
+#' @param bin_scores   if split scores into bins for plotting
 #'
 #' @return ggplot
 #'
@@ -22,9 +22,9 @@ pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_l
   #family_df   <- CoV
   #family_name <- "Coronaviridae"
   
-  # Filter by input family name
+  # Filter by input family_name
   if (!is.null(family_name)){
-    family_df <- family_df %>% filter(family %in% c(family_name))
+    family_df <- family_df %>% filter(family_name %in% c(family_name))
   }
   
   # Bin scores
@@ -67,26 +67,26 @@ pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_l
   }
   
   # Reform DF around Score
-  family_df <- family_df %>% group_by(pctid, score, family) %>% summarize(n=n(), log10n = log10(n() + 1))
+  family_df <- family_df %>% group_by(percent_identity, score, family_name) %>% summarize(n=n(), log10n = log10(n() + 1))
   
   #sort by family sizes
   #pointless if there is just one family
-  sum_families <- aggregate(family_df$n, by=list(family=family_df$family), FUN=sum)
+  sum_families <- aggregate(family_df$n, by=list(family=family_df$family_name), FUN=sum)
   sum_families <- setNames(sum_families$x, sum_families$family)
   sorted_families <- sort(sum_families, decreasing = T) 
   
-  family_df <- transform(family_df, family = factor(family, levels = names(sorted_families)))
-  family_df <- family_df[with(family_df, order(pctid, score, decreasing = T)), ]
+  family_df <- transform(family_df, family_name = factor(family_name, levels = names(sorted_families)))
+  family_df <- family_df[with(family_df, order(percent_identity, score, decreasing = T)), ]
   
   # Calculate cumulative sum for intervals
   # clusterfuck here
-  sums <- aggregate(n ~ pctid, family_df, cumsum)
+  sums <- aggregate(n ~ percent_identity, family_df, cumsum)
   sums <- unlist(sums$n)
   family_df$cumsum <- sums
   
   # Perform log calculations
   family_df$log10_old <- log10(family_df$cumsum+1)
-  family_df <- family_df %>% group_by(pctid) %>% 
+  family_df <- family_df %>% group_by(percent_identity) %>% 
   mutate(log10n= cumm_difference(log10_old))
   
   #define the colorscale
@@ -102,7 +102,7 @@ pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_l
   if (scale_log){
     # Plot log-scaled
     p <- ggplot(family_df, 
-                aes(pctid, log10n, color = score, fill = score)) +
+                aes(percent_identity, log10n, color = score, fill = score)) +
       geom_bar(stat = "identity") +
       #scale_fill_viridis(discrete=TRUE) + 
       #scale_color_viridis(discrete=TRUE) + 
@@ -116,7 +116,7 @@ pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_l
   } else { 
     # Plot linear
     p <- ggplot(family_df, 
-                aes(pctid, n, color = score, fill = score)) +
+                aes(percent_identity, n, color = score, fill = score)) +
       geom_bar(stat = "identity") +
       #scale_fill_viridis(discrete=TRUE) + 
       #scale_color_viridis(discrete=TRUE) + 
