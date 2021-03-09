@@ -47,9 +47,9 @@ library("RPostgreSQL")
 # Connect to Serratus Database
 drv <- DBI::dbDriver("PostgreSQL")
 con <- DBI::dbConnect(drv, 
-                      user="tantalus", 
+                      user="public_reader", 
                       password="serratus",
-                      host="serratus-aurora-20210215-cluster.cluster-ro-ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      host="serratus-aurora-20210306.cluster-ro-ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
                       port=5432, 
                       dbname="summary")
 
