@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="./@REFNAME.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="NC_045512.2:1-29903" path="./@REFNAME.xml" version="8">
+    <Resources>
+        <Resource path="./@REFNAME.mask.bed"/>
+    </Resources>
+    <Panel height="557" name="DataPanel" width="1131">
+        <Track clazz="org.broad.igv.track.SequenceTrack" fontSize="10" id="Reference sequence" name="Reference sequence" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" fontSize="10" id="./@REFNAME.mask.bed" name="@REFNAME.mask.bed" visible="true"/>
+    </Panel>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>

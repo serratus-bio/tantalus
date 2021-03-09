@@ -1,0 +1,286 @@
+---
+title: "Serratus - CoV ROC"
+author: "ababaian"
+date: "7/28/2020"
+output: html_document
+---
+## Setup ========================================
+
+```{r, include = FALSE}
+# Install Tantalus Dependencies
+#install.packages("devtools")
+library(devtools)
+
+# Install roxygen2 for development
+#install.packages("roxygen2")
+library(roxygen2)
+roxygenize()
+```
+
+## Access SQL database
+
+```{r}
+# Load packages
+library("tantalus")
+# library("dbplyr")
+library("reshape2")
+library("RPostgreSQL") 
+
+
+# Connect to Serratus Database
+drv <- DBI::dbDriver("PostgreSQL")
+con <- DBI::dbConnect(drv, 
+                      user="postgres", 
+                      password="serratus",
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      port=5432, 
+                      dbname="postgres")
+
+## Tables: AccessionSections, FamilySections, FastaSections, Runs
+
+```
+
+## Retreive all Coronavirus Family entries
+
+```{r}
+#get Family table, and Coronaviridae family
+CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae")
+
+#convert database output into dataframe
+CoV <- readDfSQL(con, "FamilySections", family = "Coronaviridae",
+                 columns = c("Sra","Score", "PctId", "Family","Aln", "TopLen"),
+                 dataframe = T)
+
+colnames(CoV) <- tolower(colnames(CoV))
+
+# Plot 
+#familyScorPctID(CoV, "Coronaviridae")
+#pctidInScoreIntervals(CoV, "Coronaviridae", title="Coronaviridae")
+
+```
+
+## Construct ROC data-frame
+
+```{r}
+STAT <- read.csv(file = 'data/roc/CoV_STAT.csv', stringsAsFactors = F)
+NT   <- read.table(file = 'data/roc/CoV_score20_nt.sra', stringsAsFactors = F)
+AA   <- read.table(file = 'data/roc/CoV_score20_protein.sra', stringsAsFactors = F)
+ASS  <- read.csv(file = 'data/roc/CoV_assembly_master.csv', stringsAsFactors = F)
+AAdf <- read.table(file ='data/roc/CoV_aa_matches.tsv', stringsAsFactors = F, header = T)
+#RDRP <-
+
+# Initialize ROC df
+ROC  <- data.frame(acc = c(STAT$acc, NT$V11, AA$V1, ASS$accession ) )
+ROC  <- data.frame(acc = unique(ROC$acc[order(ROC$acc)]))
+
+# NT Statistics 
+ROC$nt <- (ROC$acc %in% NT$V1)
+  roc_nt <- match(ROC$acc, CoV$sra)
+  ROC$nt_score <- CoV$score[roc_nt]
+  ROC$nt_aln   <- CoV$aln[roc_nt]
+  #ROC$nt_depth <- ROC$nt_aln / CoV$toplen[roc_nt]
+
+# AA Statistics
+ROC$aa <- (ROC$acc %in% AA$V1)
+  roc_aa <- match(ROC$acc, AAdf$sra)
+  ROC$aa_score <- AAdf$score[roc_aa]
+  ROC$aa_alns <- AAdf$alns[roc_aa]
+  
+# STAT Statistics
+ROC$stat <- (ROC$acc %in% STAT$acc)
+  roc_stat <- match(ROC$acc, STAT$acc)
+  ROC$stat_aln <- STAT$total_count[roc_stat]
+
+# Assembly Statistics
+ROC$ass  <- (ROC$acc %in% ASS$accession)
+  roc_ass <- match(ROC$acc, ASS$accession)
+  ROC$ass_tax  <- ASS$serratax_id[roc_ass]
+  ROC$ass_cat  <- ASS$category[roc_ass]
+  ROC$ass_len  <- ASS$length[roc_ass]
+
+
+write.table(ROC, file ='data/roc/ROC.data.tsv', quote = F, sep ='\t', row.names = F)
+  
+```
+
+## Import SRA lists into R
+
+```{r}
+# Each of these are the classifiction lists moving forward for assembly
+
+# STAT / BigQuery CoV+ reads (includes all)
+STAT <- read.csv(file = 'data/roc/STAT_accessions.txt', stringsAsFactors = F, header = F)
+STAT$acc <- STAT$V1
+#STAT10 <- STAT[ which(STAT$total_count > 10), ]
+
+# CoV Libraries containing score >20 and >10 (nucleotide search)
+NT   <- read.table(file = 'data/roc/CoV_score20_nt.sra', stringsAsFactors = F)
+
+# CoV Librares with score >20 (Amino Acid Search)
+AA   <- read.table(file = 'data/roc/CoV_score20_protein.sra', stringsAsFactors = F)
+
+# Assembly Master list output (CheckV pass)
+ASS   <- read.csv(file = 'data/roc/CoV_assembly_master.csv', stringsAsFactors = F)
+# Sub-set to Illumina data (essentially SARSCoV2)
+ASSi <- ASS[ (ASS$platform == 'ILLUMINA'), ]
+
+# Simple intersections
+length(NT$V1)
+length(AA$V1)
+length(STAT$acc)
+length(STAT10$acc)
+
+# Intersection Search Space
+# Note these all contain different search spaces so not a fair comparison
+# Repeat this with a focus on virome / vertebrate
+length( intersect( NT$V1, AA$V1 )     )
+length( intersect( NT$V1, STAT$acc)   )
+length( intersect( NT$V1, STAT10$acc) )
+length( intersect( AA$V1, STAT$acc)   )
+length( intersect( c(NT$V1,AA$V1), STAT$acc)   )
+
+
+
+##
+length( intersect( NT$V1, ASSi$accession )   )
+length( intersect( AA$V1, ASSi$accession )   )
+length( intersect( STAT$acc, ASSi$accession)  )
+length( intersect( STAT10$acc, ASSi$accession) )
+
+# Sub-set CoV table to NT matches
+CoV_NT <- CoV[ (CoV$sra %in% NT$V1), ]
+  CoV_NT$ass  <- "no"
+  CoV_NT$ass[ (CoV_NT$sra %in% ASS$accession)] <- "yes"
+
+CoV_AA <- CoV[ (CoV$sra %in% AA$V1), ]
+
+CoV_STAT <- CoV[ (CoV$sra) %in% STAT10$acc, ]
+  CoV_STAT$ass <- "no"
+  CoV_STAT$ass[ (CoV_STAT$sra %in% ASS$accession) ] <- "yes"
+  
+  
+CoV_NT_ASS   <- CoV_NT[ (CoV_NT$sra %in% ASS$accession), ]
+CoV_AA_ASS   <- CoV_AA[ (CoV_AA$sra %in% ASS$accession), ]
+CoV_STAT_ASS <- CoV_STAT[ (CoV_STAT$sra %in% ASS$accession), ]
+
+STAT_ASS     <- STAT10[ (STAT$acc %in% ASS$accession), ]
+
+# 
+```
+
+```{r}
+
+p <- ggplot(CoV_NT, aes(score, fill = ass)) +
+  geom_histogram()
+p
+
+CoV_NT_s <- CoV_NT %>% group_by(score, ass) %>% summarize(n=n())
+
+
+
+CoV_NT_summary <- CoV_NT_s[CoV_NT_s$ass == "no", c(1,3) ]
+  colnames(CoV_NT_summary) <- c("score", "miss")
+  CoV_NT_summary$hit <- CoV_NT_s[CoV_NT_s$ass == "yes", 3 ]
+  CoV_NT_summary$rate <- CoV_NT_summary$hit / (CoV_NT_summary$hit + CoV_NT_summary$miss)
+  
+#define the colorscale
+cc <- viridis(101)
+names(cc) <- 0:100
+  
+p <- ggplot(CoV_NT_summary, aes(score, rate$n, fill = score, color = NULL)) +
+  geom_bar(stat = 'identity') +
+  scale_fill_viridis() +
+  coord_flip()
+p
+    
+    p <- ggplot(CoV_NT_s, aes(score,n, fill = ass)) +
+  geom_bar(stat = 'identity')
+p
+
+
+
+  
+p <- ggplot(CoV_NT_summary, 
+           aes(score, n, color = score, fill = score)) +
+    geom_bar(stat = "identity") +
+    #scale_fill_viridis(discrete=TRUE) + 
+    #scale_color_viridis(discrete=TRUE) + 
+    theme_bw()
+p
+
+summarize(CoV_NT)
+
+p <- ggplot(CoV_STAT, aes(reads, fill = ass)) +
+  geom_histogram()
+p
+
+
+
+# Score histogram
+#hist(CoV_NT$score)
+#hist(CoV_NT_ASS$score)
+
+#hist(CoV_AA$score)
+#hist(CoV_AA_ASS$score)
+
+#hist(CoV_STAT$score)
+#hist(CoV_STAT_ASS$score)
+
+# Read histogram
+#hist( log10(STAT$total_count))
+#hist( log10(STAT_ASS$total_count))
+
+# Summarize NT data for Score / Assemblibility
+
+
+```
+
+
+```{r}
+# Financial breakdown
+total <-  8372.71
+nacc  <- 1339925
+
+runlist  <- read.table(file ='data/roc/1m.run.list', stringsAsFactors = F)
+runlist2 <- sub(".summary", "", runlist$V4)
+sra <- runlist2
+
+release_stats <- read.table(file = 'release2_stats.txt',
+                            header = T,
+                            stringsAsFactors = T)
+
+# sra <- as.character(release_stats$Sra)
+sra.match <- match(runlist2, sra)
+
+nbase <- sum(release_stats$bases[sra.match])
+
+<!-- ``` -->
+
+
+```{r}
+# Tangent on pct id of CoV OTU
+library(ggplot2)
+library(pheatmap)
+vircol <- c(rainbow(100),'#00000000')
+
+ID <- read.csv(file = 'data/roc/pctidmat2.csv')
+dropacc <- c(1:2,137:144)
+ID <- ID[-dropacc, -(dropacc+3)]
+
+# List of accessions
+acclist <- read.table(file = 'data/roc/accession_list.txt', stringsAsFactors = F)
+acclist <- c(as.character(ID$acc[1:5]), acclist$V1)
+acclist <- match(factor(acclist), as.character(ID$acc))
+
+# add Toba
+#acclist[1:5] <- 1:5
+acclist <- acclist[ !is.na(acclist) ]
+ID <- ID[acclist, c(1:3,(acclist+3))]
+
+pheatmap(ID[,-c(1:3)], color = vircol,
+         scale = "none", border_color = NA,
+         cellwidth = 8, cellheight = 8,
+         cluster_rows = F, cluster_cols = F)
+
+
+```

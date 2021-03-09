@@ -1,0 +1,124 @@
+---
+  title: "Tantalus"
+author: "ababaian"
+date: "7/18/2020"
+output: html_document
+---
+  
+  ## Setup ========================================
+
+```{r, include = FALSE}
+# Install Tantalus Dependencies
+#install.packages("devtools")
+library(devtools)
+
+# Install roxygen2 for development
+#install.packages("roxygen2")
+library(roxygen2)
+roxygenize()
+```
+
+## Access SQL database
+
+```{r}
+# Load packages
+library("tantalus")
+# library("dbplyr")
+library("reshape2")
+library("RPostgres")
+library("forcats")
+library("gridExtra")
+
+drv <- DBI::dbDriver("PostgreSQL")
+con <- DBI::dbConnect(drv,
+                      user="public_reader", 
+                      password="serratus",
+                      host="serratus-aurora-20210306.cluster-ro-ccz9y6yshbls.us-east-1.rds.amazonaws.com",
+                      port=5432, 
+                      dbname="summary")
+
+## Tables: AccessionSections, FamilySections, FastaSections, Runs
+
+```
+
+
+## Test retrieval
+
+```{r}
+#get Family table, and Coronaviridae family
+CoV <- readDfSQL(con,
+                 table = "rfamily",
+                 family = "Coronaviridae-1",
+                 columns = c('sra_id', 'score', 'percent_identity', 'family_name'),
+                 score = 75, 
+                 dataframe = T)
+
+# Plot 
+#familyScorPctID(CoV, "Coronaviridae")
+pctidInScoreIntervals(CoV, title="Coronaviridae",
+                      nucleotide = F)
+```
+
+
+## RNA viruses NT vs. RdRP Search
+
+```{r}
+# RNA viral families to analyze
+rna.fam <- c("Coronaviridae",    "Picornaviridae",
+             "Flaviviridae",     "Arenaviridae",
+             "Orthomyxoviridae", "Paramyxoviridae",
+             "Filoviridae",      "Reoviridae" )
+
+# Retrieve all virus hits from nucleotide search
+# 1 570 371
+rna.nt <- readDfSQL(con,
+                 table = "nfamily",
+                 columns = c('sra_id', 'score', 'percent_identity', 'family_name'),
+                 score = 24, 
+                 dataframe = T)
+  # Filter to entries in shown rna families
+  rna.nt <- rna.nt[ ( rna.nt$family_name %in% rna.fam ), ]
+
+# Retrieve all RdRP hits from rdrp search
+# 832 086
+rna.rdrp <- readDfSQL(con,
+                 table = "rfamily",
+                 columns = c('sra_id', 'score', 'percent_identity', 'family_name'),
+                 score = 24, 
+                 dataframe = T)
+  # Filter to entries in shown rna familes
+  rna.rdrp$family_name <- sub("-.*", "", rna.rdrp$family_name)
+  rna.rdrp <- rna.rdrp[ ( rna.rdrp$family_name %in% rna.fam), ]
+
+
+```
+
+
+```{r}
+# Reorder factors by sort list
+rna.nt$family_name   <- fct_relevel( rna.nt$family_name, rna.fam)
+rna.rdrp$family_name <- fct_relevel(rna.rdrp$family_name, rna.fam) 
+
+# Plot nucleotide histograms
+p.nt <- pctidInScoreIntervals(rna.nt, family_name = NULL, title="",
+                      scale_log = F, bin_scores = F, nucleotide = T,
+                      keep_levels = T)
+  # relevel
+  p.nt$data$family_name <- fct_relevel( p.nt$data$family_name, rna.fam )
+  p.nt <- p.nt + facet_wrap(~ family_name, ncol=4, scales="free_y") + 
+    theme(legend.position = "none")
+#p.nt
+
+# Plot rdrp histograms
+p.rp <- pctidInScoreIntervals(rna.rdrp, family_name = NULL, title="",
+                      scale_log = F, bin_scores = F, nucleotide = F,
+                      keep_levels = T)
+  # relevel
+  p.rp$data$family_name <- fct_relevel( p.rp$data$family_name, rna.fam )
+  p.rp <- p.rp + facet_wrap(~ family_name, ncol=4, scales="free_y") + 
+    theme(legend.position = "bottom")
+#p.rp
+
+grid.arrange(p.nt, p.rp)
+
+```

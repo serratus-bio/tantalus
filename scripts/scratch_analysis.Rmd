@@ -29,11 +29,11 @@ library("RPostgres")
 
 drv <- DBI::dbDriver("PostgreSQL")
 con <- DBI::dbConnect(drv,
-                     user="postgres", 
+                     user="public_reader", 
                      password="serratus",
-                     host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                     host="serratus-aurora-20210306.cluster-ro-ccz9y6yshbls.us-east-1.rds.amazonaws.com",
                      port=5432, 
-                     dbname="postgres")
+                     dbname="summary")
 
 ## Tables: AccessionSections, FamilySections, FastaSections, Runs
 
@@ -45,24 +45,24 @@ con <- DBI::dbConnect(drv,
 ```{r}
 #get Family table, and Coronaviridae family
 CoV <- readDfSQL(con,
-                 table = "nfamily",
-                 family = "Coronaviridae",
+                 table = "rfamily",
+                 family = "Coronaviridae-1",
                  columns = c('sra_id', 'score', 'percent_identity', 'family_name'),
-                 score = 100, 
+                 score = 24, 
                  dataframe = T)
 
 # Plot 
-familyScorPctID(CoV, "Coronaviridae")
-pctidInScoreIntervals(CoV, "Coronaviridae", title="Coronaviridae")
-
+#familyScorPctID(CoV, "Coronaviridae")
+pctidInScoreIntervals(CoV, title="Coronaviridae",
+                      nucleotide = F)
 ```
 
 ```{r}
-# Retrivew all viral familiy-level hits above score 79 as df
+# Retrive all viral familiy-level hits above score 79 as df
 score_threshold <- 79
 
-Viro <- readDfSQL(con, "FamilySections",
-                 columns = c("Sra","Score", "PctId", "Family"),
+Viro <- readDfSQL(con, "nfamily",
+                 columns = c("sra_id","score", "percent_identity", "family_name"),
                  score = score_threshold,
                  dataframe = T)
 colnames(Viro) <- tolower(colnames(Viro))
