@@ -6,6 +6,8 @@
 #' @param title        title of the plot
 #' @param scale_log    if plot log scale (not implemented)
 #' @param bin_scores   if split scores into bins for plotting
+#' @param nucleotide   TRUE/FALSE if nt or aa plot should be made [TRUE]
+#' @param keep_levels  TODO TRUE/FALSE should factor level of "family_name" be kept
 #'
 #' @return ggplot
 #'
@@ -16,8 +18,12 @@
 #' @export
 #'
 
-pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_log = F, bin_scores = T){
-  
+pctidInScoreIntervals <- function(family_df, family_name=NULL,
+                                  title="",
+                                  scale_log = F,
+                                  bin_scores = T,
+                                  nucleotide = T,
+                                  keep_levels = F){
   # Testing
   #family_df   <- CoV
   #family_name <- "Coronaviridae"
@@ -67,7 +73,14 @@ pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_l
   }
   
   # Reform DF around Score
-  family_df <- family_df %>% group_by(percent_identity, score, family_name) %>% summarize(n=n(), log10n = log10(n() + 1))
+  if (keep_levels){
+    og_level <- levels(as.factor( family_df$family_name ) )
+    family_df <- family_df %>% group_by(percent_identity, score, family_name) %>% summarize(n=n(), log10n = log10(n() + 1))
+    family_df$family_name <- fct_relevel(family_df$family_name, og_level)
+  } else {
+    # allow for releveling
+    family_df <- family_df %>% group_by(percent_identity, score, family_name) %>% summarize(n=n(), log10n = log10(n() + 1))
+  }
   
   #sort by family sizes
   #pointless if there is just one family
@@ -91,39 +104,75 @@ pctidInScoreIntervals <- function(family_df, family_name=NULL, title="", scale_l
   
   #define the colorscale
   if (bin_scores){
-    cc <- viridis(11)
+    if (nucleotide){
+      cc <- viridis(11)
+    } else {
+      cc <- viridis(12, option = "B")
+      cc <- cc[1:11]
+    }
     names(cc) <- c("0-5", "5-15", "15-25", "25-35", "35-45", "45-55", "55-65", "65-75",
                    "75-85", "85-95", "95-100")
   } else {
-    cc <- viridis(101)
-    names(cc) <- 0:100
+    if (nucleotide){
+      cc <- viridis(101)
+      names(cc) <- 0:100
+    } else {
+      cc <- viridis(111, option = "B")
+      cc <- cc[1:101]
+      names(cc) <- 0:100 
+    }
   }
   
   if (scale_log){
-    # Plot log-scaled
-    p <- ggplot(family_df, 
-                aes(percent_identity, log10n, color = score, fill = score)) +
-      geom_bar(stat = "identity") +
-      #scale_fill_viridis(discrete=TRUE) + 
-      #scale_color_viridis(discrete=TRUE) + 
-      theme_bw() + xlim(c(75,101)) +
-      labs(title = title) +
-      scale_colour_manual(values=cc) +
-      scale_fill_manual(values=cc) 
     
-    p <- c("TODO: LOG SCALE BROKEN")
+    if (nucleotide){ 
+      # scale range 75 - 100 nucleotide
+      # Plot log-scaled
+      p <- ggplot(family_df, 
+                  aes(percent_identity, log10n, color = score, fill = score)) +
+        geom_bar(stat = "identity") +
+        #scale_fill_viridis(discrete=TRUE) + 
+        #scale_color_viridis(discrete=TRUE) + 
+        theme_bw() + xlim(c(75,101)) +
+        labs(title = title) +
+        scale_colour_manual(values=cc) +
+        scale_fill_manual(values=cc) 
+      
+      p <- c("TODO: LOG SCALE BROKEN")
+    } else {
+      p <- c("TODO: LOG SCALE BROKEN")
+    }
     
   } else { 
-    # Plot linear
-    p <- ggplot(family_df, 
-                aes(percent_identity, n, color = score, fill = score)) +
-      geom_bar(stat = "identity") +
-      #scale_fill_viridis(discrete=TRUE) + 
-      #scale_color_viridis(discrete=TRUE) + 
-      theme_bw() + xlim(c(75,101)) +
-      labs(title = title) +
-      scale_colour_manual(values=cc) +
-      scale_fill_manual(values=cc) 
+    
+    if (nucleotide){
+      # Plot linear
+      # scale range 75 - 100 nucleotide
+      p <- ggplot(family_df, 
+                  aes(percent_identity, n, color = score, fill = score)) +
+        geom_bar(stat = "identity") +
+        #scale_fill_viridis(discrete=TRUE) + 
+        #scale_color_viridis(discrete=TRUE) + 
+        theme_bw() + xlim(c(75,101)) +
+        labs(title = title) + 
+        xlab("identity (nt)") +
+        scale_colour_manual(values=cc) +
+        scale_fill_manual(values=cc)
+    } else {
+      # Plot linear
+      p <- ggplot(family_df, 
+                  aes(percent_identity, n, color = score, fill = score)) +
+        geom_bar(stat = "identity") +
+        #scale_fill_viridis(discrete=TRUE) + 
+        #scale_color_viridis(discrete=TRUE) + 
+        theme_bw() + xlim(c(49,101)) +
+        scale_x_continuous( breaks = seq(50,100,10) ) +
+        labs(title = title) +
+        xlab("identity (aa)") +
+        scale_colour_manual(values=cc) +
+        scale_fill_manual(values=cc)
+    }
+ 
   }
   return(p)
 }
