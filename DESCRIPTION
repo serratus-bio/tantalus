@@ -12,7 +12,8 @@ Depends:
     ggplot2,
     fst,
     viridis,
-    scales
+    scales,
+    forcats
 Imports:
     gridExtra,
     dbplyr,
