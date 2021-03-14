@@ -21,9 +21,9 @@ readDfSQL <- function(dbs, table, columns = NULL, family = NULL, acc = NULL,
   # Connect to Table
   db_table <- tbl(dbs, table)
   
-  # In SQL table, return only "sra_id" column when matching "sras" input list
+  # In SQL table, return only "run_id" column when matching "sras" input list
   if (!is.null(sras)){
-    db_table <- db_table %>% filter(sra_id %in% sras)
+    db_table <- db_table %>% filter(run_id %in% sras)
   }
 
   # In SQL table, return only "family_name" when matching "family" input

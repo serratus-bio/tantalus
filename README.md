@@ -42,49 +42,92 @@ To load data with **tantalus** you should import RPostgresSQL and dbplyr package
 ```R
 library("tantalus")
 library("dbplyr")
-library("RPostgreSQL") 
+library("RPostgres") 
 
 # Connect to Serratus Database
 drv <- DBI::dbDriver("PostgreSQL")
-con <- DBI::dbConnect(drv, 
+con <- DBI::dbConnect(drv,
                       user="public_reader", 
                       password="serratus",
-                      host="serratus-aurora-20210306.cluster-ro-ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
+                      host="serratus-aurora-20210310.cluster-ro-ccz9y6yshbls.us-east-1.rds.amazonaws.com",
                       port=5432, 
                       dbname="summary")
 
-#with a database
-##tbls: __EFMigrationsHistory, AccessionSections, FamilySections, FastaSections, Runs
-
-#get Family table, and Coronaviridae family (and get just specific columns)
-x <- readDfSQL(con, "nfamily", family = "Coronaviridae", dataframe = T, 
-               columns = c('sra_id', 'score', 'percent_identity', 'family_name'))
+# Retrieve nucleotide family table, and Coronaviridae family
+# specific columns
+cov.nt <- readDfSQL(con,
+                   table = "nfamily",
+                   family = "Coronaviridae",
+                   columns = c('run_id', 'score', 'percent_identity', 'family_name'),
+                   score = 24, 
+                   dataframe = T)
                
-#get specific SRAs
-sras <- c("SRR10144611", "SRR6906297", "SRR6906298",  "SRR6906299", 
-          "SRR6906300", "SRR6906303", "SRR3229029", "SRR3229077", 
-          "SRR3229078", "SRR3229081")
+# Retrieve a sub-set of SRA by accessions
+sra.accessions <- c("SRR10144611", "SRR6906297", "SRR6906298",  "SRR6906299",
+                    "SRR6906300", "SRR6906303", "SRR3229029", "SRR3229077", 
+                    "SRR3229078", "SRR3229081")
 
-x_specific <- readDfSQL(con, "nfamily", family = "Coronaviridae", sras = sras, dataframe = T, 
-                        ccolumns = c('sra_id', 'score', 'percent_identity', 'family_name'))
+cov.nt.sra <- readDfSQL(con,
+                   table = "nfamily",
+                   family = "Coronaviridae",
+                   sras = sra.accessions,
+                   columns = c('run_id', 'score', 'percent_identity', 'family_name'),
+                   dataframe = T)
+
+# Retrieve rdrp-search results for Coronaviridae
+cov.rdrp <- readDfSQL(con,
+                      table = "rfamily",
+                      family = "Coronaviridae-1",
+                      columns = c('run_id', 'score', 'percent_identity', 'family_name'),
+                      score = 24, 
+                      dataframe = T)
+
 ```
 
 Plot examples:
 
 ```R
-#plot pctid histogram with family score intervals
-p <- pctidInScoreIntervals(x, family_name = "Coronaviridae", title="Coronaviridae",
-                      scale_log = F, bin_scores = F)
-p
+# Plot Nucleotide Identity vs. Abundance histogram with identification scores
+nt.hist <- pctidInScoreIntervals(cov.nt, family_name = "Coronaviridae", title="Coronaviridae",
+                                 scale_log = F, bin_scores = T)
+nt.hist
 ```
 
-![](img/new_img_1.png)
+![CoV nucleotide search](img/cov.nt.histogram.png)
 
 ```R
 #plot pctid histogram with family score intervals
-p <- scoreInPctidIntervals(x, family_name = "Coronaviridae", title="Coronaviridae",
+score.dist <- scoreInPctidIntervals(cov.nt, title="Coronaviridae",
                       scale_log = F, bin_percent = T)
-p
+score.dist
 ```
 
-![](img/new_img_2.png)
+![CoV nt scores](img/cov.nt.scores.png)
+
+```R
+# Plot RdRP Identity vs. Abundance histogram with identification scores
+rdrp.hist <- pctidInScoreIntervals(cov.rdrp, family_name = "Coronaviridae-1", title="Coronaviridae",
+                                 scale_log = F, bin_scores = T, nucleotide = F)
+rdrp.hist
+```
+
+![CoV rdrp search](img/cov.rdrp.histogram.png)
+
+```R
+# This data can be explored at a granular level
+cov.rdrp[(cov.rdrp$percent_identity < 60), ]
+```
+```
+run_id score percent_identity     family_name
+1765 SRR10221771   100               57 Coronaviridae-1
+1922 SRR10402288   100               54 Coronaviridae-1
+1923 SRR10402289   100               54 Coronaviridae-1
+1924 SRR10402291   100               54 Coronaviridae-1
+1926 SRR10481990    42               50 Coronaviridae-1
+1931 SRR10481992    42               50 Coronaviridae-1
+4271 SRR12184956   100               59 Coronaviridae-1
+5327 SRR12532037    24               50 Coronaviridae-1
+8220  SRR5512543    43               51 Coronaviridae-1
+8340  SRR6233344    29               55 Coronaviridae-1
+...
+```

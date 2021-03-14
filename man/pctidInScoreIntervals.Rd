@@ -9,7 +9,9 @@ pctidInScoreIntervals(
   family_name = NULL,
   title = "",
   scale_log = F,
-  bin_scores = T
+  bin_scores = T,
+  nucleotide = T,
+  keep_levels = F
 )
 }
 \arguments{
@@ -22,6 +24,10 @@ pctidInScoreIntervals(
 \item{scale_log}{if plot log scale (not implemented)}
 
 \item{bin_scores}{if split scores into bins for plotting}
+
+\item{nucleotide}{TRUE/FALSE if nt or aa plot should be made [TRUE]}
+
+\item{keep_levels}{TODO TRUE/FALSE should factor level of "family_name" be kept}
 }
 \value{
 ggplot

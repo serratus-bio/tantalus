@@ -21,7 +21,7 @@ scoreInPctidIntervals(
 
 \item{scale_log}{if plot log scale (not implemented)}
 
-\item{bin_percent}{if split pctid into bins for plotting}
+\item{bin_percent}{if split percent_identity into bins for plotting}
 }
 \value{
 ggplot
