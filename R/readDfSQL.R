@@ -8,6 +8,7 @@
 #' @param  family  character, if specified return only matching "family_name"
 #' @param  acc     character, if specified return only matching virus accession "top_genbank_id"
 #' @param  sras    character, return only specified accessions
+#' @param  sraruns character, return only specified accessions, used in "srarun" table
 #' @param  score    character, return only score greater than threshold
 #' @param  pctid    character, return only percent_identity greater than threshold
 #' @param  dataframe    boolean, if T, convert the output to dataframe
@@ -23,9 +24,16 @@ readDfSQL <- function(dbs, table, columns = NULL, family = NULL, acc = NULL,
   
   # In SQL table, return only "run_id" column when matching "sras" input list
   if (!is.null(sras)){
-    db_table <- db_table %>% filter(run_id %in% sras)
+    if (table == "srarun"){
+      # In SQL table, return only "run" column when matching "sraruns" input list
+      # This is the standard name in that table from NCBI
+      db_table <- db_table %>% filter(run %in% sras)
+    } else {
+      # Serratus tables use "run_id" as accession identifier
+      db_table <- db_table %>% filter(run_id %in% sras)
+    }
   }
-
+  
   # In SQL table, return only "family_name" when matching "family" input
   if (!is.null(family)){
     if ( sum( grepl('family_name', colnames(db_table))) > 0 ){
