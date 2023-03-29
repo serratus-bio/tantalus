@@ -104,7 +104,7 @@ scoreInPctidIntervals(MAMM@family, "Coronaviridae", title="Coronaviridae")
 ```{r}
 # Parse SraRunInfo.csv file into a SraRunInfo Object
 sra_path='../sra/viro_SraRunInfo.csv'
-RUNINFO <- readSraRunInfo(sra_path) 
+RUNINFO <- readSraRunInfo(sra_path)
 RUNINFO_vert <- readSraRunInfo('../sra/vert_sraRunInfo.csv')
 RUNINFO_hu1 <- readSraRunInfo('../sra/hu1_SraRunInfo.csv')
 RUNINFO_hu2 <- readSraRunInfo('../sra/hu2_sraRunInfo.csv')
@@ -149,7 +149,7 @@ parseAtys(DATA)
 ```
 ```{r}
 sras <- c("SRR9701190", "SRR9705127", "SRR975462", "SRR9843091", "SRR9843092")
-serr <- getSummaryFiles(sras, 's3://lovelywater/summary/', "summary_files")
+serr <- getSummaryFiles(sras, 's3://lovelywater2/summary/', "summary_files")
 ```
 
 
@@ -175,7 +175,7 @@ time.taken <- end.time - start.time
 time.taken
 ```
 
-## First phase is done (1.14M files). Get Atys objects for 
+## First phase is done (1.14M files). Get Atys objects for
 
 VIRO - 8530 files
 VERT - 94453 files
@@ -286,7 +286,7 @@ time.taken
 
 #familyScore(HU2, "Coronaviridae", log=T)
 family_df <- y %>% filter(family %in% c("Coronaviridae"))
-p <- ggplot(data=family_df, aes(family_df$score)) + 
+p <- ggplot(data=family_df, aes(family_df$score)) +
       geom_histogram(fill="blue", bins = 30) +
       theme_bw() +
       scale_y_log10() +
@@ -296,50 +296,50 @@ p <- ggplot(data=family_df, aes(family_df$score)) +
 
 #x <- familyScorPctID(HU2, "Coronaviridae")
 p <- ggplot(data=family_df, aes(x = score, y = pctid)) +
-  geom_jitter(color="blue", alpha = 0.4) + 
+  geom_jitter(color="blue", alpha = 0.4) +
   theme_bw() +
   labs(x = "Family score", y = "Percentage identity") +
   labs(title = paste("Coronaviridae", "family", sep = " "))
 s <- ggExtra::ggMarginal(p, type = "histogram")
 
-p1 <- ggplot(data=family_df[which(family_df$score >= 0), ], aes(pctid)) + 
+p1 <- ggplot(data=family_df[which(family_df$score >= 0), ], aes(pctid)) +
       geom_histogram(fill="blue", bins = 30) +
-      theme_bw() + 
+      theme_bw() +
       coord_cartesian(xlim=c(70,100)) +
       scale_y_log10() +
       labs(x = "Percentage Identity") +
       labs(title = "Coronaviridae - all")
-p2 <- ggplot(data=family_df[which(family_df$score >= 50), ], aes(pctid)) + 
+p2 <- ggplot(data=family_df[which(family_df$score >= 50), ], aes(pctid)) +
       geom_histogram(fill="blue", bins = 30) +
-      theme_bw() + 
+      theme_bw() +
       coord_cartesian(xlim=c(70,100)) +
       scale_y_log10() +
       labs(x = "Percentage Identity") +
       labs(title = "Coronaviridae - 50+")
-p3 <- ggplot(data=family_df[which(family_df$score >= 60), ], aes(pctid)) + 
+p3 <- ggplot(data=family_df[which(family_df$score >= 60), ], aes(pctid)) +
       geom_histogram(fill="blue", bins = 30) +
-      theme_bw() + 
+      theme_bw() +
       coord_cartesian(xlim=c(70,100)) +
       scale_y_log10() +
       labs(x = "Percentage Identity") +
       labs(title = "Coronaviridae - 60+")
-p4 <- ggplot(data=family_df[which(family_df$score >= 70), ], aes(pctid)) + 
+p4 <- ggplot(data=family_df[which(family_df$score >= 70), ], aes(pctid)) +
       geom_histogram(fill="blue", bins = 30) +
-      theme_bw() + 
+      theme_bw() +
       coord_cartesian(xlim=c(70,100)) +
       scale_y_log10() +
       labs(x = "Percentage Identity") +
       labs(title = "Coronaviridae - 70+")
-p5 <- ggplot(data=family_df[which(family_df$score >= 80), ], aes(pctid)) + 
+p5 <- ggplot(data=family_df[which(family_df$score >= 80), ], aes(pctid)) +
       geom_histogram(fill="blue", bins = 30) +
-      theme_bw() + 
+      theme_bw() +
       coord_cartesian(xlim=c(70,100)) +
       scale_y_log10() +
       labs(x = "Percentage Identity") +
       labs(title = "Coronaviridae - 80+")
-p6 <- ggplot(data=family_df[which(family_df$score >= 90), ], aes(pctid)) + 
+p6 <- ggplot(data=family_df[which(family_df$score >= 90), ], aes(pctid)) +
       geom_histogram(fill="blue", bins = 30) +
-      theme_bw() + 
+      theme_bw() +
       coord_cartesian(xlim=c(70,100)) +
       scale_y_log10() +
       labs(x = "Percentage Identity") +
@@ -388,10 +388,10 @@ test2 <- factor(test2, levels = c("0-5", "5-15", "15-25", "25-35", "35-45", "45-
 
 family_df$score_intervals <- test2
 
-p <- ggplot(family_df %>% group_by(pctid,score_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), 
+p <- ggplot(family_df %>% group_by(pctid,score_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)),
             aes(pctid, log10n,fill = score_intervals)) +
   geom_bar(color="black",stat = "identity") +
-  scale_fill_viridis(discrete=TRUE) + 
+  scale_fill_viridis(discrete=TRUE) +
   theme_bw() +
   labs(title = "Coronaviridae - Vert")
 ```
@@ -421,10 +421,10 @@ test2 <- factor(test2, levels = c("<82", "82-85", "85-88", "88-91", "91-94", "94
 
 family_df$pctid_intervals <- test2
 
-p <- ggplot(family_df %>% group_by(score,pctid_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)), 
+p <- ggplot(family_df %>% group_by(score,pctid_intervals) %>% summarize(n=n(), log10n = log10(n() + 1)),
        aes(score, log10n,fill = pctid_intervals)) +
   geom_bar(color="black",stat = "identity") +
-  scale_fill_viridis(discrete=TRUE) + 
+  scale_fill_viridis(discrete=TRUE) +
   theme_bw() +
   labs(title = "Coronaviridae - Vert")
 ```
@@ -744,9 +744,9 @@ res_abundance <- data.frame(OTU = as.character(), Number_of_datasets = as.numeri
 for (otu_num in otus_species){
   name_of_otu <- paste("OTU", otu_num, sep="")
   num_of_datasets <- otus_datasets %>% filter(OTU == otu_num) %>% nrow()
-  
+
   interim_res <- data.frame(OTU = name_of_otu, Number_of_datasets = num_of_datasets)
-  
+
   res_abundance <- rbind(res_abundance, interim_res)
 }
 
@@ -782,14 +782,14 @@ fig <- getHeatmap(accession, sumWheres)
 
 ```{r}
 library("dbplyr")
-library("RPostgreSQL") 
+library("RPostgreSQL")
 
 drv <- DBI::dbDriver("PostgreSQL")
-con <- DBI::dbConnect(drv, 
-                      user="postgres", 
+con <- DBI::dbConnect(drv,
+                      user="postgres",
                       password="serratus",
-                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
-                      port=5432, 
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com",
+                      port=5432,
                       dbname="postgres")
 
 vtax <- read.table( file = "data/virus_taxid.tsv", header = TRUE)
@@ -841,11 +841,11 @@ n <- pctidInScoreIntervals(Nairo, "Nairoviridae", title="Nairoviridae",
 ```{r}
 #working with facet_wrap
 drv <- DBI::dbDriver("PostgreSQL")
-con <- DBI::dbConnect(drv, 
-                      user="postgres", 
+con <- DBI::dbConnect(drv,
+                      user="postgres",
                       password="serratus",
-                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
-                      port=5432, 
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com",
+                      port=5432,
                       dbname="postgres")
 
 vtax <- read.table( file = "data/virus_taxid.tsv", header = TRUE)
@@ -886,27 +886,27 @@ d + facet_wrap(~ family, scales="free_y")
 ```{r}
 library("tantalus")
 library("dbplyr")
-library("RPostgreSQL") 
+library("RPostgreSQL")
 
 drv <- DBI::dbDriver("PostgreSQL")
-con <- DBI::dbConnect(drv, 
-                      user="postgres", 
+con <- DBI::dbConnect(drv,
+                      user="postgres",
                       password="serratus",
-                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com", 
-                      port=5432, 
+                      host="big-parse-db.ccz9y6yshbls.us-east-1.rds.amazonaws.com",
+                      port=5432,
                       dbname="postgres")
 #with a database
 ##tbls: __EFMigrationsHistory, AccessionSections, FamilySections, FastaSections, Runs
 
 #get Family table, and Coronaviridae family (and get just specific columns)
-x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", dataframe = T, 
+x <- readDfSQL(con, "FamilySections", family = "Coronaviridae", dataframe = T,
                columns = c("Sra","Score", "PctId", "Family"))
 #get specific SRAs
-sras <- c("SRR10144611", "SRR6906297", "SRR6906298",  "SRR6906299", 
-          "SRR6906300", "SRR6906303", "SRR3229029", "SRR3229077", 
+sras <- c("SRR10144611", "SRR6906297", "SRR6906298",  "SRR6906299",
+          "SRR6906300", "SRR6906303", "SRR3229029", "SRR3229077",
           "SRR3229078", "SRR3229081")
 
-x_specific <- readDfSQL(con, "FamilySections", family = "Coronaviridae", sras = sras, dataframe = T, 
+x_specific <- readDfSQL(con, "FamilySections", family = "Coronaviridae", sras = sras, dataframe = T,
                         columns = c("Sra","Score", "PctId", "Family"))
 ```
 

@@ -12,7 +12,7 @@ and associated meta-data
 \usage{
 getReference(
   refName = "cov3ma",
-  s3_path = "s3://lovelywater/seq/",
+  s3_path = "s3://lovelywater2/seq/",
   local_path = "seq"
 )
 }
